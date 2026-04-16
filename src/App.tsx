@@ -18,7 +18,11 @@ import { ProductHubSamPage } from "./features/product-hub/ProductHubSamPage";
 import { ProductHubSparkPage } from "./features/product-hub/ProductHubSparkPage";
 import { ProductHubWebAssignPage } from "./features/product-hub/ProductHubWebAssignPage";
 import {
+  AccessCodeChooserPage,
+  CourseKeyChooserPage,
+  LmsAccessChooserPage,
   LmsLinkChooserPage,
+  MissingContentChooserPage,
   MissingActivitiesChooserPage,
   WrongAccountChooserPage,
 } from "./features/relationship-routing/RelationshipRoutingPages";
@@ -38,6 +42,10 @@ const previewPageComponents: Record<PreviewPageId, ComponentType> = {
   "sign-in-account": SignInAccountPage,
   "course-access-enrollment": CourseAccessEnrollmentPage,
   "troubleshooting-common-problems": TroubleshootingCommonProblemsPage,
+  "access-code-chooser": AccessCodeChooserPage,
+  "course-key-chooser": CourseKeyChooserPage,
+  "lms-access-chooser": LmsAccessChooserPage,
+  "missing-content-chooser": MissingContentChooserPage,
   "wrong-account-chooser": WrongAccountChooserPage,
   "lms-link-chooser": LmsLinkChooserPage,
   "missing-activities-chooser": MissingActivitiesChooserPage,

@@ -1,7 +1,7 @@
 import {
   helpArticleHref,
   helpDomainHref,
-  resetPasswordHref,
+  lmsAccessChooserHref,
   signInAccountHref,
   wrongAccountChooserHref,
 } from "../../app/routes";
@@ -89,18 +89,18 @@ export const mindTapProductHubConfig = {
       problemsHeading: "Common problems for students",
       tasks: [
         { label: "Sign in to MindTap", href: helpArticleHref("sign-in") },
-        { label: "Register with a course key" },
+        { label: "Register with a course key", href: helpDomainHref("course-access-enrollment") },
         { label: "Complete activities" },
         { label: "Access your eBook" },
         { label: "View your grades" },
         { label: "Submit assignments" },
       ],
       problems: [
-        { label: "Can't sign in" },
+        { label: "Can't sign in", href: signInAccountHref() },
         { label: "Missing activities or assignments" },
         { label: "LMS link not working", href: helpArticleHref("lms-link-not-working") },
         { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
-        { label: "Browser or device compatibility issue" },
+        { label: "Browser or device compatibility issue", href: helpArticleHref("browser-requirements") },
         { label: "Can't access eBook" },
       ],
       areas: [
@@ -148,7 +148,7 @@ export const mindTapProductHubConfig = {
           iconKind: "integration",
           title: "LMS Integration",
           links: [
-            { label: "Access via LMS", href: resetPasswordHref("lms") },
+            { label: "Access via LMS", href: lmsAccessChooserHref() },
             { label: "LTI setup" },
             { label: "Grade passback" },
             { label: "SSO" },
@@ -158,8 +158,8 @@ export const mindTapProductHubConfig = {
           iconKind: "troubleshooting",
           title: "Troubleshooting",
           links: [
-            { label: "Browser issues" },
-            { label: "Login problems" },
+            { label: "Browser issues", href: helpArticleHref("browser-requirements") },
+            { label: "Login problems", href: signInAccountHref() },
             { label: "Missing content" },
             { label: "Error messages" },
           ],
@@ -230,7 +230,7 @@ export const mindTapProductHubConfig = {
           iconKind: "integration",
           title: "LMS Integration",
           links: [
-            { label: "Access via LMS", href: resetPasswordHref("lms") },
+            { label: "Access via LMS", href: lmsAccessChooserHref() },
             { label: "LTI setup" },
             { label: "Grade passback" },
             { label: "SSO" },
@@ -368,7 +368,7 @@ export const webAssignProductHubConfig = {
       problemsHeading: "Common problems for students",
       tasks: [
         { label: "Sign in to WebAssign", href: signInAccountHref() },
-        { label: "Enroll with a class key" },
+        { label: "Enroll with a class key", href: helpDomainHref("course-access-enrollment") },
         { label: "Open assignments" },
         { label: "Submit answers" },
         { label: "Access your eBook" },
@@ -376,7 +376,7 @@ export const webAssignProductHubConfig = {
       ],
       problems: [
         { label: "Can't sign in", href: signInAccountHref() },
-        { label: "Can't enroll with a class key" },
+        { label: "Can't enroll with a class key", href: helpDomainHref("course-access-enrollment") },
         { label: "LMS link not working", href: helpArticleHref("lms-link-not-working") },
         { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
         {
@@ -430,7 +430,7 @@ export const webAssignProductHubConfig = {
           iconKind: "integration",
           title: "LMS Integration",
           links: [
-            { label: "Access via LMS", href: resetPasswordHref("lms") },
+            { label: "Access via LMS", href: lmsAccessChooserHref() },
             { label: "New LMS integration" },
             { label: "Old LMS integration" },
             { label: "Roster sync" },
@@ -915,7 +915,7 @@ export const sparkProductHubConfig = {
   topicCards: sharedTopicCards("Spark"),
   areaSectionTitle: "Browse Spark help by area",
   resourceCards: [
-    { label: "System requirements", iconKind: "system" },
+    { label: "System requirements", iconKind: "system", href: helpArticleHref("spark-system-requirements") },
     { label: "Platform languages", iconKind: "browser" },
     { label: "Classroom Presentation Tool", iconKind: "accessibility" },
     { label: "Video tutorials", iconKind: "video" },
@@ -926,20 +926,20 @@ export const sparkProductHubConfig = {
       tasksHeading: "Common tasks for students",
       problemsHeading: "Common problems for students",
       tasks: [
-        { label: "Sign in to Spark", href: signInAccountHref() },
+        { label: "Sign in to Spark", href: helpArticleHref("spark-sign-in") },
         { label: "Create an account", href: signInAccountHref() },
-        { label: "Join a course", href: helpDomainHref("course-access-enrollment") },
-        { label: "Complete assignments" },
+        { label: "Join a course", href: helpArticleHref("spark-join-course") },
+        { label: "Complete assignments", href: helpArticleHref("spark-assignments") },
         { label: "Access eBooks and media" },
-        { label: "View your progress" },
+        { label: "View your progress", href: helpArticleHref("spark-view-your-grades") },
       ],
       problems: [
         { label: "Can't sign in", href: signInAccountHref() },
         { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
         { label: "Missing activities or assignments" },
-        { label: "Course key or join code not working", href: helpDomainHref("course-access-enrollment") },
+        { label: "Course key or join code not working", href: helpArticleHref("spark-no-course-key") },
         { label: "Can't access eBooks or resources" },
-        { label: "Browser or device issue" },
+        { label: "Browser or device issue", href: helpArticleHref("spark-system-requirements") },
       ],
       areas: [
         {
@@ -986,7 +986,7 @@ export const sparkProductHubConfig = {
           iconKind: "integration",
           title: "Course & User Management",
           links: [
-            { label: "Course key lookup" },
+            { label: "Course key lookup", href: helpArticleHref("spark-course-key-lookup") },
             { label: "Join self-study" },
             { label: "Account settings" },
             { label: "Messages" },
@@ -999,7 +999,7 @@ export const sparkProductHubConfig = {
             { label: "Can't sign in", href: signInAccountHref() },
             { label: "Wrong account", href: wrongAccountChooserHref() },
             { label: "Missing assignments" },
-            { label: "Course access issues", href: helpDomainHref("course-access-enrollment") },
+            { label: "Course access issues", href: helpArticleHref("spark-no-course-key") },
           ],
         },
       ],
@@ -1009,7 +1009,7 @@ export const sparkProductHubConfig = {
       problemsHeading: "Common problems for instructors",
       tasks: [
         { label: "Sign in to Spark", href: signInAccountHref() },
-        { label: "Create a course" },
+        { label: "Create a course", href: helpArticleHref("spark-create-course") },
         { label: "Create assignments" },
         { label: "Use the Classroom Presentation Tool" },
         { label: "Manage students" },
@@ -1068,10 +1068,10 @@ export const sparkProductHubConfig = {
           iconKind: "integration",
           title: "Course & User Management",
           links: [
-            { label: "Manage users" },
+            { label: "Manage users", href: helpArticleHref("spark-manage-users") },
             { label: "Add co-instructors" },
             { label: "Self-registration guide" },
-            { label: "LMS course management" },
+            { label: "LMS course management", href: helpArticleHref("spark-lti-1-3-course-management") },
           ],
         },
         {
@@ -1091,11 +1091,11 @@ export const sparkProductHubConfig = {
       problemsHeading: "Common problems for institutional administrators",
       tasks: [
         { label: "Configure school settings" },
-        { label: "Create and manage courses" },
-        { label: "Manage students and instructors" },
+        { label: "Create and manage courses", href: helpArticleHref("spark-create-course") },
+        { label: "Manage students and instructors", href: helpArticleHref("spark-manage-users") },
         { label: "Import users or courses" },
         { label: "Review institutional reports" },
-        { label: "Support password resets" },
+        { label: "Support password resets", href: signInAccountHref() },
       ],
       problems: [
         { label: "Users can't access Spark" },
@@ -1150,7 +1150,7 @@ export const sparkProductHubConfig = {
           iconKind: "integration",
           title: "Course & User Management",
           links: [
-            { label: "Manage users" },
+            { label: "Manage users", href: helpArticleHref("spark-manage-users") },
             { label: "Import students" },
             { label: "Import instructors" },
             { label: "Institution settings" },

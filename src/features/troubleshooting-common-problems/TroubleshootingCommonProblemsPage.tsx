@@ -4,6 +4,7 @@ import {
   helpArticleHref,
   homepageHref,
   lmsLinkChooserHref,
+  missingContentChooserHref,
   missingActivitiesChooserHref,
 } from "../../app/routes";
 import {
@@ -40,6 +41,7 @@ const commonTroubleshootingIssues: TroubleshootingTopicCardData[] = [
   {
     title: "Missing content or course materials",
     description: "Get help when readings, resources, or course materials are missing after you sign in.",
+    href: missingContentChooserHref(),
   },
   {
     title: "Error messages, sync, or integration issues",

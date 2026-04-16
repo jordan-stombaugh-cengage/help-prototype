@@ -5,6 +5,10 @@ export type PreviewPageId =
   | "sign-in-account"
   | "course-access-enrollment"
   | "troubleshooting-common-problems"
+  | "access-code-chooser"
+  | "course-key-chooser"
+  | "lms-access-chooser"
+  | "missing-content-chooser"
   | "wrong-account-chooser"
   | "lms-link-chooser"
   | "missing-activities-chooser"
@@ -37,6 +41,16 @@ export type HelpDomainSlug =
 
 export type HelpArticleSlug =
   | "sign-in"
+  | "spark-sign-in"
+  | "spark-join-course"
+  | "spark-course-key-lookup"
+  | "spark-no-course-key"
+  | "spark-assignments"
+  | "spark-view-your-grades"
+  | "spark-system-requirements"
+  | "spark-create-course"
+  | "spark-lti-1-3-course-management"
+  | "spark-manage-users"
   | "forgot-username"
   | "wrong-account"
   | "browser-requirements"
@@ -107,6 +121,26 @@ export const previewPageDefinitions = [
     id: "troubleshooting-common-problems",
     label: "Troubleshooting & Common Problems",
     route: "/help/troubleshooting-common-problems",
+  },
+  {
+    id: "access-code-chooser",
+    label: "Access Code Chooser",
+    route: "/help/course-access-enrollment/access-code",
+  },
+  {
+    id: "course-key-chooser",
+    label: "Course Key Chooser",
+    route: "/help/course-access-enrollment/course-key",
+  },
+  {
+    id: "lms-access-chooser",
+    label: "LMS Access Chooser",
+    route: "/help/course-access-enrollment/lms-access",
+  },
+  {
+    id: "missing-content-chooser",
+    label: "Missing Content Chooser",
+    route: "/help/troubleshooting-common-problems/missing-content",
   },
   {
     id: "wrong-account-chooser",
@@ -186,6 +220,10 @@ export const canonicalRoutes = {
   signInAccount: "/help/sign-in-account",
   courseAccessEnrollment: "/help/course-access-enrollment",
   troubleshootingCommonProblems: "/help/troubleshooting-common-problems",
+  accessCodeChooser: "/help/course-access-enrollment/access-code",
+  courseKeyChooser: "/help/course-access-enrollment/course-key",
+  lmsAccessChooser: "/help/course-access-enrollment/lms-access",
+  missingContentChooser: "/help/troubleshooting-common-problems/missing-content",
   wrongAccountChooser: "/help/sign-in-account/wrong-account",
   lmsLinkChooser: "/help/troubleshooting-common-problems/lms-link-not-working",
   missingActivitiesChooser: "/help/troubleshooting-common-problems/missing-activities",
@@ -392,6 +430,16 @@ export function getHelpArticleSlugFromHash(
 
   switch (slug) {
     case "forgot-username":
+    case "spark-sign-in":
+    case "spark-join-course":
+    case "spark-course-key-lookup":
+    case "spark-no-course-key":
+    case "spark-assignments":
+    case "spark-view-your-grades":
+    case "spark-system-requirements":
+    case "spark-create-course":
+    case "spark-lti-1-3-course-management":
+    case "spark-manage-users":
     case "wrong-account":
     case "browser-requirements":
     case "system-requirements":
@@ -475,6 +523,22 @@ export function mindTapHelpHref(
 
 export function wrongAccountChooserHref() {
   return previewHash("wrong-account-chooser");
+}
+
+export function accessCodeChooserHref() {
+  return previewHash("access-code-chooser");
+}
+
+export function courseKeyChooserHref() {
+  return previewHash("course-key-chooser");
+}
+
+export function lmsAccessChooserHref() {
+  return previewHash("lms-access-chooser");
+}
+
+export function missingContentChooserHref() {
+  return previewHash("missing-content-chooser");
 }
 
 export function lmsLinkChooserHref() {

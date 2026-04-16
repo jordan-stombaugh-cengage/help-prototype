@@ -2,9 +2,12 @@ import type { ReactNode } from "react";
 import {
   browseByProductHref,
   contactSupportHref,
+  courseAccessHelpHref,
   helpArticleHref,
   helpDomainHref,
   homepageHref,
+  lmsLinkChooserHref,
+  resetPasswordHref,
   signInAccountHref,
 } from "../../app/routes";
 import {
@@ -253,6 +256,25 @@ function TroubleshootingRelationshipIcon() {
   );
 }
 
+function CourseAccessRelationshipIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path
+        d="M6 5.5h12v13H6zM12 5.5v13M6.5 10.25h11"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.8"
+      />
+    </svg>
+  );
+}
+
+const courseAccessHubHref =
+  courseAccessHelpHref("course-access-enrollment") ??
+  helpDomainHref("course-access-enrollment") ??
+  homepageHref();
+
 const wrongAccountOptions: ChooserOption[] = [
   {
     title: "I bought access with a different Cengage account",
@@ -280,6 +302,74 @@ const wrongAccountOptions: ChooserOption[] = [
   },
 ];
 
+const accessCodeOptions: ChooserOption[] = [
+  {
+    title: "MindTap",
+    description: "Use MindTap help when your access code unlocks a MindTap course or eBook.",
+    href: browseByProductHref("mindtap"),
+    iconKind: "product",
+  },
+  {
+    title: "WebAssign",
+    description: "Use WebAssign help when your code is for WebAssign homework or class access.",
+    href: browseByProductHref("webassign"),
+    iconKind: "product",
+  },
+  {
+    title: "SAM",
+    description: "Use SAM help when your access code is for SAM coursework or section access.",
+    href: browseByProductHref("sam"),
+    iconKind: "product",
+  },
+  {
+    title: "Spark",
+    description:
+      "Use Spark help when you are joining a Spark course or self-study experience instead of a higher-ed access-code flow.",
+    href: browseByProductHref("spark"),
+    iconKind: "product",
+  },
+  {
+    title: "I'm not sure",
+    description: "Go back to the shared Course Access & Enrollment hub if you need broader access help first.",
+    href: courseAccessHubHref,
+    iconKind: "unsure",
+  },
+];
+
+const courseKeyOptions: ChooserOption[] = [
+  {
+    title: "MindTap",
+    description: "Use MindTap help when you need the next step for a MindTap course key.",
+    href: browseByProductHref("mindtap"),
+    iconKind: "product",
+  },
+  {
+    title: "WebAssign",
+    description: "Use WebAssign help when your class key or enrollment key is for WebAssign.",
+    href: browseByProductHref("webassign"),
+    iconKind: "product",
+  },
+  {
+    title: "SAM",
+    description: "Use SAM help when your key or section code belongs to a SAM course.",
+    href: browseByProductHref("sam"),
+    iconKind: "product",
+  },
+  {
+    title: "Spark",
+    description:
+      "Use Spark help when your course key is for a Spark self-study or teacher-led course experience.",
+    href: browseByProductHref("spark"),
+    iconKind: "product",
+  },
+  {
+    title: "I'm not sure",
+    description: "Go back to the shared Course Access & Enrollment hub if you need a broader access path.",
+    href: courseAccessHubHref,
+    iconKind: "unsure",
+  },
+];
+
 const lmsLinkOptions: ChooserOption[] = [
   {
     title: "MindTap, WebAssign, or SAM",
@@ -289,7 +379,8 @@ const lmsLinkOptions: ChooserOption[] = [
   },
   {
     title: "Spark",
-    description: "Go to Spark product help when the broken LMS link depends on the Spark experience.",
+    description:
+      "Go to Spark product help when the broken LMS link depends on Spark course setup, assignments, or school-managed access.",
     href: browseByProductHref("spark"),
     iconKind: "product",
   },
@@ -301,10 +392,42 @@ const lmsLinkOptions: ChooserOption[] = [
   },
 ];
 
+const lmsAccessOptions: ChooserOption[] = [
+  {
+    title: "I need the sign-in steps for LMS access",
+    description:
+      "Start with the LMS sign-in branch when your school manages sign-in through your learning management system.",
+    href: resetPasswordHref("lms"),
+    iconKind: "lms",
+  },
+  {
+    title: "My LMS link is not opening the course content",
+    description:
+      "Use the LMS-link chooser when the course link, activity link, or deep link is not opening correctly.",
+    href: lmsLinkChooserHref(),
+    iconKind: "article",
+  },
+  {
+    title: "I need Spark course access from my LMS or school platform",
+    description:
+      "Go to Spark product help when access depends on Spark course setup, school-managed access, or ELT workflows.",
+    href: browseByProductHref("spark"),
+    iconKind: "product",
+  },
+  {
+    title: "I'm not sure",
+    description:
+      "Go back to the shared Course Access & Enrollment hub if you need to identify the right access path first.",
+    href: courseAccessHubHref,
+    iconKind: "unsure",
+  },
+];
+
 const missingActivitiesOptions: ChooserOption[] = [
   {
-    title: "MyELT",
-    description: "Go to the current MyELT article when assignments are missing from a MyELT course.",
+    title: "A legacy MyELT course",
+    description:
+      "Use the legacy MyELT article only when the missing assignments problem is happening in an older MyELT course.",
     href: helpArticleHref("missing-activities-or-assignments"),
     iconKind: "article",
   },
@@ -328,7 +451,8 @@ const missingActivitiesOptions: ChooserOption[] = [
   },
   {
     title: "Spark",
-    description: "Use Spark product help when the missing activities depend on the Spark course experience.",
+    description:
+      "Use Spark product help when the missing activities depend on the Spark course experience.",
     href: browseByProductHref("spark"),
     iconKind: "product",
   },
@@ -339,6 +463,129 @@ const missingActivitiesOptions: ChooserOption[] = [
     iconKind: "unsure",
   },
 ];
+
+const missingContentOptions: ChooserOption[] = [
+  {
+    title: "MindTap",
+    description: "Use MindTap help when readings, resources, or course materials are missing in MindTap.",
+    href: browseByProductHref("mindtap"),
+    iconKind: "product",
+  },
+  {
+    title: "WebAssign",
+    description: "Use WebAssign help when textbook content or course materials are missing in WebAssign.",
+    href: browseByProductHref("webassign"),
+    iconKind: "product",
+  },
+  {
+    title: "SAM",
+    description: "Use SAM help when project files, readings, or course materials are missing in SAM.",
+    href: browseByProductHref("sam"),
+    iconKind: "product",
+  },
+  {
+    title: "Spark",
+    description: "Use Spark help when eBooks, media, or course materials are missing in Spark.",
+    href: browseByProductHref("spark"),
+    iconKind: "product",
+  },
+  {
+    title: "I'm not sure",
+    description: "Return to the shared troubleshooting hub if you need broader troubleshooting help first.",
+    href: helpDomainHref("troubleshooting-common-problems"),
+    iconKind: "unsure",
+  },
+];
+
+export function AccessCodeChooserPage() {
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={[
+        { label: "Help Home", href: homepageHref() },
+        { label: "Course Access & Enrollment", href: courseAccessHubHref },
+        { label: "Redeem access code" },
+      ]}
+      description="Choose the product or course experience linked to your code so we can send you to the right access help."
+      heroIcon={<CourseAccessRelationshipIcon />}
+      options={accessCodeOptions}
+      prompt="Which product are you trying to access?"
+      supportLinks={[
+        { href: courseAccessHubHref, label: "Back to Course Access & Enrollment" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]}
+      supportTitle="Need another path?"
+      title="What kind of access code do you have?"
+    />
+  );
+}
+
+export function CourseKeyChooserPage() {
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={[
+        { label: "Help Home", href: homepageHref() },
+        { label: "Course Access & Enrollment", href: courseAccessHubHref },
+        { label: "Enter course key" },
+      ]}
+      description="Choose the product or course experience that uses the key so we can send you to the right next step."
+      heroIcon={<CourseAccessRelationshipIcon />}
+      options={courseKeyOptions}
+      prompt="Which product are you using?"
+      supportLinks={[
+        { href: courseAccessHubHref, label: "Back to Course Access & Enrollment" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]}
+      supportTitle="Need another path?"
+      title="Where will you enter your course key?"
+    />
+  );
+}
+
+export function LmsAccessChooserPage() {
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={[
+        { label: "Help Home", href: homepageHref() },
+        { label: "Course Access & Enrollment", href: courseAccessHubHref },
+        { label: "Access your course through LMS" },
+      ]}
+      description="Choose the situation that best matches your LMS access problem so we can send you to the right help."
+      heroIcon={<CourseAccessRelationshipIcon />}
+      options={lmsAccessOptions}
+      prompt="What do you need help with?"
+      supportLinks={[
+        { href: courseAccessHubHref, label: "Back to Course Access & Enrollment" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]}
+      supportTitle="Need another path?"
+      title="How are you trying to open your course from your LMS?"
+    />
+  );
+}
+
+export function MissingContentChooserPage() {
+  const troubleshootingHref = helpDomainHref("troubleshooting-common-problems") ?? homepageHref();
+
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={[
+        { label: "Help Home", href: homepageHref() },
+        { label: "Troubleshooting & Common Problems", href: troubleshootingHref },
+        { label: "Missing content or course materials" },
+      ]}
+      description="Choose the product or course experience where readings, resources, or course materials are missing."
+      heroIcon={<TroubleshootingRelationshipIcon />}
+      options={missingContentOptions}
+      prompt="Which product are you using?"
+      supportLinks={[
+        { href: troubleshootingHref, label: "Back to Troubleshooting & Common Problems" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]}
+      supportTitle="Need broader troubleshooting help?"
+      title="Where is the content missing?"
+    />
+  );
+}
 
 export function WrongAccountChooserPage() {
   return (

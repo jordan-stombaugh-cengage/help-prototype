@@ -1,7 +1,10 @@
 import {
+  accessCodeChooserHref,
   browseByProductHref,
   contactSupportHref,
+  courseKeyChooserHref,
   homepageHref,
+  lmsAccessChooserHref,
 } from "../../app/routes";
 import {
   ContentContainer,
@@ -22,10 +25,12 @@ const commonAccessIssues: CourseAccessCardData[] = [
   {
     title: "Enter a course key",
     description: "Use a course key to join your class and unlock course materials.",
+    href: courseKeyChooserHref(),
   },
   {
     title: "Redeem an access code",
     description: "Apply your access code and connect it to the correct course.",
+    href: accessCodeChooserHref(),
   },
   {
     title: "Join or enroll in a course",
@@ -34,6 +39,7 @@ const commonAccessIssues: CourseAccessCardData[] = [
   {
     title: "Access your course through LMS",
     description: "Start from Canvas, Blackboard, Moodle, or another LMS when your class uses one.",
+    href: lmsAccessChooserHref(),
   },
   {
     title: "Purchased access but course is unavailable",
