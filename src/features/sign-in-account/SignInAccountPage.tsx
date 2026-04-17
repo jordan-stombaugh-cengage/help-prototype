@@ -1,6 +1,7 @@
 import {
   contactSupportHref,
   helpArticleHref,
+  manageAccountChooserHref,
   homepageHref,
   resetPasswordHref,
   wrongAccountChooserHref,
@@ -38,6 +39,7 @@ const commonAccountTopics: SignInTopicCardData[] = [
   {
     title: "Manage account",
     description: "Update profile, email, or account settings.",
+    href: manageAccountChooserHref(),
   },
 ];
 

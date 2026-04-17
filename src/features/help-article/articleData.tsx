@@ -5,7 +5,12 @@ import {
   externalRoutes,
   helpArticleHref,
   helpDomainHref,
+  joinEnrollChooserHref,
+  lmsAccessChooserHref,
+  manageAccountChooserHref,
+  purchasedAccessChooserHref,
   resetPasswordHref,
+  wrongCourseChooserHref,
   wrongAccountChooserHref,
   type HelpArticleSlug,
 } from "../../app/routes";
@@ -64,9 +69,24 @@ export type HelpArticleSection = {
   title: ReactNode;
 };
 
+export type HelpArticleGuideItem = {
+  children?: HelpArticleGuideItem[];
+  current?: boolean;
+  href?: string;
+  label: string;
+};
+
+export type HelpArticleGuide = {
+  description?: ReactNode;
+  items: HelpArticleGuideItem[];
+  kicker?: string;
+  title: string;
+};
+
 export type HelpArticleDefinition = {
   appliesTo?: string;
   callout?: HelpArticleCallout;
+  guide?: HelpArticleGuide;
   helpArea: string;
   parentHref?: string;
   parentLabel: string;
@@ -98,6 +118,98 @@ function inlineHelpDomainLink(
   return <a href={helpDomainHref(helpDomain)}>{label}</a>;
 }
 
+function accountGuide(current: "sign-in" | "forgot-username" | "manage-account" | "wrong-account" | "reset-cengage-password"): HelpArticleGuide {
+  return {
+    kicker: "In this guide",
+    title: "Sign In & Account Help",
+    description: "Account access and recovery articles that belong to the same shared sign-in help set.",
+    items: [
+      { label: "Sign In", href: helpArticleHref("sign-in"), current: current === "sign-in" },
+      {
+        label: "Reset your Cengage password",
+        href: helpArticleHref("reset-cengage-password"),
+        current: current === "reset-cengage-password",
+      },
+      {
+        label: "Forgot username",
+        href: helpArticleHref("forgot-username"),
+        current: current === "forgot-username",
+      },
+      {
+        label: "Manage account",
+        href: helpArticleHref("manage-account"),
+        current: current === "manage-account",
+      },
+      {
+        label: "Wrong account",
+        href: helpArticleHref("wrong-account"),
+        current: current === "wrong-account",
+      },
+    ],
+  };
+}
+
+function sparkAccountGuide(current: "spark-sign-in" | "spark-manage-account" | "spark-join-course"): HelpArticleGuide {
+  return {
+    kicker: "In this guide",
+    title: "Spark student help",
+    description: "Spark account and course-entry articles that work together in the product help flow.",
+    items: [
+      {
+        label: "Sign in to Spark",
+        href: helpArticleHref("spark-sign-in"),
+        current: current === "spark-sign-in",
+      },
+      {
+        label: "Manage Account",
+        href: helpArticleHref("spark-manage-account"),
+        current: current === "spark-manage-account",
+      },
+      {
+        label: "Join a Spark course",
+        href: helpArticleHref("spark-join-course"),
+        current: current === "spark-join-course",
+      },
+    ],
+  };
+}
+
+function sparkAdminGuide(
+  current:
+    | "spark-create-course"
+    | "spark-manage-users"
+    | "spark-institutional-settings"
+    | "spark-lti-1-3-course-management"
+): HelpArticleGuide {
+  return {
+    kicker: "In this series",
+    title: "Spark admin help",
+    description: "Spark course, LMS, and institutional-management articles that belong to the same admin help structure.",
+    items: [
+      {
+        label: "Create a Spark Course",
+        href: helpArticleHref("spark-create-course"),
+        current: current === "spark-create-course",
+      },
+      {
+        label: "Manage Users",
+        href: helpArticleHref("spark-manage-users"),
+        current: current === "spark-manage-users",
+      },
+      {
+        label: "Edit Institutional Settings",
+        href: helpArticleHref("spark-institutional-settings"),
+        current: current === "spark-institutional-settings",
+      },
+      {
+        label: "LTI 1.3 LMS Course Management",
+        href: helpArticleHref("spark-lti-1-3-course-management"),
+        current: current === "spark-lti-1-3-course-management",
+      },
+    ],
+  };
+}
+
 const sparkHubHref = browseByProductHref("spark");
 const sparkPlatformHref = "https://learn.eltngl.com";
 
@@ -106,6 +218,7 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     slug: "sign-in",
     title: "Sign In",
     summary: "Sign in to your Cengage account to access your course materials.",
+    guide: accountGuide("sign-in"),
     parentLabel: "Sign In & Account Help",
     parentHref: helpDomainHref("sign-in-account"),
     tags: ["MindTap", "Student", "Sign In & Account Help"],
@@ -180,6 +293,7 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
               },
               {
                 label: "Manage Account",
+                href: manageAccountChooserHref(),
               },
             ],
           },
@@ -197,7 +311,10 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
                   label: "Forgot Your Username",
                   href: helpArticleHref("forgot-username"),
                 },
-                { label: "Edit Your User Profile" },
+                {
+                  label: "Edit Your User Profile",
+                  href: manageAccountChooserHref(),
+                },
                 { label: "Delete Account" },
                 { label: "Forgot Password", href: resetPasswordHref() },
               ],
@@ -244,6 +361,7 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     slug: "spark-sign-in",
     title: "Sign In",
     summary: "Sign in to Spark to access your English language courses.",
+    guide: sparkAccountGuide("spark-sign-in"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "Student", "Sign In & Account Help"],
@@ -325,6 +443,7 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     slug: "spark-join-course",
     title: "Join a Course",
     summary: "Enroll in a teacher-led Spark course with your existing account.",
+    guide: sparkAccountGuide("spark-join-course"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "Student", "Course Access & Enrollment"],
@@ -779,6 +898,7 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     slug: "spark-create-course",
     title: "Create a Spark Course",
     summary: "Create your course in Spark.",
+    guide: sparkAdminGuide("spark-create-course"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "Instructor", "Spark product help"],
@@ -864,6 +984,7 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     title: "LTI 1.3 LMS Course Management",
     summary:
       "Create Spark courses, assignments, and tests within your institution's LTI 1.3 Learning Management System.",
+    guide: sparkAdminGuide("spark-lti-1-3-course-management"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "LMS Administrator", "Spark product help"],
@@ -907,6 +1028,7 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     title: "Manage Users",
     summary:
       "Add, upload, remove, and edit students, instructors, and administrators in a course.",
+    guide: sparkAdminGuide("spark-manage-users"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "Institutional Administrator", "Spark product help"],
@@ -952,10 +1074,421 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
       },
     ],
   },
+  "spark-institutional-settings": {
+    slug: "spark-institutional-settings",
+    title: "Edit Institutional Settings",
+    summary:
+      "Control school-wide Spark settings such as messaging, course creation, user management, and grade export permissions.",
+    guide: sparkAdminGuide("spark-institutional-settings"),
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "Institutional Administrator", "Spark product help"],
+    appliesTo: "Spark institutional administrators",
+    product: "Spark",
+    helpArea: "Spark product help",
+    updated: "January 13, 2026",
+    callout: {
+      title: "Important",
+      paragraphs: [
+        "Only an institutional administrator can change these settings, and changes affect all courses at your institution.",
+      ],
+    },
+    sections: [
+      {
+        title: "Edit institutional settings",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              { title: "Click the Settings tab." },
+              {
+                title: "Select or clear the options your institution wants to use.",
+                details: [
+                  "Messaging: allow messaging in courses.",
+                  "Customer support: display the support button.",
+                  "Create courses: allow teacher course creation.",
+                  "Export grades: allow teachers to export grades.",
+                  "Student settings: allow students to see test results.",
+                  "User management: allow teachers to manage students, including adding students, removing students, resetting passwords, and editing student account information.",
+                ],
+              },
+              { title: "Click Save." },
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related Spark help",
+        links: [
+          { label: "Manage Users", href: helpArticleHref("spark-manage-users") },
+          {
+            label: "LTI 1.3 LMS Course Management",
+            href: helpArticleHref("spark-lti-1-3-course-management"),
+          },
+        ],
+      },
+      {
+        heading: "More help",
+        links: [{ label: "Spark", href: sparkHubHref }],
+      },
+    ],
+  },
+  "manage-account": {
+    slug: "manage-account",
+    title: "Manage account",
+    summary: "Update your profile information, email address, password, and other account details.",
+    guide: accountGuide("manage-account"),
+    parentLabel: "Sign In & Account Help",
+    parentHref: helpDomainHref("sign-in-account"),
+    tags: ["Student", "Instructor", "Sign In & Account Help"],
+    appliesTo: "Students and instructors using a Cengage account",
+    product: "MindTap, WebAssign, and SAM",
+    helpArea: "Sign In & Account Help",
+    sections: [
+      {
+        title: "Edit your user profile",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              { title: "Sign in to your Cengage account." },
+              { title: "Open your account profile." },
+              {
+                title: "Update your personal information.",
+                details: [
+                  "Students can update the required student profile fields.",
+                  "Instructors can update the required instructor profile fields.",
+                ],
+              },
+              { title: "Apply your changes." },
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related account help",
+        links: [
+          { label: "Forgot username", href: helpArticleHref("forgot-username") },
+          { label: "Reset password", href: resetPasswordHref() },
+        ],
+      },
+      {
+        heading: "More help",
+        links: [{ label: "Sign In & Account Help", href: helpDomainHref("sign-in-account") }],
+      },
+    ],
+  },
+  "reset-cengage-password": {
+    slug: "reset-cengage-password",
+    title: "Reset your Cengage password",
+    summary:
+      "Use the Cengage sign-in page to request a password-reset link when you sign in directly with a Cengage account.",
+    guide: accountGuide("reset-cengage-password"),
+    parentLabel: "Sign In & Account Help",
+    parentHref: helpDomainHref("sign-in-account"),
+    tags: ["Student", "Instructor", "Sign In & Account Help"],
+    appliesTo: "Students and instructors who sign in with a Cengage account",
+    product: "MindTap, WebAssign, SAM, and Spark",
+    helpArea: "Sign In & Account Help",
+    sections: [
+      {
+        title: "Reset your password",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              {
+                title: (
+                  <>
+                    Go to {inlineExternalLink(externalRoutes.cengageLogin, "login.cengage.com")}.
+                  </>
+                ),
+              },
+              { title: "Click Forgot Password." },
+              {
+                title: "Enter the email address or username tied to your Cengage account.",
+              },
+              {
+                title: "Open the password-reset message and follow the link to create a new password.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "If you do not receive the reset email",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "Check your spam or junk folder.",
+              "Confirm that you are using the right username or email address.",
+              "If your school or LMS manages your sign-in, return to the reset-password chooser and use the LMS or school branch instead.",
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related account help",
+        links: [
+          { label: "Forgot username", href: helpArticleHref("forgot-username") },
+          { label: "Manage account", href: helpArticleHref("manage-account") },
+        ],
+      },
+      {
+        heading: "More help",
+        links: [{ label: "Sign In & Account Help", href: helpDomainHref("sign-in-account") }],
+      },
+    ],
+  },
+  "spark-manage-account": {
+    slug: "spark-manage-account",
+    title: "Manage Account",
+    summary:
+      "Change your Spark name, password, email address, and preferred language from your profile.",
+    guide: sparkAccountGuide("spark-manage-account"),
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "Student", "Sign In & Account Help"],
+    appliesTo: "Spark students",
+    product: "Spark",
+    helpArea: "Sign In & Account Help",
+    updated: "January 13, 2026",
+    sections: [
+      {
+        title: "Access your Spark profile",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              {
+                title: "Click My Account from your Spark profile menu.",
+              },
+              {
+                title: "Use your profile page to review and update your information.",
+                details: [
+                  "Your profile displays your personal information.",
+                  "You can change your name, password, email address, and preferred language here.",
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related Spark help",
+        links: [
+          { label: "Sign in to Spark", href: helpArticleHref("spark-sign-in") },
+          { label: "Sign In & Account Help", href: helpDomainHref("sign-in-account") },
+        ],
+      },
+      {
+        heading: "More help",
+        links: [{ label: "Spark", href: sparkHubHref }],
+      },
+    ],
+  },
+  "transfer-or-drop-course": {
+    slug: "transfer-or-drop-course",
+    title: "Transfer Sections or Drop a Course",
+    summary:
+      "If you are in the wrong section or need to leave a course, the next step depends on the product and how your course roster is managed.",
+    parentLabel: "Course Access & Enrollment",
+    parentHref: helpDomainHref("course-access-enrollment"),
+    tags: ["Student", "Course Access & Enrollment", "Purchase & Access"],
+    appliesTo: "Students who need to change sections or leave a course",
+    product: "MindTap, WebAssign, and SAM",
+    helpArea: "Course Access & Enrollment",
+    sections: [
+      {
+        title: "If you need to move to another section or drop a course",
+        items: [
+          {
+            kind: "paragraph",
+            content:
+              "For MindTap and WebAssign, students cannot usually remove themselves from a course or transfer to a different section. Ask your instructor to transfer you or drop you from the roster.",
+          },
+          {
+            kind: "list",
+            items: [
+              "If the new section has the same assignments in WebAssign, your work transfers to the new section.",
+              "If the new course or section has a different instructor, the instructors may need to coordinate the transfer.",
+              "If you already purchased access in WebAssign or SAM, your access can transfer to the new section.",
+              "If you purchased access within the past 14 days and dropped the course, you can request a refund.",
+            ],
+          },
+        ],
+      },
+      {
+        title: "SAM self-drop exception",
+        items: [
+          {
+            kind: "paragraph",
+            content:
+              "In SAM, you can drop yourself from a section if you have not started any assignments. Otherwise, your instructor or customer support must remove you from the roster.",
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related access help",
+        links: [
+          { label: "Join or enroll in a course", href: joinEnrollChooserHref() },
+          { label: "Purchased access but course is unavailable", href: purchasedAccessChooserHref() },
+        ],
+      },
+      {
+        heading: "More help",
+        links: [{ label: "Contact support", href: contactSupportHref() }],
+      },
+    ],
+  },
+  "wrong-product-or-course-in-lms": {
+    slug: "wrong-product-or-course-in-lms",
+    title: "Added Wrong Product or Course in LMS",
+    summary:
+      "If you selected the wrong product or copied the wrong course in your LMS, you can remove the incorrect product and fix the linked course.",
+    parentLabel: "Course Access & Enrollment",
+    parentHref: helpDomainHref("course-access-enrollment"),
+    tags: ["Instructor", "LMS Administrator", "Course Access & Enrollment"],
+    appliesTo: "Instructors and LMS administrators working in an LMS-integrated course",
+    product: "MindTap, WebAssign, and SAM",
+    helpArea: "Course Access & Enrollment",
+    sections: [
+      {
+        title: "Common reasons this happens",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "You created a new course but meant to copy a course.",
+              "You copied the wrong course.",
+              "You added the wrong product or linked the wrong eBook to the course.",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Resolution",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              { title: "Open the Cengage content tool in your LMS course." },
+              { title: "Delete the incorrect product from the tool." },
+              { title: "Confirm the deletion." },
+              {
+                title: "Delete all links to the incorrect product from your LMS course so students do not keep opening the wrong content.",
+              },
+            ],
+          },
+          {
+            kind: "paragraph",
+            content:
+              "If students are already enrolled in the incorrect product, or your course uses multiple eBook-only products, contact customer support before removing the product.",
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related access help",
+        links: [
+          { label: "Access your course through LMS", href: lmsAccessChooserHref() },
+          { label: "Wrong course or missing course", href: wrongCourseChooserHref() },
+        ],
+      },
+      {
+        heading: "More help",
+        links: [{ label: "Contact support", href: contactSupportHref() }],
+      },
+    ],
+  },
+  "grade-sync-problems": {
+    slug: "grade-sync-problems",
+    title: "Grade Sync Problems",
+    summary:
+      "Resolve slow syncing, missing scores, or gradebook problems when grades are not passing from your Cengage product to your LMS.",
+    parentLabel: "Troubleshooting & Common Problems",
+    parentHref: helpDomainHref("troubleshooting-common-problems"),
+    tags: ["Instructor", "LMS Administrator", "Troubleshooting & Common Problems"],
+    appliesTo: "Instructors and LMS administrators using LMS-integrated courses",
+    product: "MindTap, WebAssign, and SAM",
+    helpArea: "Troubleshooting & Common Problems",
+    sections: [
+      {
+        title: "Slow or missing grade syncing",
+        items: [
+          {
+            kind: "paragraph",
+            content:
+              "Grades should sync automatically with your LMS and usually take 5 minutes or less. If scores have not synced after 1 hour, one of the following issues may apply.",
+          },
+          {
+            kind: "definitions",
+            items: [
+              {
+                term: "Students have not submitted or opened the assignment",
+                content:
+                  "On some older integration methods, ND or NS scores do not sync automatically until you manually adjust them in the gradebook.",
+              },
+              {
+                term: "Ungraded assignments are not synced",
+                content:
+                  "Hidden or practice assignments do not sync because they do not count toward student grades.",
+              },
+              {
+                term: "Assignment not in LMS",
+                content:
+                  "Assignments must be added to the LMS gradebook before the LMS can receive scores from the learning platform.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "Next steps",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "Verify that the assignment counts toward student grades and is not hidden.",
+              "Confirm that the assignment exists in the LMS gradebook.",
+              "If the assignment is linked correctly but still has not synced after 1 hour, try deleting the linked assignment in the LMS and adding it again.",
+              "If syncing problems continue, contact customer support.",
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related troubleshooting",
+        links: [
+          { label: "Access your course through LMS", href: lmsAccessChooserHref() },
+          { label: "LMS link not working", href: helpArticleHref("lms-link-not-working") },
+        ],
+      },
+      {
+        heading: "More help",
+        links: [{ label: "Contact support", href: contactSupportHref() }],
+      },
+    ],
+  },
   "forgot-username": {
     slug: "forgot-username",
     title: "Forgot username",
     summary: "Your username is the email address associated with your Cengage account.",
+    guide: accountGuide("forgot-username"),
     parentLabel: "Sign In & Account Help",
     parentHref: helpDomainHref("sign-in-account"),
     tags: ["Student", "Instructor", "Sign In & Account Help"],
@@ -1006,6 +1539,7 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     title: "Wrong account",
     summary:
       "When you purchase access and sign in, you see a message that you have not purchased access yet.",
+    guide: accountGuide("wrong-account"),
     parentLabel: "Sign In & Account Help",
     parentHref: helpDomainHref("sign-in-account"),
     tags: ["Student", "Sign In & Account Help", "Purchase & Access"],

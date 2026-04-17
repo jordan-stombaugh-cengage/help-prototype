@@ -1,6 +1,7 @@
 import {
   browseByProductHref,
   contactSupportHref,
+  errorSyncChooserHref,
   helpArticleHref,
   homepageHref,
   lmsLinkChooserHref,
@@ -46,6 +47,7 @@ const commonTroubleshootingIssues: TroubleshootingTopicCardData[] = [
   {
     title: "Error messages, sync, or integration issues",
     description: "Find the next step when you see errors, sync failures, or connection problems.",
+    href: errorSyncChooserHref(),
   },
 ] as const;
 

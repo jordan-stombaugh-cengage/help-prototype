@@ -1,5 +1,6 @@
 import {
   contactSupportHref,
+  helpArticleHref,
   homepageHref,
   resetPasswordHref,
   signInAccountHref,
@@ -21,7 +22,7 @@ const resetChooserOptions: ResetChooserOption[] = [
   {
     title: "With a Cengage account",
     description: "I sign in directly to Cengage with my email and password",
-    href: resetPasswordHref("cengage-account"),
+    href: helpArticleHref("reset-cengage-password"),
     iconKind: "account",
   },
   {

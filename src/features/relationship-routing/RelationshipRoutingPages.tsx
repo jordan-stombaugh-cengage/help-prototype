@@ -1,14 +1,21 @@
 import type { ReactNode } from "react";
 import {
+  accessCodeChooserHref,
   browseByProductHref,
   contactSupportHref,
   courseAccessHelpHref,
+  courseKeyChooserHref,
   helpArticleHref,
   helpDomainHref,
   homepageHref,
+  joinEnrollChooserHref,
+  lmsAccessChooserHref,
   lmsLinkChooserHref,
+  manageAccountChooserHref,
+  purchasedAccessChooserHref,
   resetPasswordHref,
   signInAccountHref,
+  wrongCourseChooserHref,
 } from "../../app/routes";
 import {
   ContentContainer,
@@ -302,6 +309,33 @@ const wrongAccountOptions: ChooserOption[] = [
   },
 ];
 
+const manageAccountOptions: ChooserOption[] = [
+  {
+    title: "I need to update my Cengage account",
+    description: "Use the shared account article to change your profile information, email, or password for a Cengage account.",
+    href: helpArticleHref("manage-account"),
+    iconKind: "account",
+  },
+  {
+    title: "I need to update my Spark account",
+    description: "Use Spark account help when you need to change your Spark profile, preferred language, or sign-in details.",
+    href: helpArticleHref("spark-manage-account"),
+    iconKind: "product",
+  },
+  {
+    title: "I sign in through my school or LMS",
+    description: "Start from shared sign-in help when account access depends on your LMS, school portal, or school-managed credentials.",
+    href: signInAccountHref(),
+    iconKind: "lms",
+  },
+  {
+    title: "I'm not sure which account I use",
+    description: "Go back to the shared Sign In & Account Help hub if you need to identify the right account path first.",
+    href: signInAccountHref(),
+    iconKind: "unsure",
+  },
+];
+
 const accessCodeOptions: ChooserOption[] = [
   {
     title: "MindTap",
@@ -370,6 +404,39 @@ const courseKeyOptions: ChooserOption[] = [
   },
 ];
 
+const joinEnrollOptions: ChooserOption[] = [
+  {
+    title: "I have a course key or class key",
+    description: "Use the course-key path when you are joining a class with a key or section code.",
+    href: courseKeyChooserHref(),
+    iconKind: "article",
+  },
+  {
+    title: "I need to redeem an access code",
+    description: "Use the access-code path when your next step depends on a purchased code or bookstore code.",
+    href: accessCodeChooserHref(),
+    iconKind: "article",
+  },
+  {
+    title: "I am opening the course from my LMS or school platform",
+    description: "Use LMS access help when your course launch starts in Canvas, Blackboard, Moodle, or another school-managed platform.",
+    href: lmsAccessChooserHref(),
+    iconKind: "lms",
+  },
+  {
+    title: "I am joining a Spark course",
+    description: "Use Spark-specific join steps when you are enrolling in a Spark class or self-study experience.",
+    href: helpArticleHref("spark-join-course"),
+    iconKind: "product",
+  },
+  {
+    title: "I'm not sure",
+    description: "Go back to the shared Course Access & Enrollment hub if you need the broader access picture first.",
+    href: courseAccessHubHref,
+    iconKind: "unsure",
+  },
+];
+
 const lmsLinkOptions: ChooserOption[] = [
   {
     title: "MindTap, WebAssign, or SAM",
@@ -418,6 +485,60 @@ const lmsAccessOptions: ChooserOption[] = [
     title: "I'm not sure",
     description:
       "Go back to the shared Course Access & Enrollment hub if you need to identify the right access path first.",
+    href: courseAccessHubHref,
+    iconKind: "unsure",
+  },
+];
+
+const purchasedAccessOptions: ChooserOption[] = [
+  {
+    title: "I bought access, but I still need to join the course",
+    description: "Use this path when your purchase is complete but you have not finished the course-join or enrollment step.",
+    href: joinEnrollChooserHref(),
+    iconKind: "article",
+  },
+  {
+    title: "I may have used the wrong account",
+    description: "Use account-routing help when purchased access is attached to a different sign-in account.",
+    href: manageAccountChooserHref(),
+    iconKind: "account",
+  },
+  {
+    title: "I launch the course from my LMS or school platform",
+    description: "Use LMS access help when the course should open from your LMS or school-managed experience.",
+    href: lmsAccessChooserHref(),
+    iconKind: "lms",
+  },
+  {
+    title: "The course is wrong or missing after I sign in",
+    description: "Use this path when the issue is tied to the wrong course, the wrong section, or a missing course list.",
+    href: wrongCourseChooserHref(),
+    iconKind: "unsure",
+  },
+];
+
+const wrongCourseOptions: ChooserOption[] = [
+  {
+    title: "I joined the wrong section or need to move to another course",
+    description: "Use the transfer-or-drop article when you need the next step for changing sections or leaving the wrong course.",
+    href: helpArticleHref("transfer-or-drop-course"),
+    iconKind: "article",
+  },
+  {
+    title: "My LMS has the wrong Cengage product or course linked",
+    description: "Use LMS troubleshooting when the wrong product or copied course was added to your LMS.",
+    href: helpArticleHref("wrong-product-or-course-in-lms"),
+    iconKind: "lms",
+  },
+  {
+    title: "I purchased access, but the course still isn't available",
+    description: "Use the purchased-access path when the course is missing after payment or code redemption.",
+    href: purchasedAccessChooserHref(),
+    iconKind: "account",
+  },
+  {
+    title: "I'm not sure",
+    description: "Go back to the shared Course Access & Enrollment hub if you need the broader access path first.",
     href: courseAccessHubHref,
     iconKind: "unsure",
   },
@@ -490,6 +611,61 @@ const missingContentOptions: ChooserOption[] = [
   },
 ];
 
+const errorSyncOptions: ChooserOption[] = [
+  {
+    title: "Grades or assignments are not syncing with my LMS",
+    description: "Use the grade-sync article when scores, assignments, or gradebook data are not syncing to your LMS.",
+    href: helpArticleHref("grade-sync-problems"),
+    iconKind: "article",
+  },
+  {
+    title: "The wrong product or course is linked in my LMS",
+    description: "Use LMS troubleshooting when the issue started because the wrong product, course copy, or course link was added.",
+    href: helpArticleHref("wrong-product-or-course-in-lms"),
+    iconKind: "lms",
+  },
+  {
+    title: "I need Spark school or institutional settings help",
+    description: "Use Spark institutional help when the issue depends on school settings, user-management permissions, or grade-export settings.",
+    href: helpArticleHref("spark-institutional-settings"),
+    iconKind: "product",
+  },
+  {
+    title: "I need Spark LMS setup or course-management help",
+    description: "Use Spark LMS course-management help when the next step depends on LTI 1.3 setup or LMS-linked Spark workflows.",
+    href: helpArticleHref("spark-lti-1-3-course-management"),
+    iconKind: "product",
+  },
+  {
+    title: "I'm not sure",
+    description: "Go back to the shared troubleshooting hub if you need broader troubleshooting help before choosing a more specific path.",
+    href: helpDomainHref("troubleshooting-common-problems"),
+    iconKind: "unsure",
+  },
+];
+
+export function ManageAccountChooserPage() {
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={[
+        { label: "Help Home", href: homepageHref() },
+        { label: "Sign In & Account Help", href: signInAccountHref() },
+        { label: "Manage account" },
+      ]}
+      description="Choose the account type or sign-in path you need to manage so we can send you to the right next step."
+      heroIcon={<AccountRelationshipIcon />}
+      options={manageAccountOptions}
+      prompt="Which account are you trying to manage?"
+      supportLinks={[
+        { href: signInAccountHref(), label: "Back to Sign In & Account Help" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]}
+      supportTitle="Need another path?"
+      title="What kind of account are you trying to manage?"
+    />
+  );
+}
+
 export function AccessCodeChooserPage() {
   return (
     <RelationshipRoutingPage
@@ -534,6 +710,28 @@ export function CourseKeyChooserPage() {
   );
 }
 
+export function JoinEnrollChooserPage() {
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={[
+        { label: "Help Home", href: homepageHref() },
+        { label: "Course Access & Enrollment", href: courseAccessHubHref },
+        { label: "Join or enroll in a course" },
+      ]}
+      description="Choose how you are trying to get into your course so we can send you to the right enrollment or access step."
+      heroIcon={<CourseAccessRelationshipIcon />}
+      options={joinEnrollOptions}
+      prompt="How are you trying to join the course?"
+      supportLinks={[
+        { href: courseAccessHubHref, label: "Back to Course Access & Enrollment" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]}
+      supportTitle="Need another path?"
+      title="How are you trying to join or enroll?"
+    />
+  );
+}
+
 export function LmsAccessChooserPage() {
   return (
     <RelationshipRoutingPage
@@ -552,6 +750,50 @@ export function LmsAccessChooserPage() {
       ]}
       supportTitle="Need another path?"
       title="How are you trying to open your course from your LMS?"
+    />
+  );
+}
+
+export function PurchasedAccessChooserPage() {
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={[
+        { label: "Help Home", href: homepageHref() },
+        { label: "Course Access & Enrollment", href: courseAccessHubHref },
+        { label: "Purchased access but course is unavailable" },
+      ]}
+      description="Choose the situation that best matches your access problem so we can send you to the right next step."
+      heroIcon={<CourseAccessRelationshipIcon />}
+      options={purchasedAccessOptions}
+      prompt="What best matches the problem?"
+      supportLinks={[
+        { href: courseAccessHubHref, label: "Back to Course Access & Enrollment" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]}
+      supportTitle="Need another path?"
+      title="Why can't you open the course you already purchased?"
+    />
+  );
+}
+
+export function WrongCourseChooserPage() {
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={[
+        { label: "Help Home", href: homepageHref() },
+        { label: "Course Access & Enrollment", href: courseAccessHubHref },
+        { label: "Wrong course or missing course" },
+      ]}
+      description="Choose the course situation that sounds most like yours so we can send you to the right next step."
+      heroIcon={<CourseAccessRelationshipIcon />}
+      options={wrongCourseOptions}
+      prompt="Which course problem are you seeing?"
+      supportLinks={[
+        { href: courseAccessHubHref, label: "Back to Course Access & Enrollment" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]}
+      supportTitle="Need another path?"
+      title="What is wrong with the course you see?"
     />
   );
 }
@@ -576,6 +818,30 @@ export function MissingContentChooserPage() {
       ]}
       supportTitle="Need broader troubleshooting help?"
       title="Where is the content missing?"
+    />
+  );
+}
+
+export function ErrorSyncChooserPage() {
+  const troubleshootingHref = helpDomainHref("troubleshooting-common-problems") ?? homepageHref();
+
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={[
+        { label: "Help Home", href: homepageHref() },
+        { label: "Troubleshooting & Common Problems", href: troubleshootingHref },
+        { label: "Error messages, sync, or integration issues" },
+      ]}
+      description="Choose the error, sync, or integration problem that best matches your situation so we can send you to the right help."
+      heroIcon={<TroubleshootingRelationshipIcon />}
+      options={errorSyncOptions}
+      prompt="What kind of issue are you seeing?"
+      supportLinks={[
+        { href: troubleshootingHref, label: "Back to Troubleshooting & Common Problems" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]}
+      supportTitle="Need another path?"
+      title="What kind of sync or integration problem are you having?"
     />
   );
 }

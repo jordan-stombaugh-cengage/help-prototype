@@ -3,10 +3,13 @@ import {
   browseByProductHref,
   browseByRoleHref,
   courseKeyChooserHref,
+  errorSyncChooserHref,
   helpArticleHref,
   helpDomainHref,
+  joinEnrollChooserHref,
   lmsLinkChooserHref,
   lmsAccessChooserHref,
+  manageAccountChooserHref,
   signInAccountHref,
   wrongAccountChooserHref,
   missingActivitiesChooserHref,
@@ -44,6 +47,7 @@ const helpDomains: HelpDomain[] = [
     links: [
       { label: "Reset password", href: resetPasswordHref() },
       { label: "Wrong account", href: wrongAccountChooserHref() },
+      { label: "Manage account", href: manageAccountChooserHref() },
       { label: "LMS or school sign-in", href: helpDomainHref("sign-in-account") },
     ],
     action: "Get account help",
@@ -57,6 +61,7 @@ const helpDomains: HelpDomain[] = [
     links: [
       { label: "Enter course key", href: courseKeyChooserHref() },
       { label: "Redeem access code", href: accessCodeChooserHref() },
+      { label: "Join or enroll", href: joinEnrollChooserHref() },
       { label: "LMS access help", href: lmsAccessChooserHref() },
     ],
     action: "Resolve access issues",
@@ -87,12 +92,12 @@ const commonProblemGroups = [
   {
     title: "Common problems for instructors",
     links: [
-      { label: "Can't access course management", href: searchResultsHref({ role: "higher-ed-instructor", query: "course management" }) },
-      { label: "Students can't see assignments", href: searchResultsHref({ role: "higher-ed-instructor", query: "assignments" }) },
-      { label: "LMS integration issues", href: searchResultsHref({ role: "higher-ed-instructor", query: "LMS integration" }) },
-      { label: "Grading not syncing", href: searchResultsHref({ role: "higher-ed-instructor", query: "grade sync" }) },
-      { label: "Custom content not saving", href: searchResultsHref({ role: "higher-ed-instructor", query: "custom content" }) },
-      { label: "Student roster issues", href: searchResultsHref({ role: "higher-ed-instructor", query: "roster" }) },
+      { label: "Can't access course management" },
+      { label: "Students can't see assignments" },
+      { label: "LMS integration issues", href: errorSyncChooserHref() },
+      { label: "Grading not syncing", href: helpArticleHref("grade-sync-problems") },
+      { label: "Custom content not saving" },
+      { label: "Student roster issues" },
     ],
   },
   {
@@ -104,7 +109,7 @@ const commonProblemGroups = [
       { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
       {
         label: "Browser or device compatibility issue",
-        href: helpDomainHref("troubleshooting-common-problems"),
+        href: helpArticleHref("browser-requirements"),
       },
       { label: "Can't access eBook" },
     ],
@@ -253,9 +258,9 @@ export function Homepage() {
               <span className="homepage-popular-label">Popular:</span>
               <a href={resetPasswordHref()}>Reset password</a>
               <span>&bull;</span>
-              <a href={searchResultsHref({ helpDomain: "course-access-enrollment" })}>Access code</a>
+              <a href={accessCodeChooserHref()}>Access code</a>
               <span>&bull;</span>
-              <a href={searchResultsHref({ query: "LMS integration" })}>LMS integration</a>
+              <OptionalLink href={errorSyncChooserHref()}>LMS integration</OptionalLink>
               <span>&bull;</span>
               <a href={helpArticleHref("browser-requirements")}>Browser requirements</a>
             </p>
@@ -307,7 +312,9 @@ export function Homepage() {
                   <ul className="homepage-plain-link-list">
                     {group.links.map((link) => (
                       <li key={link.label}>
-                        <a href={link.href}>{link.label}</a>
+                        <OptionalLink href={link.href} staticAs="span">
+                          {link.label}
+                        </OptionalLink>
                       </li>
                     ))}
                   </ul>

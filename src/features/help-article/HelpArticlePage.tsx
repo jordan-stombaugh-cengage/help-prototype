@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   getHelpArticleSlugFromHash,
   homepageHref,
@@ -10,6 +11,7 @@ import {
 } from "../../components/prototype/Primitives";
 import {
   getHelpArticleDefinition,
+  type HelpArticleGuideItem,
   type HelpArticleSectionItem,
 } from "./articleData";
 
@@ -84,6 +86,76 @@ function HelpArticleUtilityLink({
   label: string;
 }) {
   return <OptionalLink href={href}>{label}</OptionalLink>;
+}
+
+function guideContainsCurrent(item: HelpArticleGuideItem): boolean {
+  if (item.current) {
+    return true;
+  }
+
+  return item.children?.some(guideContainsCurrent) ?? false;
+}
+
+function HelpArticleTreeItem({
+  item,
+  level = 0,
+}: {
+  item: HelpArticleGuideItem;
+  level?: number;
+}) {
+  const hasChildren = Boolean(item.children?.length);
+  const [expanded, setExpanded] = useState(() => guideContainsCurrent(item));
+
+  if (hasChildren) {
+    return (
+      <li className="help-article-tree-item help-article-tree-item--group">
+        <button
+          type="button"
+          className="help-article-tree-toggle"
+          aria-expanded={expanded}
+          onClick={() => {
+            setExpanded((current) => !current);
+          }}
+        >
+          <span className="help-article-tree-toggle-icon" aria-hidden="true">
+            <ChevronRightIcon />
+          </span>
+          <span className="help-article-tree-link-label">{item.label}</span>
+        </button>
+
+        {expanded ? (
+          <ul className="help-article-tree-list help-article-tree-list--nested">
+            {item.children?.map((child) => (
+              <HelpArticleTreeItem
+                key={`${level + 1}-${child.label}`}
+                item={child}
+                level={level + 1}
+              />
+            ))}
+          </ul>
+        ) : null}
+      </li>
+    );
+  }
+
+  return (
+    <li className="help-article-tree-item">
+      {item.current ? (
+        <span className="help-article-tree-link is-current" aria-current="page">
+          <span className="help-article-tree-link-label">{item.label}</span>
+          <span className="help-article-tree-link-state">Current page</span>
+        </span>
+      ) : item.href ? (
+        <a className="help-article-tree-link" href={item.href}>
+          <span className="help-article-tree-link-label">{item.label}</span>
+        </a>
+      ) : (
+        <span className="help-article-tree-link is-static">
+          <span className="help-article-tree-link-label">{item.label}</span>
+        </span>
+      )}
+    </li>
+  );
 }
 
 function ThumbUpIcon() {
@@ -247,7 +319,29 @@ export function HelpArticlePage() {
       </section>
 
       <section className="help-article-layout">
-        <ContentContainer className="help-article-shell help-article-grid">
+        <ContentContainer
+          className={`help-article-shell help-article-grid${article.guide ? " help-article-grid--with-nav" : ""}`}
+        >
+          {article.guide ? (
+            <nav className="help-article-tree" aria-labelledby="help-article-tree-title">
+              <div className="help-article-tree-header">
+                {article.guide.kicker ? (
+                  <p className="help-article-tree-kicker">{article.guide.kicker}</p>
+                ) : null}
+                <h2 id="help-article-tree-title">{article.guide.title}</h2>
+                {article.guide.description ? (
+                  <p className="help-article-tree-description">{article.guide.description}</p>
+                ) : null}
+              </div>
+
+              <ul className="help-article-tree-list">
+                {article.guide.items.map((item) => (
+                  <HelpArticleTreeItem key={item.label} item={item} />
+                ))}
+              </ul>
+            </nav>
+          ) : null}
+
           <article className="help-article-main">
             {article.callout ? (
               <section className="help-article-callout" aria-labelledby="article-callout-title">

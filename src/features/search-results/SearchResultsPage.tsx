@@ -10,20 +10,25 @@ import {
 import { SearchIcon } from "react-magma-icons";
 import {
   accessCodeChooserHref,
+  browseByProductHref,
   courseKeyChooserHref,
+  errorSyncChooserHref,
   getRouteDrivenSearchFilters,
   getSearchDiscoveryOptionsFromHash,
   getSearchResultsContextLabel,
-  browseByProductHref,
   helpArticleHref,
   homepageHref,
+  joinEnrollChooserHref,
   lmsAccessChooserHref,
   lmsLinkChooserHref,
+  manageAccountChooserHref,
   missingActivitiesChooserHref,
   missingContentChooserHref,
+  purchasedAccessChooserHref,
   resetPasswordHref,
   setPreviewPageHash,
   signInAccountHref,
+  wrongCourseChooserHref,
   wrongAccountChooserHref,
 } from "../../app/routes";
 
@@ -184,6 +189,27 @@ const results: SearchResult[] = [
     updated: "Prototype routing step",
   },
   {
+    title: "Join or enroll in a course",
+    description:
+      "Choose how you are trying to get into your course so we can send you to the right enrollment or access step.",
+    facets: ["MindTap, WebAssign, SAM, and Spark", "Course Access & Enrollment"],
+    filters: {
+      Product: ["MindTap", "WebAssign", "SAM", "Spark"],
+      Role: [
+        "Higher Ed Student",
+        "Higher Ed Instructor",
+        "K–12 Student",
+        "K–12 Teacher",
+        "Primary Student",
+        "Secondary Student",
+        "Institutional Administrator",
+      ],
+    },
+    href: joinEnrollChooserHref(),
+    keywords: ["join course", "enroll", "course invite", "section link"],
+    updated: "Prototype routing step",
+  },
+  {
     title: "Reset password through LMS",
     description:
       "If you sign in through your learning management system, reset your password through your school's LMS.",
@@ -325,6 +351,68 @@ const results: SearchResult[] = [
     },
     href: missingContentChooserHref(),
     keywords: ["missing content", "missing materials", "missing ebook", "resources missing"],
+    updated: "Prototype routing step",
+  },
+  {
+    title: "Purchased access but course is unavailable",
+    description:
+      "Choose the situation that best matches your access problem so we can send you to the right next step.",
+    facets: ["MindTap, WebAssign, SAM, and Spark", "Course Access & Enrollment"],
+    filters: {
+      Product: ["MindTap", "WebAssign", "SAM", "Spark"],
+      Role: [
+        "Higher Ed Student",
+        "Higher Ed Instructor",
+        "K–12 Student",
+        "K–12 Teacher",
+        "Primary Student",
+        "Secondary Student",
+        "Institutional Administrator",
+      ],
+    },
+    href: purchasedAccessChooserHref(),
+    keywords: ["purchased access", "paid but no course", "access unavailable"],
+    updated: "Prototype routing step",
+  },
+  {
+    title: "Wrong course or missing course",
+    description:
+      "Choose the course situation that sounds most like yours so we can send you to the right next step.",
+    facets: ["MindTap, WebAssign, SAM, and Spark", "Course Access & Enrollment"],
+    filters: {
+      Product: ["MindTap", "WebAssign", "SAM", "Spark"],
+      Role: [
+        "Higher Ed Student",
+        "Higher Ed Instructor",
+        "K–12 Student",
+        "K–12 Teacher",
+        "Primary Student",
+        "Secondary Student",
+        "Institutional Administrator",
+      ],
+    },
+    href: wrongCourseChooserHref(),
+    keywords: ["wrong course", "missing course", "wrong section", "course not listed"],
+    updated: "Prototype routing step",
+  },
+  {
+    title: "Error messages, sync, or integration issues",
+    description:
+      "Choose the sync or integration problem that best matches your situation so we can send you to the right help.",
+    facets: ["MindTap, WebAssign, SAM, and Spark", "Troubleshooting & Common Problems"],
+    filters: {
+      Product: ["MindTap", "WebAssign", "SAM", "Spark"],
+      Role: [
+        "Higher Ed Instructor",
+        "LMS Administrator",
+        "Institutional Administrator",
+        "Primary Student",
+        "Secondary Student",
+      ],
+      "Sign-in path": ["LMS sign-in"],
+    },
+    href: errorSyncChooserHref(),
+    keywords: ["error message", "sync issue", "integration issue", "grade sync", "lms integration"],
     updated: "Prototype routing step",
   },
   {
@@ -558,6 +646,20 @@ const results: SearchResult[] = [
     updated: "Updated February 2026",
   },
   {
+    title: "Edit Institutional Settings in Spark",
+    description:
+      "Control school-wide Spark settings for messaging, user management, course creation, and grade export.",
+    facets: ["Spark", "Institutional Administrator", "School settings"],
+    filters: {
+      Product: ["Spark"],
+      "Education segment": ["English Language Learning"],
+      Role: ["Institutional Administrator"],
+    },
+    href: helpArticleHref("spark-institutional-settings"),
+    keywords: ["spark", "institution settings", "school settings", "grade export", "user management"],
+    updated: "Updated January 2026",
+  },
+  {
     title: "Reset password for school or NGLSync sign-in",
     description:
       "If your Spark access comes through a school portal or NGLSync, reset your password through your school's system.",
@@ -595,9 +697,50 @@ const results: SearchResult[] = [
       Role: sharedHelpRoles,
       "Sign-in path": ["Cengage sign-in"],
     },
-    href: signInAccountHref(),
+    href: manageAccountChooserHref(),
     keywords: ["account settings", "email", "profile", "spark"],
     updated: "Updated February 2026",
+  },
+  {
+    title: "Transfer sections or drop a course",
+    description:
+      "Get the next step when you need to move to another section or leave the wrong course.",
+    facets: ["MindTap, WebAssign, and SAM", "Course Access & Enrollment"],
+    filters: {
+      Product: ["MindTap", "WebAssign", "SAM"],
+      Role: ["Higher Ed Student", "Higher Ed Instructor"],
+    },
+    href: helpArticleHref("transfer-or-drop-course"),
+    keywords: ["transfer section", "drop course", "wrong section", "move course"],
+    updated: "Source date not available",
+  },
+  {
+    title: "Added wrong product or course in LMS",
+    description:
+      "Remove the wrong Cengage product or linked course from your LMS and fix the course selection.",
+    facets: ["MindTap, WebAssign, and SAM", "LMS Integration"],
+    filters: {
+      Product: ["MindTap", "WebAssign", "SAM"],
+      Role: ["Higher Ed Instructor", "LMS Administrator"],
+      "Sign-in path": ["LMS sign-in"],
+    },
+    href: helpArticleHref("wrong-product-or-course-in-lms"),
+    keywords: ["wrong product", "wrong course", "lms", "linked course"],
+    updated: "Source date not available",
+  },
+  {
+    title: "Grade sync problems",
+    description:
+      "Resolve slow syncing, missing scores, or gradebook issues when grades do not pass from your Cengage product to your LMS.",
+    facets: ["MindTap, WebAssign, and SAM", "LMS Integration"],
+    filters: {
+      Product: ["MindTap", "WebAssign", "SAM"],
+      Role: ["Higher Ed Instructor", "LMS Administrator"],
+      "Sign-in path": ["LMS sign-in"],
+    },
+    href: helpArticleHref("grade-sync-problems"),
+    keywords: ["grade sync", "gradebook", "scores not syncing", "lms grades"],
+    updated: "Source date not available",
   },
   {
     title: "Password requirements and security",

@@ -3,8 +3,11 @@ import {
   browseByProductHref,
   contactSupportHref,
   courseKeyChooserHref,
+  joinEnrollChooserHref,
   homepageHref,
   lmsAccessChooserHref,
+  purchasedAccessChooserHref,
+  wrongCourseChooserHref,
 } from "../../app/routes";
 import {
   ContentContainer,
@@ -35,6 +38,7 @@ const commonAccessIssues: CourseAccessCardData[] = [
   {
     title: "Join or enroll in a course",
     description: "Get into your course when you have a class key, section link, or invite.",
+    href: joinEnrollChooserHref(),
   },
   {
     title: "Access your course through LMS",
@@ -44,10 +48,12 @@ const commonAccessIssues: CourseAccessCardData[] = [
   {
     title: "Purchased access but course is unavailable",
     description: "Resolve cases where you bought access but still cannot open the course.",
+    href: purchasedAccessChooserHref(),
   },
   {
     title: "Wrong course or missing course",
     description: "Get help when the course list is empty, incorrect, or missing materials.",
+    href: wrongCourseChooserHref(),
   },
 ] as const;
 

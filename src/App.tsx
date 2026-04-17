@@ -19,11 +19,16 @@ import { ProductHubSparkPage } from "./features/product-hub/ProductHubSparkPage"
 import { ProductHubWebAssignPage } from "./features/product-hub/ProductHubWebAssignPage";
 import {
   AccessCodeChooserPage,
+  ErrorSyncChooserPage,
+  JoinEnrollChooserPage,
   CourseKeyChooserPage,
   LmsAccessChooserPage,
   LmsLinkChooserPage,
+  ManageAccountChooserPage,
   MissingContentChooserPage,
   MissingActivitiesChooserPage,
+  PurchasedAccessChooserPage,
+  WrongCourseChooserPage,
   WrongAccountChooserPage,
 } from "./features/relationship-routing/RelationshipRoutingPages";
 import { ResetPasswordLmsPage } from "./features/reset-password/ResetPasswordLmsPage";
@@ -42,10 +47,15 @@ const previewPageComponents: Record<PreviewPageId, ComponentType> = {
   "sign-in-account": SignInAccountPage,
   "course-access-enrollment": CourseAccessEnrollmentPage,
   "troubleshooting-common-problems": TroubleshootingCommonProblemsPage,
+  "manage-account-chooser": ManageAccountChooserPage,
   "access-code-chooser": AccessCodeChooserPage,
   "course-key-chooser": CourseKeyChooserPage,
+  "join-enroll-chooser": JoinEnrollChooserPage,
   "lms-access-chooser": LmsAccessChooserPage,
+  "purchased-access-chooser": PurchasedAccessChooserPage,
+  "wrong-course-chooser": WrongCourseChooserPage,
   "missing-content-chooser": MissingContentChooserPage,
+  "error-sync-chooser": ErrorSyncChooserPage,
   "wrong-account-chooser": WrongAccountChooserPage,
   "lms-link-chooser": LmsLinkChooserPage,
   "missing-activities-chooser": MissingActivitiesChooserPage,

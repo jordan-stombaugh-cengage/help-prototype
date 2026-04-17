@@ -1,7 +1,9 @@
 import {
+  errorSyncChooserHref,
   helpArticleHref,
   helpDomainHref,
   lmsAccessChooserHref,
+  missingContentChooserHref,
   signInAccountHref,
   wrongAccountChooserHref,
 } from "../../app/routes";
@@ -160,8 +162,8 @@ export const mindTapProductHubConfig = {
           links: [
             { label: "Browser issues", href: helpArticleHref("browser-requirements") },
             { label: "Login problems", href: signInAccountHref() },
-            { label: "Missing content" },
-            { label: "Error messages" },
+            { label: "Missing content", href: missingContentChooserHref() },
+            { label: "Error messages", href: errorSyncChooserHref() },
           ],
         },
       ],
@@ -180,8 +182,8 @@ export const mindTapProductHubConfig = {
       problems: [
         { label: "Can't access course management" },
         { label: "Students can't see assignments" },
-        { label: "LMS integration issues" },
-        { label: "Grading not syncing" },
+        { label: "LMS integration issues", href: errorSyncChooserHref() },
+        { label: "Grading not syncing", href: helpArticleHref("grade-sync-problems") },
         { label: "Custom content not saving" },
         { label: "Student roster issues" },
       ],
@@ -240,10 +242,10 @@ export const mindTapProductHubConfig = {
           iconKind: "troubleshooting",
           title: "Troubleshooting",
           links: [
-            { label: "Browser issues" },
-            { label: "Login problems" },
-            { label: "Missing content" },
-            { label: "Error messages" },
+            { label: "Browser issues", href: helpArticleHref("browser-requirements") },
+            { label: "Login problems", href: signInAccountHref() },
+            { label: "Missing content", href: missingContentChooserHref() },
+            { label: "Error messages", href: errorSyncChooserHref() },
           ],
         },
       ],
@@ -462,7 +464,7 @@ export const webAssignProductHubConfig = {
       problems: [
         { label: "Can't access class tools" },
         { label: "Students can't open assignments" },
-        { label: "LMS integration issues" },
+        { label: "LMS integration issues", href: errorSyncChooserHref() },
         { label: "Roster drops and transfers not synced" },
         { label: "Gradebook not matching LMS" },
         {
@@ -750,7 +752,7 @@ export const samProductHubConfig = {
         { label: "Gradebook not updating" },
         { label: "Secure testing issues" },
         { label: "Section or roster problems" },
-        { label: "LMS integration issues" },
+        { label: "LMS integration issues", href: errorSyncChooserHref() },
       ],
       areas: [
         {
@@ -810,7 +812,7 @@ export const samProductHubConfig = {
             { label: "Browser issues", href: helpArticleHref("browser-requirements") },
             { label: "Secure testing" },
             { label: "Project submission issues" },
-            { label: "LMS integration issues" },
+            { label: "LMS integration issues", href: errorSyncChooserHref() },
           ],
         },
       ],
@@ -1018,7 +1020,7 @@ export const sparkProductHubConfig = {
       problems: [
         { label: "Students can't see assignments" },
         { label: "Course setup issues" },
-        { label: "LMS integration issues" },
+        { label: "LMS integration issues", href: helpArticleHref("spark-lti-1-3-course-management") },
         { label: "Gradebook or results not updating" },
         { label: "Student roster issues" },
         { label: "Password or account issue", href: signInAccountHref() },
@@ -1080,8 +1082,8 @@ export const sparkProductHubConfig = {
           links: [
             { label: "Account issues", href: signInAccountHref() },
             { label: "Students can't see assignments" },
-            { label: "LMS integration issues" },
-            { label: "Missing content" },
+            { label: "LMS integration issues", href: helpArticleHref("spark-lti-1-3-course-management") },
+            { label: "Missing content", href: missingContentChooserHref() },
           ],
         },
       ],
@@ -1090,7 +1092,7 @@ export const sparkProductHubConfig = {
       tasksHeading: "Common tasks for institutional administrators",
       problemsHeading: "Common problems for institutional administrators",
       tasks: [
-        { label: "Configure school settings" },
+        { label: "Configure school settings", href: helpArticleHref("spark-institutional-settings") },
         { label: "Create and manage courses", href: helpArticleHref("spark-create-course") },
         { label: "Manage students and instructors", href: helpArticleHref("spark-manage-users") },
         { label: "Import users or courses" },
@@ -1098,12 +1100,12 @@ export const sparkProductHubConfig = {
         { label: "Support password resets", href: signInAccountHref() },
       ],
       problems: [
-        { label: "Users can't access Spark" },
-        { label: "LMS integration not connecting" },
-        { label: "User import issues" },
+        { label: "Users can't access Spark", href: signInAccountHref() },
+        { label: "LMS integration not connecting", href: helpArticleHref("spark-lti-1-3-course-management") },
+        { label: "User import issues", href: helpArticleHref("spark-manage-users") },
         { label: "Course provisioning issues" },
-        { label: "Grade export issues" },
-        { label: "School settings not applying" },
+        { label: "Grade export issues", href: helpArticleHref("spark-institutional-settings") },
+        { label: "School settings not applying", href: helpArticleHref("spark-institutional-settings") },
       ],
       areas: [
         {
@@ -1153,7 +1155,7 @@ export const sparkProductHubConfig = {
             { label: "Manage users", href: helpArticleHref("spark-manage-users") },
             { label: "Import students" },
             { label: "Import instructors" },
-            { label: "Institution settings" },
+            { label: "Institution settings", href: helpArticleHref("spark-institutional-settings") },
           ],
         },
         {
@@ -1161,7 +1163,7 @@ export const sparkProductHubConfig = {
           title: "Troubleshooting",
           links: [
             { label: "Access issues" },
-            { label: "User import issues" },
+            { label: "User import issues", href: helpArticleHref("spark-manage-users") },
             { label: "Problems uploading roster" },
             { label: "Support portal" },
           ],

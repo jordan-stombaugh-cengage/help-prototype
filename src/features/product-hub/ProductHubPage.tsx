@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { homepageHref } from "../../app/routes";
+import { useState, type FormEvent } from "react";
+import { homepageHref, searchResultsHref, type ProductSlug } from "../../app/routes";
 import {
   ContentContainer,
   MetadataTag,
@@ -55,13 +55,14 @@ export type ProductHubConfig = {
   areaSectionTitle: string;
   description: string;
   heroLogoAlt?: string;
+  heroLogoStyle?: "panel" | "plain";
   heroLogoSrc?: string;
   heroVariant?: "default" | "spark-brand";
   resourceCards: ReadonlyArray<ProductHubResourceCard>;
   roleAriaLabel: string;
   roleContent: Record<string, ProductHubRoleContent>;
   roleTabs: ReadonlyArray<ProductHubRoleTab>;
-  slug: string;
+  slug: ProductSlug;
   tags: ReadonlyArray<string>;
   title: string;
   topicCards: ReadonlyArray<ProductHubTopicCard>;
@@ -293,11 +294,23 @@ function ResourceIcon({ kind }: { kind: ProductHubResourceCard["iconKind"] }) {
 
 export function ProductHubPage({ config }: { config: ProductHubConfig }) {
   const [activeRole, setActiveRole] = useState(config.roleTabs[0]?.id ?? "student");
+  const [productSearchQuery, setProductSearchQuery] = useState("");
   const activeRoleContent =
     config.roleContent[activeRole] ?? config.roleContent[config.roleTabs[0]?.id ?? ""];
+  const hasBranding = Boolean(config.heroLogoSrc);
 
   if (!activeRoleContent) {
     return null;
+  }
+
+  function handleProductSearchSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const trimmedQuery = productSearchQuery.trim();
+    window.location.hash = searchResultsHref({
+      product: config.slug,
+      query: trimmedQuery || undefined,
+    });
   }
 
   return (
@@ -324,7 +337,9 @@ export function ProductHubPage({ config }: { config: ProductHubConfig }) {
             className={
               config.heroVariant === "spark-brand"
                 ? "product-hub-hero product-hub-hero--spark"
-                : "product-hub-hero"
+                : hasBranding
+                  ? "product-hub-hero product-hub-hero--with-branding"
+                  : "product-hub-hero"
             }
           >
             <div className="product-hub-hero-copy">
@@ -338,6 +353,32 @@ export function ProductHubPage({ config }: { config: ProductHubConfig }) {
                   </MetadataTag>
                 ))}
               </div>
+
+              <form className="product-hub-search" onSubmit={handleProductSearchSubmit}>
+                <label
+                  className="product-hub-search-label"
+                  htmlFor={`${config.slug}-product-search`}
+                >
+                  Search {config.title} help
+                </label>
+
+                <div className="product-hub-search-row">
+                  <input
+                    id={`${config.slug}-product-search`}
+                    className="product-hub-search-input"
+                    type="search"
+                    placeholder={`Search ${config.title} help articles, issues, and tasks`}
+                    value={productSearchQuery}
+                    onChange={(event) => {
+                      setProductSearchQuery(event.target.value);
+                    }}
+                  />
+
+                  <button className="product-hub-search-button" type="submit">
+                    Search
+                  </button>
+                </div>
+              </form>
             </div>
 
             {config.heroVariant === "spark-brand" && config.heroLogoSrc ? (
@@ -348,6 +389,31 @@ export function ProductHubPage({ config }: { config: ProductHubConfig }) {
                   src={config.heroLogoSrc}
                   alt={config.heroLogoAlt ?? `${config.title} logo`}
                 />
+              </div>
+            ) : config.heroLogoSrc ? (
+              <div
+                className={`product-hub-hero-branding ${
+                  config.heroLogoStyle === "plain"
+                    ? "product-hub-hero-branding--plain"
+                    : "product-hub-hero-branding--logo"
+                } product-hub-hero-branding--${config.slug}`}
+              >
+                <div className="product-hub-hero-divider" />
+                {config.heroLogoStyle === "plain" ? (
+                  <img
+                    className="product-hub-hero-logo product-hub-hero-logo--default"
+                    src={config.heroLogoSrc}
+                    alt={config.heroLogoAlt ?? `${config.title} logo`}
+                  />
+                ) : (
+                  <div className="product-hub-hero-logo-panel">
+                    <img
+                      className="product-hub-hero-logo product-hub-hero-logo--default"
+                      src={config.heroLogoSrc}
+                      alt={config.heroLogoAlt ?? `${config.title} logo`}
+                    />
+                  </div>
+                )}
               </div>
             ) : null}
           </header>
