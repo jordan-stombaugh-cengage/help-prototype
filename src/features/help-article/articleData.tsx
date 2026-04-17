@@ -1279,66 +1279,6 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
       },
     ],
   },
-  "missing-activities-or-assignments": {
-    slug: "missing-activities-or-assignments",
-    title: "My course is missing assignments",
-    summary: "If there are no assignments available in your course, there are a few possible scenarios for this.",
-    parentLabel: "Troubleshooting & Common Problems",
-    parentHref: helpDomainHref("troubleshooting-common-problems"),
-    tags: ["MyELT", "Student", "Troubleshooting & Common Problems"],
-    appliesTo: "MyELT students",
-    product: "MyELT",
-    helpArea: "Troubleshooting & Common Problems",
-    updated: "April 28, 2025",
-    sections: [
-      {
-        title: "Why is my course missing assignments?",
-        items: [
-          {
-            kind: "paragraph",
-            content:
-              "If there are no assignments available in your course, there are a few possible scenarios for this:",
-          },
-          {
-            kind: "list",
-            items: [
-              "The assignments are past due or have not yet begun.",
-              "The instructor removed the assignments from the course.",
-              "You have reached the maximum number of takes allowed for an activity.",
-            ],
-          },
-        ],
-      },
-      {
-        title: "Resolution",
-        items: [
-          {
-            kind: "paragraph",
-            content: "Contact your instructor directly to see if they can assist you.",
-          },
-        ],
-      },
-    ],
-    relatedHelpGroups: [
-      {
-        heading: "Related help",
-        links: [
-          {
-            label: "Course Access & Enrollment",
-            href: helpDomainHref("course-access-enrollment"),
-          },
-          {
-            label: "Troubleshooting & Common Problems",
-            href: helpDomainHref("troubleshooting-common-problems"),
-          },
-        ],
-      },
-      {
-        heading: "More help",
-        links: [{ label: "Contact support", href: contactSupportHref() }],
-      },
-    ],
-  },
 };
 
 export function getHelpArticleDefinition(slug: HelpArticleSlug): HelpArticleDefinition {

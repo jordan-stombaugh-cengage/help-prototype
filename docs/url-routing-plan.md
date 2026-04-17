@@ -62,7 +62,7 @@ Legacy families:
 - `webassign/*`
 - `sam/*`
 - `eltngl/spark/*`
-- `eltngl/myelt/*`
+- legacy ELT product article trees that are no longer part of the live product set
 
 Future-state mapping:
 - product-level entry pages -> `/product/:productSlug`
@@ -80,7 +80,7 @@ Conceptual collapse examples:
 - legacy WebAssign student/instructor help entries -> `/product/webassign`
 - legacy SAM variants -> `/product/sam`
 - legacy Spark role and age branches -> `/product/spark`
-- legacy MyELT role branches -> `/product/myelt`
+- legacy ELT pages outside Spark -> mapped case by case into Spark, shared destinations, or unresolved placeholders
 
 ## 3. Legacy shared sign-in and account URLs
 Legacy families:
@@ -203,7 +203,7 @@ Planning rule:
 
 Runtime note:
 - the current prototype now demonstrates this collapse with live hubs for MindTap, WebAssign, SAM, and Spark
-- MyELT remains a conceptual future product-hub mapping rather than a live runtime destination
+- older ELT product content is no longer modeled as a live product-hub destination
 
 ## Merge many sign-in/account entries into one help-domain hub
 - product-local sign-in landing pages -> `/help/sign-in-account`

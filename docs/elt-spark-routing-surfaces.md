@@ -85,16 +85,8 @@ Use it with:
 | Search result | Spark-specific article | Spark-specific article page when implemented | Help article | Product context is explicit and the answer depends on Spark | Direct |
 | Search result | Ambiguous relationship-driven issue | Chooser when implemented; otherwise no live result route | Chooser or non-interactive | Product, LMS, or access pathway changes the next step | Chooser or non-interactive |
 
-## MyELT Sunset Handling
-
-| Surface | Label | Current prototype destination | Destination type | Relationship logic | Mode |
-|---|---|---|---|---|---|
-| Legacy reference only | `MyELT` | Not a live browse destination | Legacy reference only | MyELT remains source input and mapping evidence, not a product lane to scale out | Non-interactive in runtime model |
-| Legacy article evidence | MyELT-source article content | Shared article, Spark article, chooser, or unresolved placeholder depending on mapping | Depends on mapped destination | MyELT can inform future-state routing but should not itself become the live destination | Mapped case by case |
-
 ## Practical Summary
 - `Spark` is the live ELT product hub.
 - Shared help domains still own shared sign-in, access, and troubleshooting patterns.
 - `LMS Administrator` is primarily a search and article-discovery role.
 - `Institutional Administrator` can live in both shared discovery and Spark hub state.
-- MyELT remains a legacy reference source, not a new live product hub.

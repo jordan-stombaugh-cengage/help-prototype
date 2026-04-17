@@ -927,7 +927,7 @@ export const sparkProductHubConfig = {
       problemsHeading: "Common problems for students",
       tasks: [
         { label: "Sign in to Spark", href: helpArticleHref("spark-sign-in") },
-        { label: "Create an account", href: signInAccountHref() },
+        { label: "Create an account" },
         { label: "Join a course", href: helpArticleHref("spark-join-course") },
         { label: "Complete assignments", href: helpArticleHref("spark-assignments") },
         { label: "Access eBooks and media" },
@@ -956,8 +956,8 @@ export const sparkProductHubConfig = {
           iconKind: "assignments",
           title: "Courses & Assignments",
           links: [
-            { label: "Join a course", href: helpDomainHref("course-access-enrollment") },
-            { label: "Complete assignments" },
+            { label: "Join a course", href: helpArticleHref("spark-join-course") },
+            { label: "Complete assignments", href: helpArticleHref("spark-assignments") },
             { label: "Take tests" },
             { label: "Self-study courses" },
           ],
@@ -976,7 +976,7 @@ export const sparkProductHubConfig = {
           iconKind: "grades",
           title: "Gradebook & Results",
           links: [
-            { label: "View your grades" },
+            { label: "View your grades", href: helpArticleHref("spark-view-your-grades") },
             { label: "Track progress" },
             { label: "Results" },
             { label: "Assignment review" },
@@ -1012,7 +1012,7 @@ export const sparkProductHubConfig = {
         { label: "Create a course", href: helpArticleHref("spark-create-course") },
         { label: "Create assignments" },
         { label: "Use the Classroom Presentation Tool" },
-        { label: "Manage students" },
+        { label: "Manage students", href: helpArticleHref("spark-manage-users") },
         { label: "View gradebook data" },
       ],
       problems: [
@@ -1038,7 +1038,7 @@ export const sparkProductHubConfig = {
           iconKind: "assignments",
           title: "Courses & Assignments",
           links: [
-            { label: "Create a course" },
+            { label: "Create a course", href: helpArticleHref("spark-create-course") },
             { label: "Create assignments" },
             { label: "Tests" },
             { label: "Copy a course" },
@@ -1120,7 +1120,7 @@ export const sparkProductHubConfig = {
           iconKind: "assignments",
           title: "Courses & Assignments",
           links: [
-            { label: "Create a Spark course" },
+            { label: "Create a Spark course", href: helpArticleHref("spark-create-course") },
             { label: "Copy a course" },
             { label: "Delete a course" },
             { label: "Assignment setup" },

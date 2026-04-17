@@ -132,7 +132,6 @@ Representative recurring links are listed here rather than every static product-
 | `Browser requirements` | `#help-article?article=browser-requirements` | Help Article | Current prototype has a validated direct shared article | direct |
 | `System requirements` | `#help-article?article=system-requirements` | Help Article | Current prototype has a validated direct shared article | direct |
 | `LMS link not working` | `#lms-link-chooser` | Guided routing page | Product context determines whether the shared article applies | chooser |
-| `My course is missing assignments` | `#help-article?article=missing-activities-or-assignments` | Help Article | The result explicitly names the MyELT-only answer object | direct |
 | `Reset password for NGLSync school portal` | `#reset-password-school-nglsync` | Guided routing page | School-managed sign-in is the determinant | direct |
 | `Manage your account settings` | `#help-article?article=sign-in` | Help Article | Current prototype uses the seeded sign-in article as the closest account-management answer object | direct |
 

@@ -23,6 +23,7 @@ import {
   missingContentChooserHref,
   resetPasswordHref,
   setPreviewPageHash,
+  signInAccountHref,
   wrongAccountChooserHref,
 } from "../../app/routes";
 
@@ -284,10 +285,10 @@ const results: SearchResult[] = [
     title: "LMS link not working",
     description:
       "Troubleshoot course links or activity links that do not open when you launch from your LMS.",
-    facets: ["MindTap, WebAssign, SAM", "LMS-linked access"],
+    facets: ["MindTap, WebAssign, SAM, and Spark", "LMS-linked access"],
     filters: {
-      Product: ["MindTap", "WebAssign", "SAM"],
-      Role: higherEdHelpRoles,
+      Product: ["MindTap", "WebAssign", "SAM", "Spark"],
+      Role: sharedHelpRoles,
       "Sign-in path": ["LMS sign-in"],
     },
     href: lmsLinkChooserHref(),
@@ -298,7 +299,7 @@ const results: SearchResult[] = [
     title: "Missing activities or assignments",
     description:
       "Choose the product or course experience where activities or assignments are missing so we can send you to the right help.",
-    facets: ["MindTap, WebAssign, SAM, Spark, or legacy MyELT", "Troubleshooting & Common Problems"],
+    facets: ["MindTap, WebAssign, SAM, and Spark", "Troubleshooting & Common Problems"],
     filters: {
       Product: ["MindTap", "WebAssign", "SAM", "Spark"],
       Role: [
@@ -415,7 +416,15 @@ const results: SearchResult[] = [
       Role: ["Primary Student", "Secondary Student", "Institutional Administrator"],
     },
     href: browseByProductHref("spark") ?? homepageHref(),
-    keywords: ["spark", "elt", "english language learning", "course help"],
+    keywords: [
+      "spark",
+      "elt",
+      "english language learning",
+      "course help",
+      "student",
+      "instructor",
+      "institutional administrator",
+    ],
     updated: "Prototype destination",
   },
   {
@@ -564,15 +573,6 @@ const results: SearchResult[] = [
     updated: "Updated January 2026",
   },
   {
-    title: "Legacy MyELT: My course is missing assignments",
-    description:
-      "Get help when assignments are missing from your MyELT course.",
-    facets: ["MyELT", "Student"],
-    keywords: ["legacy", "myelt", "assignments", "missing activities"],
-    href: helpArticleHref("missing-activities-or-assignments"),
-    updated: "Updated April 2025",
-  },
-  {
     title: "School portal sign-in help",
     description:
       "Get the next step when you access Cengage through a school portal instead of signing in directly.",
@@ -595,7 +595,7 @@ const results: SearchResult[] = [
       Role: sharedHelpRoles,
       "Sign-in path": ["Cengage sign-in"],
     },
-    href: helpArticleHref("sign-in"),
+    href: signInAccountHref(),
     keywords: ["account settings", "email", "profile", "spark"],
     updated: "Updated February 2026",
   },
@@ -609,7 +609,7 @@ const results: SearchResult[] = [
       Role: sharedHelpRoles,
       "Sign-in path": ["Cengage sign-in"],
     },
-    href: helpArticleHref("sign-in"),
+    href: signInAccountHref(),
     keywords: ["password", "security", "spark"],
     updated: "Updated December 2025",
   },
@@ -623,7 +623,7 @@ const results: SearchResult[] = [
       Role: sharedHelpRoles,
       "Sign-in path": ["Cengage sign-in"],
     },
-    href: helpArticleHref("forgot-username"),
+    href: resetPasswordHref(),
     keywords: ["email", "reset password", "account recovery", "spark"],
     updated: "Updated March 2026",
   },

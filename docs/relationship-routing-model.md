@@ -91,7 +91,6 @@ Examples:
 - `Forgot username`
 - `Browser requirements`
 - `System requirements`
-- explicit MyELT result `My course is missing assignments`
 
 ### Go straight to a product hub when
 - the label already names the product
@@ -138,7 +137,7 @@ Examples:
 
 | Label | Classification | Current prototype handling | Why |
 |---|---|---|---|
-| `Missing activities` / `Missing activities or assignments` | `C` chooser needed on shared surfaces; `B` direct product article is appropriate only when the surface already names `MyELT` | Shared surfaces route to `Missing Activities Chooser`; explicit MyELT search result goes straight to the MyELT article | Product relationship determines the next step |
+| `Missing activities` / `Missing activities or assignments` | `C` chooser needed on shared surfaces; `D` unresolved on product-specific surfaces without a confirmed answer object | Shared surfaces route to `Missing Activities Chooser`; product hubs stay non-interactive until a product-specific answer is validated | Product relationship determines the next step |
 | `Wrong account` | `C` chooser needed | Shared surfaces and product-hub account links route to `Wrong Account Chooser` | The right next step depends on purchased-access state vs account identity vs LMS or school pathway |
 | `LMS link not working` | `C` chooser needed on shared surfaces; `A` direct shared article is appropriate on already-constrained MindTap/WebAssign/SAM surfaces | Shared surfaces route to `LMS Link Chooser`; known MindTap/WebAssign article links stay direct where honest | Product relationship determines whether the shared LMS article applies |
 | `Browser requirements` | `A` direct shared article is appropriate | Direct article | The prototype has one current shared article for the supported product set |
@@ -171,7 +170,6 @@ Examples:
 - Shared entry: `Missing activities`
 - Relationship being tested: product or course experience
 - Downstream destinations:
-  - MyELT article
   - `MindTap` product hub
   - `WebAssign` product hub
   - `SAM` product hub

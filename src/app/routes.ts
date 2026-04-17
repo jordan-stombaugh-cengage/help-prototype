@@ -55,8 +55,7 @@ export type HelpArticleSlug =
   | "wrong-account"
   | "browser-requirements"
   | "system-requirements"
-  | "lms-link-not-working"
-  | "missing-activities-or-assignments";
+  | "lms-link-not-working";
 
 export type ResetPasswordBranch =
   | "chooser"
@@ -444,7 +443,6 @@ export function getHelpArticleSlugFromHash(
     case "browser-requirements":
     case "system-requirements":
     case "lms-link-not-working":
-    case "missing-activities-or-assignments":
     case "sign-in":
       return slug;
     default:

@@ -1,7 +1,7 @@
 # ELT + Spark Routing Model
 
 ## Purpose
-This document explains how ELT help should route in the prototype when `Spark` is the live ELT product context and `MyELT` is legacy reference only.
+This document explains how ELT help should route in the prototype when `Spark` is the live ELT product context.
 
 Use it with:
 - `docs/object-map.md`
@@ -12,7 +12,6 @@ Use it with:
 
 ## Core Interpretation
 - `Spark` is the live ELT `Product` object in the prototype.
-- `MyELT` is a legacy content and mapping reference, not a new live product lane to scale out.
 - `Product` remains the canonical product-hub destination.
 - `Help domain` remains the canonical shared-domain destination.
 - `Role` remains a facet, in-page state, or metadata value, not a parallel site architecture.
@@ -86,7 +85,6 @@ Use product when the help object belongs to one product’s workflows, setup, or
 
 For ELT in the prototype:
 - `Spark` is the live product destination
-- `MyELT` is legacy reference only
 
 ### Help domain
 Use a shared help-domain hub when the issue is broader than Spark itself and is already modeled as a shared family:
@@ -248,26 +246,9 @@ Default routing behavior for institutional administrators:
 - Role facets such as `Primary Student`, `Secondary Student`, `LMS Administrator`, and `Institutional Administrator` should improve relevance but should not create role hubs.
 - `Instructor` remains more important as Spark hub state and metadata than as a new shared homepage role under the current frozen system.
 
-## MyELT Sunset Rule
-`MyELT` should be treated as:
-- a legacy content pool
-- a reference for legacy-to-future mapping
-- evidence for article applicability, taxonomy relationships, and routing decisions
-
-`MyELT` should not be treated as:
-- a new live product hub to build out
-- a homepage browse-by-product destination
-- a parallel ELT product lane beside Spark in the prototype
-
-Use MyELT only when needed to:
-- port legacy article content
-- explain why a Spark, shared-domain, article, or chooser destination is the honest future-state mapping
-- preserve legacy-reference context in docs or content analysis
-
 ## Practical Summary
 - `Spark` is the live ELT product context and canonical ELT product hub.
 - Shared help domains still own shared account, access, and troubleshooting questions.
 - `Institutional Administrator` is a visible shared facet and a Spark hub state.
 - `LMS Administrator` is a visible shared facet and search/article-discovery role, not a default Spark hub tab.
 - Chooser logic should handle relationship-driven ambiguity when product, LMS, access pathway, or institution changes the next step.
-- `MyELT` stays legacy-only unless explicitly needed as reference or comparison.

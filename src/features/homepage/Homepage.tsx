@@ -7,6 +7,7 @@ import {
   helpDomainHref,
   lmsLinkChooserHref,
   lmsAccessChooserHref,
+  signInAccountHref,
   wrongAccountChooserHref,
   missingActivitiesChooserHref,
   resetPasswordHref,
@@ -97,12 +98,15 @@ const commonProblemGroups = [
   {
     title: "Common problems for students",
     links: [
-      { label: "Can't sign in", href: searchResultsHref({ role: "higher-ed-student", query: "sign in" }) },
-      { label: "Missing activities or assignments", href: searchResultsHref({ role: "higher-ed-student", query: "missing activities" }) },
-      { label: "LMS link not working", href: searchResultsHref({ role: "higher-ed-student", query: "LMS link" }) },
-      { label: "Signed in with wrong account", href: searchResultsHref({ role: "higher-ed-student", query: "wrong account" }) },
-      { label: "Browser or device compatibility issue", href: searchResultsHref({ role: "higher-ed-student", query: "browser requirements" }) },
-      { label: "Can't access eBook", href: searchResultsHref({ role: "higher-ed-student", query: "ebook" }) },
+      { label: "Can't sign in", href: signInAccountHref() },
+      { label: "Missing activities or assignments", href: missingActivitiesChooserHref() },
+      { label: "LMS link not working", href: lmsLinkChooserHref() },
+      { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
+      {
+        label: "Browser or device compatibility issue",
+        href: helpDomainHref("troubleshooting-common-problems"),
+      },
+      { label: "Can't access eBook" },
     ],
   },
 ];

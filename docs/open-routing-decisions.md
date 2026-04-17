@@ -50,7 +50,7 @@ Use it together with:
 |---|---|---|---|
 | `Wrong account` chooser | routes to a chooser before article or hub destinations | chooser or direct article depending on future governance | Writers still need to confirm whether one shared purchased-access article remains canonical across all listed products |
 | `LMS link not working` chooser | routes to a chooser before a shared article or product hub | chooser or direct article depending on future governance | Writers still need to confirm whether the shared LMS-link article remains canonical for all supported product variants |
-| `Missing activities` chooser | routes to a chooser before product hub or MyELT article destinations | chooser or direct article depending on future governance | Writers still need to confirm whether this should eventually become a shared article, stay chooser-based, or branch more explicitly by product |
+| `Missing activities` chooser | routes to a chooser before product-hub destinations | chooser or direct article depending on future governance | Writers still need to confirm whether this should eventually become a shared article, stay chooser-based, or branch more explicitly by product |
 
 ## School Portal Vs NGLSync
 

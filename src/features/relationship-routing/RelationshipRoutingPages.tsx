@@ -425,13 +425,6 @@ const lmsAccessOptions: ChooserOption[] = [
 
 const missingActivitiesOptions: ChooserOption[] = [
   {
-    title: "A legacy MyELT course",
-    description:
-      "Use the legacy MyELT article only when the missing assignments problem is happening in an older MyELT course.",
-    href: helpArticleHref("missing-activities-or-assignments"),
-    iconKind: "article",
-  },
-  {
     title: "MindTap",
     description: "Use MindTap product help when the missing work depends on the MindTap course experience.",
     href: browseByProductHref("mindtap"),

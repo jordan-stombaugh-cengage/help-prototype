@@ -62,7 +62,7 @@ Future-state purpose:
 
 Legacy clusters that map here:
 - broad article-rich product libraries from `help-clone`
-- Spark and MyELT article inventories from `elt-clone`
+- Spark and legacy ELT article inventories from `elt-clone`
 - LMS admin and integration libraries from both repos
 - repeated troubleshooting, system requirements, and how-to topics
 
@@ -73,7 +73,7 @@ Representative legacy sources:
 - `help-clone/mindtap/*`
 - `help-clone/sam/*`
 - `elt-clone/eltngl/spark/*/*.html`
-- `elt-clone/eltngl/myelt/*/*.html`
+- legacy ELT article trees in `elt-clone`
 - `elt-clone/eltngl/lmsadmin/common/*.html`
 
 Best fit:
@@ -121,7 +121,6 @@ Strong product-hub candidates:
 - WebAssign
 - SAM
 - Spark
-- MyELT
 
 Secondary or lower-priority candidates:
 - visible-body
@@ -136,7 +135,7 @@ Legacy clusters that map here:
 - `help-clone/webassign`
 - `help-clone/sam`
 - `elt-clone/eltngl/spark`
-- `elt-clone/eltngl/myelt`
+- Spark-related ELT product content that survives into the live product set
 
 Mapping guidance:
 - collapse student/instructor/admin variants into one product hub per product
@@ -148,7 +147,6 @@ Explicit collapse examples:
 - `help-clone/student/webassign/index.dita` and instructor equivalents/maps -> one future WebAssign product hub
 - `help-clone/student/sam/index.dita` and instructor/admin SAM help -> one future SAM product hub
 - `elt-clone/eltngl/spark/index.html`, student, instructor, and administrator Spark branches -> one future Spark product hub
-- `elt-clone/eltngl/myelt/index.html`, student, and instructor branches -> one future MyELT product hub
 
 ## Help Article
 Future-state purpose:
@@ -173,7 +171,7 @@ Representative legacy sources:
 - `help-clone/common/lms-troubleshooting.ditamap`
 - `help-clone/sam/forgot-password.dita`
 - `elt-clone/eltngl/spark/*/toc.html`
-- `elt-clone/eltngl/myelt/*/*.html`
+- legacy ELT article trees in `elt-clone`
 - `elt-clone/Metadata/help.cengage/help-article-metadata.csv`
 
 Mapping rule:
@@ -210,7 +208,6 @@ Legacy content that informs it:
 Representative legacy sources:
 - `help-clone/common/sign-in-through-lms.dita`
 - `help-clone/mindtap-student-k12.ditamap` NGLSync sign-in and enroll flows
-- `elt-clone/eltngl/myelt/student/elt-reset-password.html`
 - `elt-clone/eltngl/spark/*/olp-reset-password.html`
 - `elt-clone/eltngl/spark/*/olp-join-self-study.html`
 
@@ -272,7 +269,6 @@ Mapping guidance:
 - WebAssign cluster
 - SAM cluster
 - Spark cluster
-- MyELT cluster
 
 ## Help article
 - most concrete how-to and troubleshooting topics

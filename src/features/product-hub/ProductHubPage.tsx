@@ -54,6 +54,9 @@ export type ProductHubRoleContent = {
 export type ProductHubConfig = {
   areaSectionTitle: string;
   description: string;
+  heroLogoAlt?: string;
+  heroLogoSrc?: string;
+  heroVariant?: "default" | "spark-brand";
   resourceCards: ReadonlyArray<ProductHubResourceCard>;
   roleAriaLabel: string;
   roleContent: Record<string, ProductHubRoleContent>;
@@ -309,19 +312,44 @@ export function ProductHubPage({ config }: { config: ProductHubConfig }) {
         </ContentContainer>
       </div>
 
-      <section className="product-hub-hero-band">
+      <section
+        className={
+          config.heroVariant === "spark-brand"
+            ? "product-hub-hero-band product-hub-hero-band--spark"
+            : "product-hub-hero-band"
+        }
+      >
         <ContentContainer className="product-hub-shell">
-          <header className="product-hub-hero">
-            <h1>{config.title}</h1>
-            <p>{config.description}</p>
+          <header
+            className={
+              config.heroVariant === "spark-brand"
+                ? "product-hub-hero product-hub-hero--spark"
+                : "product-hub-hero"
+            }
+          >
+            <div className="product-hub-hero-copy">
+              <h1>{config.title}</h1>
+              <p>{config.description}</p>
 
-            <div className="product-hub-tag-row" aria-label="Product metadata">
-              {config.tags.map((tag) => (
-                <MetadataTag key={tag} className="product-hub-tag">
-                  {tag}
-                </MetadataTag>
-              ))}
+              <div className="product-hub-tag-row" aria-label="Product metadata">
+                {config.tags.map((tag) => (
+                  <MetadataTag key={tag} className="product-hub-tag">
+                    {tag}
+                  </MetadataTag>
+                ))}
+              </div>
             </div>
+
+            {config.heroVariant === "spark-brand" && config.heroLogoSrc ? (
+              <div className="product-hub-hero-branding" aria-hidden="true">
+                <div className="product-hub-hero-divider" />
+                <img
+                  className="product-hub-hero-logo"
+                  src={config.heroLogoSrc}
+                  alt={config.heroLogoAlt ?? `${config.title} logo`}
+                />
+              </div>
+            ) : null}
           </header>
         </ContentContainer>
       </section>

@@ -198,14 +198,12 @@ Observed pattern:
 Inventory note:
 - Spark is the clearest ELT source for a canonical `Product Hub`, plus many reusable article objects.
 
-## 3. MyELT product help cluster
+## 3. Legacy secondary ELT product cluster
 Representative sources:
-- `../elt-clone/eltngl/myelt/index.html`
-- `../elt-clone/eltngl/myelt/student/*.html`
-- `../elt-clone/eltngl/myelt/instructor/*.html`
+- legacy ELT product trees under `../elt-clone/eltngl/`
 
 Observed pattern:
-- MyELT is the second major ELT product family
+- the legacy ELT repo contains a second large product-oriented help family outside Spark
 - student and instructor branches include:
   - login and account topics
   - reset password
@@ -217,7 +215,7 @@ Observed pattern:
   - TBS / CPT-related utilities
 
 Inventory note:
-- MyELT provides another strong future `Product Hub` candidate and broad `Help Article` pool.
+- this cluster is useful as legacy article source material, but it is not part of the live prototype product set.
 
 ## 4. Institutional administration cluster
 Representative sources:
@@ -246,7 +244,7 @@ Inventory note:
 
 ## 6. Support, troubleshooting, and utility cluster
 Representative sources:
-- many `elt-support.html` pages under Spark and MyELT role trees
+- many `elt-support.html` pages under Spark and other ELT role trees
 - many `support-case.html` pages
 - product TOCs with `Troubleshooting`, `System Requirements`, and `Contact Support`
 
@@ -280,7 +278,7 @@ Inventory note:
 
 ## Notable duplication shape
 - `help-clone` duplicates many topics across product maps and role entry shells
-- `elt-clone` duplicates many Spark/MyELT topics across student, instructor, primary-student, and administrator branches
+- `elt-clone` duplicates many Spark and legacy ELT topics across student, instructor, primary-student, and administrator branches
 - both repos duplicate sign-in, password, support, and system-requirements content in product-local forms
 
 ## Product-Specific Hub Candidates
@@ -289,7 +287,6 @@ These legacy clusters map most naturally to future `Product Hub` instances:
 - WebAssign
 - SAM
 - Spark
-- MyELT
 - visible-body, BIM, cnow/owl, math-and-you, diet-wellness, and infuse as lower-priority or niche product-hub candidates if they survive the merged scope
 
 Strongest evidence:
@@ -297,7 +294,6 @@ Strongest evidence:
 - `help-clone/student/webassign/index.dita`
 - `help-clone/student/sam/index.dita`
 - `elt-clone/eltngl/spark/index.html`
-- `elt-clone/eltngl/myelt/index.html`
 
 ## Help-Domain Hub Candidates
 These clusters fit the frozen `Help-domain hub` idea best:
@@ -313,7 +309,7 @@ Supporting legacy evidence:
 - `help-clone/common/enrollment.ditamap`
 - `help-clone/common/purchasing.ditamap`
 - repeated `troubleshooting` sections in `help-clone` product maps
-- repeated `Troubleshooting` TOCs in ELT Spark/MyELT branches
+- repeated `Troubleshooting` TOCs in ELT Spark and other legacy ELT branches
 
 Important constraint:
 - LMS admin content is a large domain-like cluster, but under the current freeze it is better treated as article/discovery content than as a new top-level help-domain hub.
@@ -340,7 +336,6 @@ Good legacy article-style signals:
 - `help-clone/common/purchasing.ditamap`
 - `help-clone/common/system-requirements.ditamap`
 - `elt-clone/eltngl/spark/*/toc.html`
-- `elt-clone/eltngl/myelt/*/*.html`
 - `../elt-clone/Metadata/help.cengage/help-article-metadata.csv`
 
 ## Reset, Support, And Routing-Flow Candidates
@@ -352,7 +347,6 @@ Good legacy article-style signals:
 - `elt-clone/eltngl/spark/*/olp-reset-password.html`
 - `elt-clone/eltngl/spark/instructor/reset-student-password.html`
 - `elt-clone/eltngl/spark/administrator/reset-instructor-password.html`
-- `elt-clone/eltngl/myelt/student/elt-reset-password.html`
 
 Routing relevance:
 - legacy content often exposes direct reset articles
@@ -418,7 +412,7 @@ Do not reuse:
 ## Search Results
 Best fed by:
 - article-rich product libraries from `help-clone`
-- Spark/MyELT article inventories and metadata patterns from `elt-clone`
+- Spark and legacy ELT article inventories and metadata patterns from `elt-clone`
 - LMS integration article clusters from both repos
 
 ## Help-domain hub
@@ -450,7 +444,6 @@ Best future product hubs:
 - WebAssign
 - SAM
 - Spark
-- MyELT
 
 ## Support page
 Best source signals:
@@ -469,5 +462,5 @@ Best source signals:
 
 ## High-Level Takeaway
 - `help-clone` is the richer source for broad cross-product Cengage help domains and shared utility topics.
-- `elt-clone` is the richer source for deep product-operational flows, especially Spark and MyELT.
+- `elt-clone` is the richer source for deep product-operational flows, especially Spark and other legacy ELT materials.
 - The best future-state move is not to preserve either legacy navigation tree; it is to extract reusable article objects, help-domain signals, and product-hub content into the frozen archetype system already defined for `help-prototype`.

@@ -27,7 +27,6 @@ Examples:
 - WebAssign
 - SAM
 - Spark
-- MyELT
 
 Possible fields:
 - name

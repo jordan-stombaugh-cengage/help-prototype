@@ -120,15 +120,3 @@ Prototype handling:
 - legacy wording remains source evidence or metadata only
 
 This aligns with the already approved replacement of the older `School Administrator` stand-in in the shared role model.
-
-## MyELT Role Handling
-For `MyELT`, keep role labels only as source and mapping evidence.
-
-Use them to:
-- identify which Spark or shared-domain role they should map into
-- extract article applicability and metadata
-- explain legacy-to-future routing choices
-
-Do not use them to:
-- justify a new live MyELT role architecture
-- preserve `MyELT student` or `MyELT instructor` as separate future-state destinations
