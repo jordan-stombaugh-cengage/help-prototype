@@ -326,6 +326,13 @@ function HelpArticleSectionItemRenderer({
 
 export function HelpArticlePage() {
   const article = getHelpArticleDefinition(getHelpArticleSlugFromHash());
+  const isSparkArticle = article.product === "Spark" && article.parentLabel === "Spark";
+  const headerBandClassName = isSparkArticle
+    ? "help-article-header-band help-article-header-band--spark"
+    : "help-article-header-band";
+  const headerClassName = isSparkArticle
+    ? "help-article-header help-article-header--spark"
+    : "help-article-header";
 
   return (
     <div className="help-article-page">
@@ -341,9 +348,9 @@ export function HelpArticlePage() {
         </ContentContainer>
       </div>
 
-      <section className="help-article-header-band">
+      <section className={headerBandClassName}>
         <ContentContainer className="help-article-shell">
-          <header className="help-article-header">
+          <header className={headerClassName}>
             <div className="help-article-header-copy">
               <h1>{article.title}</h1>
               <p>{article.summary}</p>
