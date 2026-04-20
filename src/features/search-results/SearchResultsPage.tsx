@@ -10,13 +10,11 @@ import {
 import { SearchIcon } from "react-magma-icons";
 import {
   accessCodeChooserHref,
-  browseByProductHref,
   courseKeyChooserHref,
   errorSyncChooserHref,
   getRouteDrivenSearchFilters,
   getSearchDiscoveryOptionsFromHash,
   getSearchResultsContextLabel,
-  helpDomainHref,
   helpArticleHref,
   homepageHref,
   joinEnrollChooserHref,
@@ -37,7 +35,7 @@ type FilterSelections = Record<string, string[]>;
 
 type SearchSortMode = "best-match" | "most-recent";
 
-type SearchResultType = "Article" | "Guided step" | "Help domain" | "Product hub";
+type SearchResultType = "Article" | "Guided step";
 
 type SearchResult = {
   actionLabel?: string;
@@ -119,12 +117,6 @@ const directAccountRoles = [
   "Higher Ed Instructor",
   "K–12 Student",
   "K–12 Teacher",
-];
-
-const higherEdHelpRoles = [
-  "Higher Ed Student",
-  "Higher Ed Instructor",
-  "LMS Administrator",
 ];
 
 const higherEdLearnerRoles = ["Higher Ed Student", "Higher Ed Instructor", "LMS Administrator"];
@@ -282,51 +274,6 @@ const results: SearchResult[] = [
     title: "Manage your Spark account",
     updated: "Updated January 13, 2026",
     updatedAt: "2026-01-13",
-  },
-  {
-    description:
-      "Browse shared sign-in, account recovery, and password help across products and sign-in pathways.",
-    filters: {
-      Product: allProducts,
-      Role: sharedHelpRoles,
-    },
-    href: helpDomainHref("sign-in-account"),
-    keywords: ["sign in help", "account help", "password help", "account recovery"],
-    priority: 38,
-    productMetadataLabel: null,
-    resultType: "Help domain",
-    title: "Sign In & Account Help",
-    updated: "Prototype destination",
-  },
-  {
-    description:
-      "Browse shared help for course keys, access codes, enrollment, purchased access, and LMS course entry.",
-    filters: {
-      Product: allProducts,
-      Role: sharedHelpRoles,
-    },
-    href: helpDomainHref("course-access-enrollment"),
-    keywords: ["course access", "course enrollment", "access code", "course key", "join course"],
-    priority: 36,
-    productMetadataLabel: null,
-    resultType: "Help domain",
-    title: "Course Access & Enrollment",
-    updated: "Prototype destination",
-  },
-  {
-    description:
-      "Browse shared troubleshooting help for browser issues, LMS launches, missing content, and common technical problems.",
-    filters: {
-      Product: allProducts,
-      Role: sharedHelpRoles,
-    },
-    href: helpDomainHref("troubleshooting-common-problems"),
-    keywords: ["troubleshooting", "browser issues", "missing content", "technical problems"],
-    priority: 36,
-    productMetadataLabel: null,
-    resultType: "Help domain",
-    title: "Troubleshooting & Common Problems",
-    updated: "Prototype destination",
   },
   {
     description:
@@ -584,72 +531,6 @@ const results: SearchResult[] = [
     resultType: "Article",
     title: "System requirements",
     updated: "Source date not available",
-  },
-  {
-    description:
-      "Browse MindTap help for students, instructors, and LMS administrators.",
-    filters: {
-      Product: ["MindTap"],
-      Role: higherEdHelpRoles,
-      "Education segment": ["Higher Education"],
-    },
-    href: browseByProductHref("mindtap") ?? homepageHref(),
-    keywords: ["mindtap", "mindtap help", "course help", "assignments", "grading", "integration"],
-    priority: 44,
-    resultType: "Product hub",
-    title: "MindTap help hub",
-    updated: "Prototype destination",
-  },
-  {
-    description:
-      "Browse WebAssign help for students, instructors, and LMS administrators.",
-    filters: {
-      Product: ["WebAssign"],
-      Role: higherEdHelpRoles,
-      "Education segment": ["Higher Education"],
-    },
-    href: browseByProductHref("webassign") ?? homepageHref(),
-    keywords: [
-      "webassign",
-      "webassign help",
-      "homework help",
-      "course management",
-      "grade sync",
-    ],
-    priority: 44,
-    resultType: "Product hub",
-    title: "WebAssign help hub",
-    updated: "Prototype destination",
-  },
-  {
-    description:
-      "Browse SAM help for students, instructors, and LMS administrators.",
-    filters: {
-      Product: ["SAM"],
-      Role: higherEdHelpRoles,
-      "Education segment": ["Higher Education"],
-    },
-    href: browseByProductHref("sam") ?? homepageHref(),
-    keywords: ["sam", "sam help", "course help", "assignments", "gradebook", "integration"],
-    priority: 44,
-    resultType: "Product hub",
-    title: "SAM help hub",
-    updated: "Prototype destination",
-  },
-  {
-    description:
-      "Browse Spark help for students, instructors, and institutional administrators in English Language Learning.",
-    filters: {
-      Product: ["Spark"],
-      Role: [...sparkStudentRoles, ...sparkInstructorRoles, ...sparkAdminRoles],
-      "Education segment": ["English Language Learning"],
-    },
-    href: browseByProductHref("spark") ?? homepageHref(),
-    keywords: ["spark", "spark help", "english language learning", "elt help"],
-    priority: 58,
-    resultType: "Product hub",
-    title: "Spark help hub",
-    updated: "Prototype destination",
   },
   {
     description: "Sign in to Spark to access your English language courses.",
@@ -1163,15 +1044,7 @@ function getResultTypeWeight(resultType: SearchResultType) {
     return 4;
   }
 
-  if (resultType === "Guided step") {
-    return 3;
-  }
-
-  if (resultType === "Help domain") {
-    return 2;
-  }
-
-  return 1;
+  return 3;
 }
 
 function compareByBestMatch(left: SearchResult, right: SearchResult, query: string) {
@@ -1214,14 +1087,6 @@ function getActionLabel(result: SearchResult) {
 
   if (result.resultType === "Guided step") {
     return "Continue";
-  }
-
-  if (result.resultType === "Help domain") {
-    return "Open hub";
-  }
-
-  if (result.resultType === "Product hub") {
-    return "Browse hub";
   }
 
   return "View article";
