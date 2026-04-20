@@ -12,7 +12,7 @@ This document defines the route model for the `help-prototype` app and separates
 - Product routes go to canonical product hubs.
 - Reset password always begins at the chooser.
 - Relationship-driven shared issue labels can use a lightweight guided-routing step when product or access pathway determines the next destination.
-- Cengage account reset is an external handoff, not an internal article page.
+- Cengage account reset routes to a shared internal help article, not an external handoff.
 - LMS, school / NGLSync, and not-sure are distinct reset-password branches.
 - Product-hub role tabs are in-page state, not separate routes.
 
@@ -46,7 +46,7 @@ This document defines the route model for the `help-prototype` app and separates
 | `/help/sign-in-account/reset-password/lms` | Reset password: LMS sign-in | Reset branch state | chooser only | LMS-managed password branch |
 | `/help/sign-in-account/reset-password/school-nglsync` | Reset password: School or NGLSync sign-in | Reset branch state | chooser only | Distinct school-managed branch |
 | `/help/sign-in-account/reset-password/not-sure` | Reset password: Not sure | Reset branch state | chooser or school / NGLSync branch | Recovery / identification branch |
-| `https://account.cengage.com/` | Cengage account reset handoff | External destination | chooser only | External handoff for direct Cengage account resets |
+| `/article/reset-cengage-password` | Cengage account reset article | Help Article | chooser only | Shared-account reset instructions inside the prototype |
 | `/article/:slug` | Help Article | Content page | search results, product hubs, related links | Primary answer-object template |
 | `/support` | Contact Support | Fallback page | quiet fallback links, secondary navigation | Self-service-first support destination |
 | `/product/:productSlug` | Product Hub | Product destination | homepage browse by product, article/product links | Canonical product help hub; role-aware within the page |
@@ -117,7 +117,7 @@ Current prototype preview target:
 
 | User choice | Canonical destination | Current prototype target | Outcome |
 |---|---|---|---|
-| With a Cengage account | `https://account.cengage.com/` | external link | External reset handoff |
+| With a Cengage account | `/article/reset-cengage-password` | `#help-article?article=reset-cengage-password` | Shared Cengage-account reset article |
 | Through my LMS | `/help/sign-in-account/reset-password/lms` | `#reset-password-lms` | LMS-managed instructions |
 | Through my school or NGLSync portal | `/help/sign-in-account/reset-password/school-nglsync` | `#reset-password-school-nglsync` | School-managed branch |
 | I'm not sure | `/help/sign-in-account/reset-password/not-sure` | `#reset-password-not-sure` | Identification / recovery branch |
@@ -203,3 +203,4 @@ The current prototype does not use a real router. `src/App.tsx` renders pages fr
 - Homepage product cards for MindTap, WebAssign, SAM, and Spark now route to live product hubs.
 - Product-specific rows on `Course Access & Enrollment` and `Troubleshooting & Common Problems` now route to the same live product hubs.
 - Breadcrumbs and internal preview navigation now use the hash-based preview-switcher model consistently.
+- The reset-password chooser's `With a Cengage account` branch now routes to the shared internal article `#help-article?article=reset-cengage-password`.

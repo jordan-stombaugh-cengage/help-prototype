@@ -619,6 +619,60 @@ const results: SearchResult[] = [
     updated: "Updated February 2026",
   },
   {
+    title: "Dynamic Lessons",
+    description: "Teach live lessons with Dynamic Lessons in Spark.",
+    facets: ["Spark", "Instructor", "Dynamic Lessons"],
+    filters: {
+      Product: ["Spark"],
+      "Education segment": ["English Language Learning"],
+      Role: ["Higher Ed Instructor", "K–12 Teacher"],
+    },
+    href: helpArticleHref("spark-dynamic-lessons"),
+    keywords: ["spark", "dynamic lessons", "live lessons", "instructor", "presentation"],
+    updated: "Source date not available",
+  },
+  {
+    title: "Customize a Lesson",
+    description:
+      "Customize a Spark Dynamic Lesson by adding, removing, or rearranging slides.",
+    facets: ["Spark", "Instructor", "Dynamic Lessons"],
+    filters: {
+      Product: ["Spark"],
+      "Education segment": ["English Language Learning"],
+      Role: ["Higher Ed Instructor", "K–12 Teacher"],
+    },
+    href: helpArticleHref("spark-customize-lesson"),
+    keywords: ["spark", "dynamic lessons", "customize lesson", "slides", "publisher lessons"],
+    updated: "Source date not available",
+  },
+  {
+    title: "Present a Lesson",
+    description: "Present a live pre-made Publisher Lesson or your customized lesson in Spark.",
+    facets: ["Spark", "Instructor", "Dynamic Lessons"],
+    filters: {
+      Product: ["Spark"],
+      "Education segment": ["English Language Learning"],
+      Role: ["Higher Ed Instructor", "K–12 Teacher"],
+    },
+    href: helpArticleHref("spark-present-lesson"),
+    keywords: ["spark", "dynamic lessons", "present lesson", "toolbar", "slides"],
+    updated: "Source date not available",
+  },
+  {
+    title: "Assign an In-Class Activity",
+    description:
+      "Start an in-class activity from a Spark Dynamic Lesson and monitor student performance in real time.",
+    facets: ["Spark", "Instructor", "Dynamic Lessons"],
+    filters: {
+      Product: ["Spark"],
+      "Education segment": ["English Language Learning"],
+      Role: ["Higher Ed Instructor", "K–12 Teacher"],
+    },
+    href: helpArticleHref("spark-in-class-activity"),
+    keywords: ["spark", "dynamic lessons", "in-class activity", "activity settings", "start activity"],
+    updated: "Source date not available",
+  },
+  {
     title: "LTI 1.3 LMS Course Management",
     description: "Create Spark courses, assignments, and tests within your institution's LTI 1.3 Learning Management System.",
     facets: ["Spark", "LMS Administrator", "LMS Integration"],

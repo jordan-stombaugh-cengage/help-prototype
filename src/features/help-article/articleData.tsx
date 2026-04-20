@@ -69,24 +69,20 @@ export type HelpArticleSection = {
   title: ReactNode;
 };
 
-export type HelpArticleGuideItem = {
-  children?: HelpArticleGuideItem[];
-  current?: boolean;
-  href?: string;
+export type HelpArticleFamilyItem = {
   label: string;
+  slug: HelpArticleSlug;
 };
 
-export type HelpArticleGuide = {
-  description?: ReactNode;
-  items: HelpArticleGuideItem[];
-  kicker?: string;
-  title: string;
+export type HelpArticleFamily = {
+  ariaLabel: string;
+  items: HelpArticleFamilyItem[];
 };
 
 export type HelpArticleDefinition = {
   appliesTo?: string;
   callout?: HelpArticleCallout;
-  guide?: HelpArticleGuide;
+  family?: HelpArticleFamily;
   helpArea: string;
   parentHref?: string;
   parentLabel: string;
@@ -118,107 +114,29 @@ function inlineHelpDomainLink(
   return <a href={helpDomainHref(helpDomain)}>{label}</a>;
 }
 
-function accountGuide(current: "sign-in" | "forgot-username" | "manage-account" | "wrong-account" | "reset-cengage-password"): HelpArticleGuide {
-  return {
-    kicker: "In this guide",
-    title: "Sign In & Account Help",
-    description: "Account access and recovery articles that belong to the same shared sign-in help set.",
-    items: [
-      { label: "Sign In", href: helpArticleHref("sign-in"), current: current === "sign-in" },
-      {
-        label: "Reset your Cengage password",
-        href: helpArticleHref("reset-cengage-password"),
-        current: current === "reset-cengage-password",
-      },
-      {
-        label: "Forgot username",
-        href: helpArticleHref("forgot-username"),
-        current: current === "forgot-username",
-      },
-      {
-        label: "Manage account",
-        href: helpArticleHref("manage-account"),
-        current: current === "manage-account",
-      },
-      {
-        label: "Wrong account",
-        href: helpArticleHref("wrong-account"),
-        current: current === "wrong-account",
-      },
-    ],
-  };
-}
-
-function sparkAccountGuide(current: "spark-sign-in" | "spark-manage-account" | "spark-join-course"): HelpArticleGuide {
-  return {
-    kicker: "In this guide",
-    title: "Spark student help",
-    description: "Spark account and course-entry articles that work together in the product help flow.",
-    items: [
-      {
-        label: "Sign in to Spark",
-        href: helpArticleHref("spark-sign-in"),
-        current: current === "spark-sign-in",
-      },
-      {
-        label: "Manage Account",
-        href: helpArticleHref("spark-manage-account"),
-        current: current === "spark-manage-account",
-      },
-      {
-        label: "Join a Spark course",
-        href: helpArticleHref("spark-join-course"),
-        current: current === "spark-join-course",
-      },
-    ],
-  };
-}
-
-function sparkAdminGuide(
-  current:
-    | "spark-create-course"
-    | "spark-manage-users"
-    | "spark-institutional-settings"
-    | "spark-lti-1-3-course-management"
-): HelpArticleGuide {
-  return {
-    kicker: "In this series",
-    title: "Spark admin help",
-    description: "Spark course, LMS, and institutional-management articles that belong to the same admin help structure.",
-    items: [
-      {
-        label: "Create a Spark Course",
-        href: helpArticleHref("spark-create-course"),
-        current: current === "spark-create-course",
-      },
-      {
-        label: "Manage Users",
-        href: helpArticleHref("spark-manage-users"),
-        current: current === "spark-manage-users",
-      },
-      {
-        label: "Edit Institutional Settings",
-        href: helpArticleHref("spark-institutional-settings"),
-        current: current === "spark-institutional-settings",
-      },
-      {
-        label: "LTI 1.3 LMS Course Management",
-        href: helpArticleHref("spark-lti-1-3-course-management"),
-        current: current === "spark-lti-1-3-course-management",
-      },
-    ],
-  };
-}
-
 const sparkHubHref = browseByProductHref("spark");
 const sparkPlatformHref = "https://learn.eltngl.com";
+const sparkDynamicLessonsVideoHref = "https://play.vidyard.com/tWJGsWXSRKrVRDavDYaiij";
+
+function sparkDynamicLessonsFamily(): HelpArticleFamily {
+  const items: HelpArticleFamilyItem[] = [
+    { label: "Dynamic Lessons", slug: "spark-dynamic-lessons" },
+    { label: "Customize a Lesson", slug: "spark-customize-lesson" },
+    { label: "Present a Lesson", slug: "spark-present-lesson" },
+    { label: "Assign an In-Class Activity", slug: "spark-in-class-activity" },
+  ];
+
+  return {
+    ariaLabel: "Spark Dynamic Lessons article family",
+    items,
+  };
+}
 
 export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefinition> = {
   "sign-in": {
     slug: "sign-in",
     title: "Sign In",
     summary: "Sign in to your Cengage account to access your course materials.",
-    guide: accountGuide("sign-in"),
     parentLabel: "Sign In & Account Help",
     parentHref: helpDomainHref("sign-in-account"),
     tags: ["MindTap", "Student", "Sign In & Account Help"],
@@ -361,7 +279,6 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     slug: "spark-sign-in",
     title: "Sign In",
     summary: "Sign in to Spark to access your English language courses.",
-    guide: sparkAccountGuide("spark-sign-in"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "Student", "Sign In & Account Help"],
@@ -443,7 +360,6 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     slug: "spark-join-course",
     title: "Join a Course",
     summary: "Enroll in a teacher-led Spark course with your existing account.",
-    guide: sparkAccountGuide("spark-join-course"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "Student", "Course Access & Enrollment"],
@@ -894,11 +810,410 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
       },
     ],
   },
+  "spark-dynamic-lessons": {
+    slug: "spark-dynamic-lessons",
+    title: "Dynamic Lessons",
+    summary: "Teach live lessons with Dynamic Lessons in Spark.",
+    family: sparkDynamicLessonsFamily(),
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "Instructor", "Dynamic Lessons"],
+    appliesTo: "Spark instructors",
+    product: "Spark",
+    helpArea: "Spark product help",
+    sections: [
+      {
+        title: "About Dynamic Lessons",
+        items: [
+          {
+            kind: "paragraph",
+            content:
+              "Dynamic Lessons is your National Geographic Learning program formatted into slides.",
+          },
+          {
+            kind: "paragraph",
+            content:
+              "Lessons include teaching tools such as audio, video, and interactive activities. You can use the pre-made lessons or create and customize your own.",
+          },
+        ],
+      },
+      {
+        title: "Video tutorial",
+        items: [
+          {
+            kind: "paragraph",
+            content: (
+              <>
+                Watch{" "}
+                {inlineExternalLink(
+                  sparkDynamicLessonsVideoHref,
+                  "Present and Customize Dynamic Lessons"
+                )}{" "}
+                for a walkthrough of presenting and customizing lessons in Spark.
+              </>
+            ),
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Dynamic Lessons articles",
+        links: [
+          { label: "Customize a Lesson", href: helpArticleHref("spark-customize-lesson") },
+          { label: "Present a Lesson", href: helpArticleHref("spark-present-lesson") },
+          {
+            label: "Assign an In-Class Activity",
+            href: helpArticleHref("spark-in-class-activity"),
+          },
+        ],
+      },
+      {
+        heading: "More Spark help",
+        links: [
+          { label: "Create a Spark course", href: helpArticleHref("spark-create-course") },
+          { label: "Spark", href: sparkHubHref },
+        ],
+      },
+    ],
+  },
+  "spark-customize-lesson": {
+    slug: "spark-customize-lesson",
+    title: "Customize a Lesson",
+    summary:
+      "Each lesson is made up of slides. You can present the Publisher Lesson as is, or customize it by adding, removing, or rearranging the slides in the order you like.",
+    family: sparkDynamicLessonsFamily(),
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "Instructor", "Dynamic Lessons"],
+    appliesTo: "Spark instructors",
+    product: "Spark",
+    helpArea: "Spark product help",
+    callout: {
+      title: "Note",
+      paragraphs: ["Not all programs have Dynamic Lessons."],
+    },
+    sections: [
+      {
+        title: "Customize a lesson",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              {
+                title:
+                  "In the Class Content tab, select your program from the program dropdown menu.",
+              },
+              {
+                title: "Select the unit you want from the dropdown menu.",
+              },
+              {
+                title: "Click the slides under Publisher Lessons.",
+                details: [
+                  "When you make your first edit to the Publisher Lessons, Spark asks you to create a name for your lesson.",
+                  "Both the original Publisher Lessons and your new customized lesson stay available in Class Content under My Lessons.",
+                  "Annotations made on slides do not save and are lost when you exit that slide.",
+                ],
+              },
+              {
+                title:
+                  "After customizing your lesson, click the back arrow next to the lesson name to return to Class Content, or click Present to present your lesson.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "Edit slides and sections",
+        items: [
+          {
+            kind: "definitions",
+            items: [
+              { term: "Preview the content of a slide", content: "Click the slide." },
+              {
+                term: "Rearrange the order of slides",
+                content:
+                  "Select the slide you want and move it to the position you want. You can move the slide within the current section or to a different section.",
+              },
+              { term: "Delete a section", content: "Click Delete section." },
+              {
+                term: "Hide, delete, or copy a specific slide",
+                content:
+                  "Open the slide actions menu and select the action you want. Deleted slides are removed from that lesson, and hidden slides stay available until you unhide them.",
+              },
+              {
+                term: "Hide, delete, or copy multiple slides",
+                content: (
+                  <ul className="help-article-body-list">
+                    <li>Click Bulk update.</li>
+                    <li>Select the slides you want to edit.</li>
+                    <li>Click Hide, Copy to, or Delete at the bottom of the page.</li>
+                  </ul>
+                ),
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Dynamic Lessons articles",
+        links: [
+          { label: "Dynamic Lessons", href: helpArticleHref("spark-dynamic-lessons") },
+          { label: "Present a Lesson", href: helpArticleHref("spark-present-lesson") },
+          {
+            label: "Assign an In-Class Activity",
+            href: helpArticleHref("spark-in-class-activity"),
+          },
+        ],
+      },
+      {
+        heading: "More Spark help",
+        links: [
+          { label: "Create a Spark course", href: helpArticleHref("spark-create-course") },
+          { label: "Spark", href: sparkHubHref },
+        ],
+      },
+    ],
+  },
+  "spark-present-lesson": {
+    slug: "spark-present-lesson",
+    title: "Present a Lesson",
+    summary: "Present a live pre-made Publisher Lesson or your customized lesson.",
+    family: sparkDynamicLessonsFamily(),
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "Instructor", "Dynamic Lessons"],
+    appliesTo: "Spark instructors",
+    product: "Spark",
+    helpArea: "Spark product help",
+    sections: [
+      {
+        title: "Present a lesson",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              {
+                title:
+                  "In the Class Content tab, select your program from the program dropdown menu.",
+              },
+              {
+                title: "Select the lesson you want.",
+                details: [
+                  "You can choose Publisher Lessons or My Lessons if you have created a custom lesson.",
+                ],
+              },
+              {
+                title: "Scroll to the section you want to present and click Present.",
+                details: ["Your lesson opens in full screen."],
+              },
+              {
+                title:
+                  "Use the toolbar on the right side of the screen to navigate and interact with the slides.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "Presentation tools",
+        description: "Tool availability can vary depending on the slide and activity.",
+        items: [
+          {
+            kind: "definitions",
+            items: [
+              { term: "Page navigation", content: "Go to the previous page or next page." },
+              { term: "Hide left column", content: "Hide the left column on the slide." },
+              { term: "Hide right column", content: "Hide the right column on the slide." },
+              {
+                term: "Expand",
+                content:
+                  "View the slide in full screen when you hide the left or right column.",
+              },
+              {
+                term: "Vertical hide and reveal",
+                content:
+                  "Hide and reveal the contents of the slide. You can drag the screen up and down the slide.",
+              },
+              {
+                term: "Show and hide slide elements",
+                content:
+                  "Show and hide different elements on the slide. When selected, use Hide next to an element to hide it or Unhide to show it again.",
+              },
+              {
+                term: "Hide free writing responses",
+                content: "Hide and unhide responses in free writing activities.",
+              },
+              {
+                term: "Hide speaking recorder",
+                content: (
+                  <ul className="help-article-body-list">
+                    <li>Hide and unhide the audio recorder.</li>
+                    <li>
+                      Some activities include a speaking recorder so you and your students can
+                      record answers to questions.
+                    </li>
+                    <li>You can record, play, and download recordings from the toolbar.</li>
+                  </ul>
+                ),
+              },
+              {
+                term: "Show and hide annotations",
+                content: "Show and hide annotations.",
+              },
+              {
+                term: "Annotation tools",
+                content: (
+                  <ul className="help-article-body-list">
+                    <li>Annotations made on slides do not save and are lost when you exit that slide.</li>
+                    <li>Select elements on the slide.</li>
+                    <li>Draw on the slide with different colors and sizes.</li>
+                    <li>Highlight slide text.</li>
+                    <li>Erase drawn or highlighted elements.</li>
+                    <li>
+                      Add lines or arrows with selectable color, thickness, and line style.
+                    </li>
+                    <li>Add shapes to the slide.</li>
+                    <li>
+                      Add notes with configurable font colors, bullets, and text highlighting.
+                    </li>
+                    <li>Undo the previous change.</li>
+                    <li>Redo the previous change.</li>
+                  </ul>
+                ),
+              },
+              { term: "Resize text", content: "Resize text." },
+              { term: "Timer", content: "Use the timer." },
+              {
+                term: "Show next answer",
+                content: "Show the next answer on exercise slides.",
+              },
+              {
+                term: "Show all answers",
+                content: "Show all answers on exercise slides.",
+              },
+              { term: "Check answers", content: "Check answers on exercise slides." },
+              { term: "Reset slide", content: "Reset exercise slides." },
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Dynamic Lessons articles",
+        links: [
+          { label: "Dynamic Lessons", href: helpArticleHref("spark-dynamic-lessons") },
+          { label: "Customize a Lesson", href: helpArticleHref("spark-customize-lesson") },
+          {
+            label: "Assign an In-Class Activity",
+            href: helpArticleHref("spark-in-class-activity"),
+          },
+        ],
+      },
+      {
+        heading: "More Spark help",
+        links: [
+          { label: "Create a Spark course", href: helpArticleHref("spark-create-course") },
+          { label: "Spark", href: sparkHubHref },
+        ],
+      },
+    ],
+  },
+  "spark-in-class-activity": {
+    slug: "spark-in-class-activity",
+    title: "Assign an In-Class Activity",
+    summary:
+      "Assign an in-class activity from a Dynamic Lesson and monitor student performance in real time.",
+    family: sparkDynamicLessonsFamily(),
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "Instructor", "Dynamic Lessons"],
+    appliesTo: "Spark instructors",
+    product: "Spark",
+    helpArea: "Spark product help",
+    sections: [
+      {
+        title: "Assign an in-class activity",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              {
+                title:
+                  "In the Class Content tab, select your program from the program dropdown menu.",
+              },
+              {
+                title: "Select the lesson you want.",
+                details: [
+                  "You can choose Publisher Lessons or My Lessons if you have created a custom lesson.",
+                ],
+              },
+              {
+                title:
+                  "If you know which activity you want to assign, scroll to that activity and click the slide.",
+                details: [
+                  "If you are presenting a lesson, assignable activities show the in-class activity icon in the toolbar.",
+                  "Click the in-class activity icon to launch the activity.",
+                ],
+              },
+              {
+                title:
+                  "From the Course selection dropdown menu, select the course you want to assign from.",
+              },
+              {
+                title:
+                  "Click Student selection and choose all students or the individual students you want to assign.",
+              },
+              {
+                title:
+                  "Under Activity Settings, select whether you want to save the activity in the gradebook.",
+              },
+              {
+                title: "Click Start Activity.",
+                details: ["Students are prompted to start the activity in Spark."],
+              },
+              {
+                title:
+                  "An in-progress report page opens in a new tab so you can monitor student performance in real time.",
+              },
+              {
+                title:
+                  "Optional: If a student requests help during the assignment, the request appears in the student's status column.",
+              },
+              {
+                title:
+                  "To end the activity, click End Activity at the bottom of the in-progress report page.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Dynamic Lessons articles",
+        links: [
+          { label: "Dynamic Lessons", href: helpArticleHref("spark-dynamic-lessons") },
+          { label: "Customize a Lesson", href: helpArticleHref("spark-customize-lesson") },
+          { label: "Present a Lesson", href: helpArticleHref("spark-present-lesson") },
+        ],
+      },
+      {
+        heading: "More Spark help",
+        links: [
+          { label: "Create a Spark course", href: helpArticleHref("spark-create-course") },
+          { label: "Spark", href: sparkHubHref },
+        ],
+      },
+    ],
+  },
   "spark-create-course": {
     slug: "spark-create-course",
     title: "Create a Spark Course",
     summary: "Create your course in Spark.",
-    guide: sparkAdminGuide("spark-create-course"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "Instructor", "Spark product help"],
@@ -984,7 +1299,6 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     title: "LTI 1.3 LMS Course Management",
     summary:
       "Create Spark courses, assignments, and tests within your institution's LTI 1.3 Learning Management System.",
-    guide: sparkAdminGuide("spark-lti-1-3-course-management"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "LMS Administrator", "Spark product help"],
@@ -1028,7 +1342,6 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     title: "Manage Users",
     summary:
       "Add, upload, remove, and edit students, instructors, and administrators in a course.",
-    guide: sparkAdminGuide("spark-manage-users"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "Institutional Administrator", "Spark product help"],
@@ -1079,7 +1392,6 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     title: "Edit Institutional Settings",
     summary:
       "Control school-wide Spark settings such as messaging, course creation, user management, and grade export permissions.",
-    guide: sparkAdminGuide("spark-institutional-settings"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "Institutional Administrator", "Spark product help"],
@@ -1139,7 +1451,6 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     slug: "manage-account",
     title: "Manage account",
     summary: "Update your profile information, email address, password, and other account details.",
-    guide: accountGuide("manage-account"),
     parentLabel: "Sign In & Account Help",
     parentHref: helpDomainHref("sign-in-account"),
     tags: ["Student", "Instructor", "Sign In & Account Help"],
@@ -1187,12 +1498,12 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     title: "Reset your Cengage password",
     summary:
       "Use the Cengage sign-in page to request a password-reset link when you sign in directly with a Cengage account.",
-    guide: accountGuide("reset-cengage-password"),
     parentLabel: "Sign In & Account Help",
     parentHref: helpDomainHref("sign-in-account"),
     tags: ["Student", "Instructor", "Sign In & Account Help"],
-    appliesTo: "Students and instructors who sign in with a Cengage account",
-    product: "MindTap, WebAssign, SAM, and Spark",
+    appliesTo:
+      "Students and instructors who sign in directly with a Cengage account for MindTap, WebAssign, or SAM",
+    product: "MindTap, WebAssign, and SAM",
     helpArea: "Sign In & Account Help",
     sections: [
       {
@@ -1252,7 +1563,6 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     title: "Manage Account",
     summary:
       "Change your Spark name, password, email address, and preferred language from your profile.",
-    guide: sparkAccountGuide("spark-manage-account"),
     parentLabel: "Spark",
     parentHref: sparkHubHref,
     tags: ["Spark", "Student", "Sign In & Account Help"],
@@ -1488,12 +1798,12 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     slug: "forgot-username",
     title: "Forgot username",
     summary: "Your username is the email address associated with your Cengage account.",
-    guide: accountGuide("forgot-username"),
     parentLabel: "Sign In & Account Help",
     parentHref: helpDomainHref("sign-in-account"),
     tags: ["Student", "Instructor", "Sign In & Account Help"],
-    appliesTo: "Students and instructors using a Cengage account",
-    product: "MindTap, WebAssign, SAM, and Spark",
+    appliesTo:
+      "Students and instructors who use a Cengage account for MindTap, WebAssign, or SAM",
+    product: "MindTap, WebAssign, and SAM",
     helpArea: "Sign In & Account Help",
     callout: {
       title: "If you use NGLSync",
@@ -1539,12 +1849,12 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
     title: "Wrong account",
     summary:
       "When you purchase access and sign in, you see a message that you have not purchased access yet.",
-    guide: accountGuide("wrong-account"),
     parentLabel: "Sign In & Account Help",
     parentHref: helpDomainHref("sign-in-account"),
     tags: ["Student", "Sign In & Account Help", "Purchase & Access"],
-    appliesTo: "Students with purchased course access",
-    product: "MindTap, WebAssign, SAM, and Spark",
+    appliesTo:
+      "Students with purchased MindTap, WebAssign, or SAM course access tied to a Cengage account",
+    product: "MindTap, WebAssign, and SAM",
     helpArea: "Sign In & Account Help",
     sections: [
       {

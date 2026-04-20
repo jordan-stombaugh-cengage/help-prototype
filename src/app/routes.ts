@@ -59,6 +59,10 @@ export type HelpArticleSlug =
   | "spark-assignments"
   | "spark-view-your-grades"
   | "spark-system-requirements"
+  | "spark-dynamic-lessons"
+  | "spark-customize-lesson"
+  | "spark-present-lesson"
+  | "spark-in-class-activity"
   | "spark-create-course"
   | "spark-lti-1-3-course-management"
   | "spark-manage-users"
@@ -484,6 +488,10 @@ export function getHelpArticleSlugFromHash(
     case "spark-assignments":
     case "spark-view-your-grades":
     case "spark-system-requirements":
+    case "spark-dynamic-lessons":
+    case "spark-customize-lesson":
+    case "spark-present-lesson":
+    case "spark-in-class-activity":
     case "spark-create-course":
     case "spark-lti-1-3-course-management":
     case "spark-manage-users":

@@ -37,24 +37,20 @@ const nextStepOptions = [
     title: "Forgot password",
     description: "Browse all password reset help articles",
     href: resetPasswordHref(),
-    iconKind: "account",
   },
   {
     title: "LMS / school sign-in help",
     description: "Get help signing in through your school",
     href: resetPasswordHref("school-nglsync"),
-    iconKind: "lms",
   },
   {
     title: "I can't access my account",
     description: "Get help with account access problems",
-    iconKind: "alert",
   },
   {
     title: "See support options",
     description: "Get help from our support team",
     href: contactSupportHref(),
-    iconKind: "support",
   },
 ] as const;
 
@@ -170,55 +166,6 @@ function SchoolPortalIcon() {
   );
 }
 
-function AlertIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 16.5h.01"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-      />
-      <path
-        d="M12 8.5v4.75"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-      />
-      <path
-        d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Z"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-      />
-    </svg>
-  );
-}
-
-function SupportIcon() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <path
-        d="M12 20c4.42 0 8-3.13 8-7s-3.58-7-8-7-8 3.13-8 7c0 1.95.92 3.75 2.48 5.15L6 20l2.18-.75A9.15 9.15 0 0 0 12 20Z"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-      />
-      <path
-        d="M9.25 12h.01M12 12h.01M14.75 12h.01"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="2"
-      />
-    </svg>
-  );
-}
-
 function BackArrowIcon() {
   return (
     <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
@@ -247,13 +194,11 @@ function ForwardArrowIcon() {
   );
 }
 
-function NotSureIconTile({ kind }: { kind: (typeof identificationRows)[number]["iconKind"] | (typeof nextStepOptions)[number]["iconKind"] }) {
+function NotSureIconTile({ kind }: { kind: (typeof identificationRows)[number]["iconKind"] }) {
   const iconMap = {
     account: <AccountIcon />,
     lms: <LmsIcon />,
     school: <SchoolPortalIcon />,
-    alert: <AlertIcon />,
-    support: <SupportIcon />,
   } as const;
 
   return <div className={`reset-not-sure-icon-tile reset-not-sure-icon-tile--${kind}`}>{iconMap[kind]}</div>;
@@ -262,18 +207,14 @@ function NotSureIconTile({ kind }: { kind: (typeof identificationRows)[number]["
 function ResetNotSureOptionCard({
   description,
   href,
-  iconKind,
   title,
 }: {
   description: string;
   href?: string;
-  iconKind: (typeof nextStepOptions)[number]["iconKind"];
   title: string;
 }) {
   return (
     <OptionalLink className="reset-not-sure-option-card" href={href} staticAs="div">
-      <NotSureIconTile kind={iconKind} />
-
       <div className="reset-not-sure-option-copy">
         <h3>{title}</h3>
         <p>{description}</p>

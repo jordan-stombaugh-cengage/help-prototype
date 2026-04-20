@@ -1,7 +1,6 @@
 import type { ReactNode } from "react";
 import {
   accessCodeChooserHref,
-  browseByProductHref,
   contactSupportHref,
   courseAccessHelpHref,
   courseKeyChooserHref,
@@ -11,10 +10,10 @@ import {
   joinEnrollChooserHref,
   lmsAccessChooserHref,
   lmsLinkChooserHref,
-  manageAccountChooserHref,
   purchasedAccessChooserHref,
   resetPasswordHref,
   signInAccountHref,
+  wrongAccountChooserHref,
   wrongCourseChooserHref,
 } from "../../app/routes";
 import {
@@ -49,112 +48,13 @@ type RelationshipChooserPageProps = {
   title: string;
 };
 
-function RelationshipChooserOptionIcon({ kind }: { kind: ChooserOptionIconKind }) {
-  if (kind === "account") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <circle cx="12" cy="8" r="3.2" stroke="currentColor" strokeWidth="1.8" />
-        <path
-          d="M6.8 18c0-2.8 2.4-5 5.2-5s5.2 2.2 5.2 5"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1.8"
-        />
-      </svg>
-    );
-  }
-
-  if (kind === "article") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <rect
-          x="5"
-          y="4.5"
-          width="14"
-          height="15"
-          rx="2"
-          stroke="currentColor"
-          strokeWidth="1.8"
-        />
-        <path
-          d="M8.5 9h7M8.5 12h7M8.5 15h4.5"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeWidth="1.8"
-        />
-      </svg>
-    );
-  }
-
-  if (kind === "lms") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="m4.5 8 7.5-3.5L19.5 8 12 11.5 4.5 8Z"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1.8"
-        />
-        <path
-          d="M7 10.25v4.4L12 17l5-2.35v-4.4"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1.8"
-        />
-      </svg>
-    );
-  }
-
-  if (kind === "product") {
-    return (
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path
-          d="M12 4.5 18.5 8v8L12 19.5 5.5 16V8L12 4.5Z"
-          stroke="currentColor"
-          strokeLinejoin="round"
-          strokeWidth="1.8"
-        />
-        <path
-          d="M12 12.1 5.5 8M12 12.1 18.5 8M12 12.1V19.4"
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1.8"
-        />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="8.25" stroke="currentColor" strokeWidth="1.8" />
-      <path
-        d="M9.75 9.45a2.28 2.28 0 0 1 4.5.35c0 1.45-1.48 2.03-2.22 2.65-.48.4-.78.82-.78 1.55"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-      />
-      <circle cx="12" cy="17.2" r="1" fill="currentColor" />
-    </svg>
-  );
-}
-
 function RelationshipChooserOptionCard({
   description,
   href,
-  iconKind,
   title,
 }: ChooserOption) {
   return (
     <OptionalLink className="reset-chooser-card" href={href} staticAs="div" staticClassName="is-static">
-      <div className={`reset-chooser-card-icon reset-chooser-card-icon--${iconKind}`}>
-        <RelationshipChooserOptionIcon kind={iconKind} />
-      </div>
-
       <div className="reset-chooser-card-copy">
         <h3>{title}</h3>
         <p>{description}</p>
@@ -297,14 +197,14 @@ const wrongAccountOptions: ChooserOption[] = [
   },
   {
     title: "I usually access Cengage through my LMS or school portal",
-    description: "Go back to the shared account hub when the next step depends on your LMS or school-managed sign-in method.",
-    href: signInAccountHref(),
+    description:
+      "A dedicated LMS- or school-managed wrong-account path is not in the prototype yet.",
     iconKind: "lms",
   },
   {
     title: "I'm not sure",
-    description: "Start from the shared Sign In & Account Help hub and choose the account pathway that matches your sign-in method.",
-    href: signInAccountHref(),
+    description:
+      "The prototype does not yet include a more specific not-sure path for this account issue.",
     iconKind: "unsure",
   },
 ];
@@ -324,14 +224,14 @@ const manageAccountOptions: ChooserOption[] = [
   },
   {
     title: "I sign in through my school or LMS",
-    description: "Start from shared sign-in help when account access depends on your LMS, school portal, or school-managed credentials.",
-    href: signInAccountHref(),
+    description:
+      "A school- or LMS-managed account-management destination is not in the prototype yet.",
     iconKind: "lms",
   },
   {
     title: "I'm not sure which account I use",
-    description: "Go back to the shared Sign In & Account Help hub if you need to identify the right account path first.",
-    href: signInAccountHref(),
+    description:
+      "The prototype does not yet include a more specific not-sure path for this account-management case.",
     iconKind: "unsure",
   },
 ];
@@ -339,33 +239,33 @@ const manageAccountOptions: ChooserOption[] = [
 const accessCodeOptions: ChooserOption[] = [
   {
     title: "MindTap",
-    description: "Use MindTap help when your access code unlocks a MindTap course or eBook.",
-    href: browseByProductHref("mindtap"),
+    description:
+      "A direct MindTap access-code destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "WebAssign",
-    description: "Use WebAssign help when your code is for WebAssign homework or class access.",
-    href: browseByProductHref("webassign"),
+    description:
+      "A direct WebAssign access-code destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "SAM",
-    description: "Use SAM help when your access code is for SAM coursework or section access.",
-    href: browseByProductHref("sam"),
+    description:
+      "A direct SAM access-code destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "Spark",
     description:
-      "Use Spark help when you are joining a Spark course or self-study experience instead of a higher-ed access-code flow.",
-    href: browseByProductHref("spark"),
+      "Use Spark join-course help when your code is tied to a Spark class or self-study experience.",
+    href: helpArticleHref("spark-join-course"),
     iconKind: "product",
   },
   {
     title: "I'm not sure",
-    description: "Go back to the shared Course Access & Enrollment hub if you need broader access help first.",
-    href: courseAccessHubHref,
+    description:
+      "The prototype does not yet include a more specific next step for an unsure access-code case.",
     iconKind: "unsure",
   },
 ];
@@ -373,33 +273,33 @@ const accessCodeOptions: ChooserOption[] = [
 const courseKeyOptions: ChooserOption[] = [
   {
     title: "MindTap",
-    description: "Use MindTap help when you need the next step for a MindTap course key.",
-    href: browseByProductHref("mindtap"),
+    description:
+      "A direct MindTap course-key destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "WebAssign",
-    description: "Use WebAssign help when your class key or enrollment key is for WebAssign.",
-    href: browseByProductHref("webassign"),
+    description:
+      "A direct WebAssign course-key destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "SAM",
-    description: "Use SAM help when your key or section code belongs to a SAM course.",
-    href: browseByProductHref("sam"),
+    description:
+      "A direct SAM course-key destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "Spark",
     description:
-      "Use Spark help when your course key is for a Spark self-study or teacher-led course experience.",
-    href: browseByProductHref("spark"),
+      "Use Spark join-course help when you already have a Spark course key.",
+    href: helpArticleHref("spark-join-course"),
     iconKind: "product",
   },
   {
     title: "I'm not sure",
-    description: "Go back to the shared Course Access & Enrollment hub if you need a broader access path.",
-    href: courseAccessHubHref,
+    description:
+      "The prototype does not yet include a more specific next step for an unsure course-key case.",
     iconKind: "unsure",
   },
 ];
@@ -431,8 +331,8 @@ const joinEnrollOptions: ChooserOption[] = [
   },
   {
     title: "I'm not sure",
-    description: "Go back to the shared Course Access & Enrollment hub if you need the broader access picture first.",
-    href: courseAccessHubHref,
+    description:
+      "The prototype does not yet include a more specific next step for an unsure enrollment case.",
     iconKind: "unsure",
   },
 ];
@@ -447,14 +347,13 @@ const lmsLinkOptions: ChooserOption[] = [
   {
     title: "Spark",
     description:
-      "Go to Spark product help when the broken LMS link depends on Spark course setup, assignments, or school-managed access.",
-    href: browseByProductHref("spark"),
+      "A Spark-specific broken LMS-link destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "I'm not sure which product the LMS link opens",
-    description: "Start from the shared troubleshooting hub if you need to identify the product or troubleshoot more broadly first.",
-    href: helpDomainHref("troubleshooting-common-problems"),
+    description:
+      "The prototype does not yet include a more specific not-sure path for this LMS-link case.",
     iconKind: "unsure",
   },
 ];
@@ -477,15 +376,13 @@ const lmsAccessOptions: ChooserOption[] = [
   {
     title: "I need Spark course access from my LMS or school platform",
     description:
-      "Go to Spark product help when access depends on Spark course setup, school-managed access, or ELT workflows.",
-    href: browseByProductHref("spark"),
+      "A direct Spark LMS-access destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "I'm not sure",
     description:
-      "Go back to the shared Course Access & Enrollment hub if you need to identify the right access path first.",
-    href: courseAccessHubHref,
+      "The prototype does not yet include a more specific not-sure path for this LMS-access case.",
     iconKind: "unsure",
   },
 ];
@@ -500,7 +397,7 @@ const purchasedAccessOptions: ChooserOption[] = [
   {
     title: "I may have used the wrong account",
     description: "Use account-routing help when purchased access is attached to a different sign-in account.",
-    href: manageAccountChooserHref(),
+    href: wrongAccountChooserHref(),
     iconKind: "account",
   },
   {
@@ -538,8 +435,8 @@ const wrongCourseOptions: ChooserOption[] = [
   },
   {
     title: "I'm not sure",
-    description: "Go back to the shared Course Access & Enrollment hub if you need the broader access path first.",
-    href: courseAccessHubHref,
+    description:
+      "The prototype does not yet include a more specific not-sure path for this course-availability case.",
     iconKind: "unsure",
   },
 ];
@@ -547,33 +444,32 @@ const wrongCourseOptions: ChooserOption[] = [
 const missingActivitiesOptions: ChooserOption[] = [
   {
     title: "MindTap",
-    description: "Use MindTap product help when the missing work depends on the MindTap course experience.",
-    href: browseByProductHref("mindtap"),
+    description:
+      "A MindTap missing-activities destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "WebAssign",
-    description: "Use WebAssign product help when assignments are missing in a WebAssign class.",
-    href: browseByProductHref("webassign"),
+    description:
+      "A WebAssign missing-assignments destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "SAM",
-    description: "Use SAM product help when the missing work depends on SAM assignments or sections.",
-    href: browseByProductHref("sam"),
+    description:
+      "A SAM missing-assignments destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "Spark",
     description:
-      "Use Spark product help when the missing activities depend on the Spark course experience.",
-    href: browseByProductHref("spark"),
+      "A Spark missing-activities destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "I'm not sure",
-    description: "Return to the shared troubleshooting hub if you need to identify the product before choosing the next step.",
-    href: helpDomainHref("troubleshooting-common-problems"),
+    description:
+      "The prototype does not yet include a more specific not-sure path for missing activities.",
     iconKind: "unsure",
   },
 ];
@@ -581,32 +477,32 @@ const missingActivitiesOptions: ChooserOption[] = [
 const missingContentOptions: ChooserOption[] = [
   {
     title: "MindTap",
-    description: "Use MindTap help when readings, resources, or course materials are missing in MindTap.",
-    href: browseByProductHref("mindtap"),
+    description:
+      "A MindTap missing-content destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "WebAssign",
-    description: "Use WebAssign help when textbook content or course materials are missing in WebAssign.",
-    href: browseByProductHref("webassign"),
+    description:
+      "A WebAssign missing-content destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "SAM",
-    description: "Use SAM help when project files, readings, or course materials are missing in SAM.",
-    href: browseByProductHref("sam"),
+    description:
+      "A SAM missing-content destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "Spark",
-    description: "Use Spark help when eBooks, media, or course materials are missing in Spark.",
-    href: browseByProductHref("spark"),
+    description:
+      "A Spark missing-content destination is not in the prototype yet.",
     iconKind: "product",
   },
   {
     title: "I'm not sure",
-    description: "Return to the shared troubleshooting hub if you need broader troubleshooting help first.",
-    href: helpDomainHref("troubleshooting-common-problems"),
+    description:
+      "The prototype does not yet include a more specific not-sure path for missing content.",
     iconKind: "unsure",
   },
 ];
@@ -638,8 +534,8 @@ const errorSyncOptions: ChooserOption[] = [
   },
   {
     title: "I'm not sure",
-    description: "Go back to the shared troubleshooting hub if you need broader troubleshooting help before choosing a more specific path.",
-    href: helpDomainHref("troubleshooting-common-problems"),
+    description:
+      "The prototype does not yet include a more specific not-sure path for this sync or integration issue.",
     iconKind: "unsure",
   },
 ];

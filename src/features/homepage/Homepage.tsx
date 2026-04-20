@@ -21,6 +21,10 @@ import {
   OptionalLink,
   SectionHeader,
 } from "../../components/prototype/Primitives";
+import sparkLogo from "../../assets/NGL_ELT_Spark_Final_Logo_Black_Yellow-01.svg";
+import mindTapLogo from "../../../logos/cengage-mindtap-stacked-digital-rgb.png";
+import samLogo from "../../../logos/cengage-sam-stacked-digital-rgb.png";
+import webAssignLogo from "../../../logos/cengage-webassign-stacked-digital-rgb.png";
 
 type HelpDomainIconKind = "account" | "access" | "troubleshooting";
 
@@ -133,23 +137,27 @@ const roleFacets = [
 const products = [
   {
     name: "MindTap",
-    description: "Sign-in, assignments, and troubleshooting help.",
     href: browseByProductHref("mindtap"),
+    logoClassName: "homepage-product-logo--mindtap",
+    logoSrc: mindTapLogo,
   },
   {
     name: "WebAssign",
-    description: "Course access, homework, and LMS help.",
     href: browseByProductHref("webassign"),
+    logoClassName: "homepage-product-logo--webassign",
+    logoSrc: webAssignLogo,
   },
   {
     name: "SAM",
-    description: "Setup, grading, and support resources.",
     href: browseByProductHref("sam"),
+    logoClassName: "homepage-product-logo--sam",
+    logoSrc: samLogo,
   },
   {
     name: "Spark",
-    description: "ELT help, access support, and common tasks.",
     href: browseByProductHref("spark"),
+    logoClassName: "homepage-product-logo--spark",
+    logoSrc: sparkLogo,
   },
 ] as const;
 
@@ -209,18 +217,22 @@ function HelpDomainIcon({ kind }: { kind: HelpDomainIconKind }) {
 }
 
 function HomepageProductCard({
-  description,
   href,
+  logoClassName,
+  logoSrc,
   name,
 }: {
-  description: string;
   href?: string;
+  logoClassName?: string;
+  logoSrc: string;
   name: string;
 }) {
   const content = (
     <>
+      <span className="homepage-product-brand" aria-hidden="true">
+        <img className={`homepage-product-logo ${logoClassName ?? ""}`.trim()} src={logoSrc} alt="" />
+      </span>
       <span className="homepage-product-name">{name}</span>
-      <span className="homepage-product-copy">{description}</span>
     </>
   );
 
@@ -355,9 +367,10 @@ export function Homepage() {
             <div className="homepage-product-grid">
               {products.map((product) => (
                 <HomepageProductCard
-                  description={product.description}
                   href={product.href}
                   key={product.name}
+                  logoClassName={product.logoClassName}
+                  logoSrc={product.logoSrc}
                   name={product.name}
                 />
               ))}

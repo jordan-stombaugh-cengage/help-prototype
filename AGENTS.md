@@ -24,7 +24,7 @@ Do not copy legacy architecture directly from the clone repos.
 - Search results are article-first
 - Product hubs are canonical and role-aware
 - Reset-password is a routing flow, not a flat article
-- Direct Cengage account password reset should hand off externally
+- Direct Cengage account password reset should route to the shared internal reset article
 - Follow `docs/routing-matrix.md` and `docs/open-routing-decisions.md` for destination rules, including when unresolved destinations must stay non-interactive
 
 ## MVP Constraints

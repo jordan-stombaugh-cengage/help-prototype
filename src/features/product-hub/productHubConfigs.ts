@@ -1,9 +1,9 @@
 import {
+  courseKeyChooserHref,
   errorSyncChooserHref,
   helpArticleHref,
   helpDomainHref,
   lmsAccessChooserHref,
-  missingContentChooserHref,
   signInAccountHref,
   wrongAccountChooserHref,
 } from "../../app/routes";
@@ -91,7 +91,7 @@ export const mindTapProductHubConfig = {
       problemsHeading: "Common problems for students",
       tasks: [
         { label: "Sign in to MindTap", href: helpArticleHref("sign-in") },
-        { label: "Register with a course key", href: helpDomainHref("course-access-enrollment") },
+        { label: "Register with a course key", href: courseKeyChooserHref() },
         { label: "Complete activities" },
         { label: "Access your eBook" },
         { label: "View your grades" },
@@ -162,7 +162,7 @@ export const mindTapProductHubConfig = {
           links: [
             { label: "Browser issues", href: helpArticleHref("browser-requirements") },
             { label: "Login problems", href: signInAccountHref() },
-            { label: "Missing content", href: missingContentChooserHref() },
+            { label: "Missing content" },
             { label: "Error messages", href: errorSyncChooserHref() },
           ],
         },
@@ -244,7 +244,7 @@ export const mindTapProductHubConfig = {
           links: [
             { label: "Browser issues", href: helpArticleHref("browser-requirements") },
             { label: "Login problems", href: signInAccountHref() },
-            { label: "Missing content", href: missingContentChooserHref() },
+            { label: "Missing content" },
             { label: "Error messages", href: errorSyncChooserHref() },
           ],
         },
@@ -370,7 +370,7 @@ export const webAssignProductHubConfig = {
       problemsHeading: "Common problems for students",
       tasks: [
         { label: "Sign in to WebAssign", href: signInAccountHref() },
-        { label: "Enroll with a class key", href: helpDomainHref("course-access-enrollment") },
+        { label: "Enroll with a class key", href: courseKeyChooserHref() },
         { label: "Open assignments" },
         { label: "Submit answers" },
         { label: "Access your eBook" },
@@ -378,7 +378,7 @@ export const webAssignProductHubConfig = {
       ],
       problems: [
         { label: "Can't sign in", href: signInAccountHref() },
-        { label: "Can't enroll with a class key", href: helpDomainHref("course-access-enrollment") },
+        { label: "Can't enroll with a class key", href: courseKeyChooserHref() },
         { label: "LMS link not working", href: helpArticleHref("lms-link-not-working") },
         { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
         {
@@ -1013,7 +1013,7 @@ export const sparkProductHubConfig = {
         { label: "Sign in to Spark", href: signInAccountHref() },
         { label: "Create a course", href: helpArticleHref("spark-create-course") },
         { label: "Create assignments" },
-        { label: "Use the Classroom Presentation Tool" },
+        { label: "Use Dynamic Lessons", href: helpArticleHref("spark-dynamic-lessons") },
         { label: "Manage students", href: helpArticleHref("spark-manage-users") },
         { label: "View gradebook data" },
       ],
@@ -1033,7 +1033,7 @@ export const sparkProductHubConfig = {
             { label: "Getting started" },
             { label: "Teacher dashboard" },
             { label: "Platform languages" },
-            { label: "Course home" },
+            { label: "Dynamic Lessons", href: helpArticleHref("spark-dynamic-lessons") },
           ],
         },
         {
@@ -1083,7 +1083,7 @@ export const sparkProductHubConfig = {
             { label: "Account issues", href: signInAccountHref() },
             { label: "Students can't see assignments" },
             { label: "LMS integration issues", href: helpArticleHref("spark-lti-1-3-course-management") },
-            { label: "Missing content", href: missingContentChooserHref() },
+            { label: "Missing content" },
           ],
         },
       ],

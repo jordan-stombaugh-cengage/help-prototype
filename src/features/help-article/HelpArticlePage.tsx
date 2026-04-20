@@ -1,7 +1,19 @@
-import { useState } from "react";
+import {
+  ButtonColor,
+  ButtonTextTransform,
+  ButtonVariant,
+  Tab,
+  Tabs,
+  TabsAlignment,
+  TabsBorderPosition,
+  TabsContainer,
+  TabsTextTransform,
+} from "react-magma-dom";
 import {
   getHelpArticleSlugFromHash,
+  helpArticleHref,
   homepageHref,
+  type HelpArticleSlug,
 } from "../../app/routes";
 import {
   ContentContainer,
@@ -9,9 +21,10 @@ import {
   OptionalLink,
   RailCard,
 } from "../../components/prototype/Primitives";
+import { Button } from "../../components/Button";
 import {
   getHelpArticleDefinition,
-  type HelpArticleGuideItem,
+  type HelpArticleFamily,
   type HelpArticleSectionItem,
 } from "./articleData";
 
@@ -88,73 +101,102 @@ function HelpArticleUtilityLink({
   return <OptionalLink href={href}>{label}</OptionalLink>;
 }
 
-function guideContainsCurrent(item: HelpArticleGuideItem): boolean {
-  if (item.current) {
-    return true;
-  }
+function HelpArticleFamilyTabs({
+  family,
+  slug,
+}: {
+  family: HelpArticleFamily;
+  slug: HelpArticleSlug;
+}) {
+  const activeIndex = Math.max(
+    family.items.findIndex((item) => item.slug === slug),
+    0
+  );
 
-  return item.children?.some(guideContainsCurrent) ?? false;
+  return (
+    <section className="help-article-family-nav" aria-label={family.ariaLabel}>
+      <TabsContainer activeIndex={activeIndex}>
+        <Tabs
+          alignment={TabsAlignment.left}
+          aria-label={family.ariaLabel}
+          borderPosition={TabsBorderPosition.bottom}
+          onChange={(newActiveIndex) => {
+            const nextArticle = family.items[newActiveIndex];
+
+            if (nextArticle) {
+              window.location.hash = helpArticleHref(nextArticle.slug);
+            }
+          }}
+          textTransform={TabsTextTransform.none}
+        >
+          {family.items.map((item) => (
+            <Tab key={item.slug}>{item.label}</Tab>
+          ))}
+        </Tabs>
+      </TabsContainer>
+    </section>
+  );
 }
 
-function HelpArticleTreeItem({
-  item,
-  level = 0,
+function getHelpArticleFamilyNeighbors(
+  family: HelpArticleFamily,
+  slug: HelpArticleSlug
+) {
+  const activeIndex = family.items.findIndex((item) => item.slug === slug);
+
+  if (activeIndex === -1) {
+    return {};
+  }
+
+  return {
+    next: family.items[activeIndex + 1],
+    previous: family.items[activeIndex - 1],
+  };
+}
+
+function HelpArticleFamilyPagination({
+  family,
+  slug,
 }: {
-  item: HelpArticleGuideItem;
-  level?: number;
+  family: HelpArticleFamily;
+  slug: HelpArticleSlug;
 }) {
-  const hasChildren = Boolean(item.children?.length);
-  const [expanded, setExpanded] = useState(() => guideContainsCurrent(item));
+  const { previous, next } = getHelpArticleFamilyNeighbors(family, slug);
 
-  if (hasChildren) {
-    return (
-      <li className="help-article-tree-item help-article-tree-item--group">
-        <button
-          type="button"
-          className="help-article-tree-toggle"
-          aria-expanded={expanded}
-          onClick={() => {
-            setExpanded((current) => !current);
-          }}
-        >
-          <span className="help-article-tree-toggle-icon" aria-hidden="true">
-            <ChevronRightIcon />
-          </span>
-          <span className="help-article-tree-link-label">{item.label}</span>
-        </button>
-
-        {expanded ? (
-          <ul className="help-article-tree-list help-article-tree-list--nested">
-            {item.children?.map((child) => (
-              <HelpArticleTreeItem
-                key={`${level + 1}-${child.label}`}
-                item={child}
-                level={level + 1}
-              />
-            ))}
-          </ul>
-        ) : null}
-      </li>
-    );
+  if (!previous && !next) {
+    return null;
   }
 
   return (
-    <li className="help-article-tree-item">
-      {item.current ? (
-        <span className="help-article-tree-link is-current" aria-current="page">
-          <span className="help-article-tree-link-label">{item.label}</span>
-          <span className="help-article-tree-link-state">Current page</span>
-        </span>
-      ) : item.href ? (
-        <a className="help-article-tree-link" href={item.href}>
-          <span className="help-article-tree-link-label">{item.label}</span>
-        </a>
-      ) : (
-        <span className="help-article-tree-link is-static">
-          <span className="help-article-tree-link-label">{item.label}</span>
-        </span>
-      )}
-    </li>
+    <nav className="help-article-family-pagination" aria-label="Related article sequence">
+      <div className="help-article-family-pagination-actions">
+        {previous ? (
+          <Button
+            color={ButtonColor.subtle}
+            onClick={() => {
+              window.location.hash = helpArticleHref(previous.slug);
+            }}
+            textTransform={ButtonTextTransform.none}
+            variant={ButtonVariant.solid}
+          >
+            Previous: {previous.label}
+          </Button>
+        ) : null}
+
+        {next ? (
+          <Button
+            className="help-article-family-pagination-next"
+            onClick={() => {
+              window.location.hash = helpArticleHref(next.slug);
+            }}
+            textTransform={ButtonTextTransform.none}
+            variant={ButtonVariant.solid}
+          >
+            Next: {next.label}
+          </Button>
+        ) : null}
+      </div>
+    </nav>
   );
 }
 
@@ -319,30 +361,12 @@ export function HelpArticlePage() {
       </section>
 
       <section className="help-article-layout">
-        <ContentContainer
-          className={`help-article-shell help-article-grid${article.guide ? " help-article-grid--with-nav" : ""}`}
-        >
-          {article.guide ? (
-            <nav className="help-article-tree" aria-labelledby="help-article-tree-title">
-              <div className="help-article-tree-header">
-                {article.guide.kicker ? (
-                  <p className="help-article-tree-kicker">{article.guide.kicker}</p>
-                ) : null}
-                <h2 id="help-article-tree-title">{article.guide.title}</h2>
-                {article.guide.description ? (
-                  <p className="help-article-tree-description">{article.guide.description}</p>
-                ) : null}
-              </div>
-
-              <ul className="help-article-tree-list">
-                {article.guide.items.map((item) => (
-                  <HelpArticleTreeItem key={item.label} item={item} />
-                ))}
-              </ul>
-            </nav>
-          ) : null}
-
+        <ContentContainer className="help-article-shell help-article-grid">
           <article className="help-article-main">
+            {article.family ? (
+              <HelpArticleFamilyTabs family={article.family} slug={article.slug} />
+            ) : null}
+
             {article.callout ? (
               <section className="help-article-callout" aria-labelledby="article-callout-title">
                 <div className="help-article-callout-icon">
@@ -375,6 +399,10 @@ export function HelpArticlePage() {
                 </div>
               </section>
             ))}
+
+            {article.family ? (
+              <HelpArticleFamilyPagination family={article.family} slug={article.slug} />
+            ) : null}
           </article>
 
           <aside className="help-article-rail" aria-label="Article details">

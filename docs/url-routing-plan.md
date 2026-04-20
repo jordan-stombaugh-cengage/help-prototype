@@ -30,7 +30,7 @@ This is a conceptual routing plan, not a live redirect implementation.
 - `/help/sign-in-account/reset-password/lms`
 - `/help/sign-in-account/reset-password/school-nglsync`
 - `/help/sign-in-account/reset-password/not-sure`
-- `https://account.cengage.com/`
+- `/article/reset-cengage-password`
 - `/article/:slug`
 - `/support`
 - `/product/:productSlug`
@@ -108,7 +108,7 @@ Future-state mapping:
 - LMS-managed reset -> `/help/sign-in-account/reset-password/lms`
 - school or NGLSync-managed reset -> `/help/sign-in-account/reset-password/school-nglsync`
 - unsure / identification flow -> `/help/sign-in-account/reset-password/not-sure`
-- direct Cengage account reset handoff -> `https://account.cengage.com/`
+- direct Cengage account reset article -> `/article/reset-cengage-password`
 
 Conceptual collapse:
 - many direct reset articles collapse into one guided entry plus branch-specific instruction pages
@@ -180,7 +180,7 @@ Conceptual collapse:
 ## External Handoffs
 
 ## Confirmed external handoffs in the future-state model
-- direct Cengage account reset -> `https://account.cengage.com/`
+- No core reset-password branches currently require a confirmed external handoff in the future-state model.
 
 ## Likely continued external or channel-based handoffs
 - support case submission
@@ -254,7 +254,7 @@ New shape:
 - `/help/sign-in-account/reset-password/lms`
 - `/help/sign-in-account/reset-password/school-nglsync`
 - `/help/sign-in-account/reset-password/not-sure`
-- external handoff when direct Cengage-account reset applies
+- `/article/reset-cengage-password`
 
 ## Collapse pattern: product support pages -> shared support destination
 Old shape:
@@ -288,7 +288,7 @@ New shape:
 | LMS reset branch | `/help/sign-in-account/reset-password/lms` |
 | school/NGLSync reset branch | `/help/sign-in-account/reset-password/school-nglsync` |
 | reset identification / unsure | `/help/sign-in-account/reset-password/not-sure` |
-| direct Cengage account reset | `https://account.cengage.com/` |
+| direct Cengage account reset | `/article/reset-cengage-password` |
 | support entry | `/support` |
 | support case / chat | external or channel action from support |
 

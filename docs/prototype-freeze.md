@@ -34,7 +34,7 @@ Routine work may still improve the current prototype, but it must do so inside t
 - The canonical destination rules in `docs/routing-matrix.md` are frozen for this phase.
 - The preview-switcher registry in `src/app/routes.ts` is the current runtime representation of the frozen route set.
 - Reset password always begins at the chooser.
-- Direct Cengage account reset remains an external handoff.
+- Direct Cengage account reset now routes to the shared internal reset article.
 - Product-hub role state remains in-page state, not separate routes.
 
 ## Placeholder And Unresolved-Destination Behavior
