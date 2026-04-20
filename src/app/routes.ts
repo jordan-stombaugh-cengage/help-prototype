@@ -2,6 +2,10 @@ export type PreviewPageId =
   | "homepage"
   | "search-results"
   | "help-article"
+  | "spark-dynamic-lessons-article"
+  | "spark-customize-lesson-article"
+  | "spark-present-lesson-article"
+  | "spark-in-class-activity-article"
   | "sign-in-account"
   | "course-access-enrollment"
   | "troubleshooting-common-problems"
@@ -121,6 +125,26 @@ export const previewPageDefinitions = [
     id: "help-article",
     label: "Help Article",
     route: "/article/:slug",
+  },
+  {
+    id: "spark-dynamic-lessons-article",
+    label: "Spark - Dynamic Lessons",
+    route: "/article/spark-dynamic-lessons",
+  },
+  {
+    id: "spark-customize-lesson-article",
+    label: "Spark - Customize a Lesson",
+    route: "/article/spark-customize-lesson",
+  },
+  {
+    id: "spark-present-lesson-article",
+    label: "Spark - Present a Lesson",
+    route: "/article/spark-present-lesson",
+  },
+  {
+    id: "spark-in-class-activity-article",
+    label: "Spark - Assign an In-Class Activity",
+    route: "/article/spark-in-class-activity",
   },
   {
     id: "sign-in-account",
@@ -252,6 +276,20 @@ const previewPageById = previewPageDefinitions.reduce<
   definitions[page.id] = page;
   return definitions;
 }, {});
+
+const helpArticlePreviewPageBySlug: Partial<Record<HelpArticleSlug, PreviewPageId>> = {
+  "spark-dynamic-lessons": "spark-dynamic-lessons-article",
+  "spark-customize-lesson": "spark-customize-lesson-article",
+  "spark-present-lesson": "spark-present-lesson-article",
+  "spark-in-class-activity": "spark-in-class-activity-article",
+};
+
+const helpArticleSlugByPreviewPageId: Partial<Record<PreviewPageId, HelpArticleSlug>> = {
+  "spark-dynamic-lessons-article": "spark-dynamic-lessons",
+  "spark-customize-lesson-article": "spark-customize-lesson",
+  "spark-present-lesson-article": "spark-present-lesson",
+  "spark-in-class-activity-article": "spark-in-class-activity",
+};
 
 export const canonicalRoutes = {
   homepage: "/",
@@ -429,11 +467,26 @@ export function previewHash(
   pageId: PreviewPageId,
   searchOptions: SearchDiscoveryOptions = {}
 ) {
+  const helpArticleSlug = helpArticleSlugByPreviewPageId[pageId];
+
+  if (helpArticleSlug) {
+    return helpArticleHref(helpArticleSlug);
+  }
+
   return `#${pageId}${buildPreviewHashSearch(searchOptions)}`;
 }
 
 export function getPreviewPageIdFromHash(hash = window.location.hash): PreviewPageId {
   const { pageId } = splitPreviewHash(hash);
+
+  if (pageId === "help-article") {
+    const articleSlug = getHelpArticleSlugFromHash(hash);
+    const previewPageId = helpArticlePreviewPageBySlug[articleSlug];
+
+    if (previewPageId) {
+      return previewPageId;
+    }
+  }
 
   if (pageId in previewPageById) {
     return pageId as PreviewPageId;
