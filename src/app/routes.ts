@@ -58,11 +58,15 @@ export type HelpArticleSlug =
   | "manage-account"
   | "reset-cengage-password"
   | "spark-manage-account"
+  | "spark-school-managed-account"
+  | "spark-school-managed-wrong-account"
   | "transfer-or-drop-course"
   | "wrong-product-or-course-in-lms"
   | "grade-sync-problems"
   | "spark-sign-in"
   | "spark-join-course"
+  | "spark-lms-access"
+  | "spark-lms-link-not-working"
   | "spark-course-key-lookup"
   | "spark-no-course-key"
   | "spark-assignments"
@@ -537,6 +541,8 @@ export function getHelpArticleSlugFromHash(
     case "mindtap-access-code":
     case "webassign-access-code":
     case "sam-access-code":
+    case "spark-school-managed-account":
+    case "spark-school-managed-wrong-account":
     case "forgot-username":
     case "manage-account":
     case "reset-cengage-password":
@@ -546,6 +552,8 @@ export function getHelpArticleSlugFromHash(
     case "grade-sync-problems":
     case "spark-sign-in":
     case "spark-join-course":
+    case "spark-lms-access":
+    case "spark-lms-link-not-working":
     case "spark-course-key-lookup":
     case "spark-no-course-key":
     case "spark-assignments":

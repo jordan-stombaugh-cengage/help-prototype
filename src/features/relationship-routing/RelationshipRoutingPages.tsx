@@ -196,9 +196,16 @@ const wrongAccountOptions: ChooserOption[] = [
     iconKind: "account",
   },
   {
-    title: "I usually access Cengage through my LMS or school portal",
+    title: "I access Spark through my LMS or school portal",
     description:
-      "A dedicated LMS- or school-managed wrong-account path is not in the prototype yet.",
+      "Use school-managed Spark account help when your teacher, school, or LMS created the Spark account you should be using.",
+    href: helpArticleHref("spark-school-managed-wrong-account"),
+    iconKind: "lms",
+  },
+  {
+    title: "I access another product through my LMS or school portal",
+    description:
+      "The prototype does not yet include a non-Spark school- or LMS-managed wrong-account destination.",
     iconKind: "lms",
   },
   {
@@ -223,9 +230,16 @@ const manageAccountOptions: ChooserOption[] = [
     iconKind: "product",
   },
   {
-    title: "I sign in through my school or LMS",
+    title: "I sign in to Spark through my school or LMS",
     description:
-      "A school- or LMS-managed account-management destination is not in the prototype yet.",
+      "Use school-managed Spark account help when your teacher, school, or LMS controls part of the Spark account you need to update.",
+    href: helpArticleHref("spark-school-managed-account"),
+    iconKind: "lms",
+  },
+  {
+    title: "I sign in to another product through my school or LMS",
+    description:
+      "The prototype does not yet include a non-Spark school- or LMS-managed account-management destination.",
     iconKind: "lms",
   },
   {
@@ -352,7 +366,8 @@ const lmsLinkOptions: ChooserOption[] = [
   {
     title: "Spark",
     description:
-      "A Spark-specific broken LMS-link destination is not in the prototype yet.",
+      "Use Spark LMS link help when the course link from your LMS or school platform is not opening Spark correctly.",
+    href: helpArticleHref("spark-lms-link-not-working"),
     iconKind: "product",
   },
   {
@@ -381,7 +396,8 @@ const lmsAccessOptions: ChooserOption[] = [
   {
     title: "I need Spark course access from my LMS or school platform",
     description:
-      "A direct Spark LMS-access destination is not in the prototype yet.",
+      "Use Spark LMS access help when your course launch depends on a Spark link, self-registration guide, or school-managed platform.",
+    href: helpArticleHref("spark-lms-access"),
     iconKind: "product",
   },
   {

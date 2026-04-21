@@ -3,6 +3,7 @@ import {
   helpArticleHref,
   helpDomainHref,
   lmsAccessChooserHref,
+  manageAccountChooserHref,
   signInAccountHref,
   wrongAccountChooserHref,
 } from "../../app/routes";
@@ -989,7 +990,7 @@ export const sparkProductHubConfig = {
           links: [
             { label: "Course key lookup", href: helpArticleHref("spark-course-key-lookup") },
             { label: "Join self-study" },
-            { label: "Account settings" },
+            { label: "Account settings", href: manageAccountChooserHref() },
             { label: "Messages" },
           ],
         },
@@ -1096,10 +1097,10 @@ export const sparkProductHubConfig = {
         { label: "Manage students and instructors", href: helpArticleHref("spark-manage-users") },
         { label: "Import users or courses" },
         { label: "Review institutional reports" },
-        { label: "Support password resets", href: signInAccountHref() },
+        { label: "Support password resets", href: helpArticleHref("spark-manage-users") },
       ],
       problems: [
-        { label: "Users can't access Spark", href: signInAccountHref() },
+        { label: "Users can't access Spark", href: helpArticleHref("spark-manage-users") },
         { label: "LMS integration not connecting", href: helpArticleHref("spark-lti-1-3-course-management") },
         { label: "User import issues", href: helpArticleHref("spark-manage-users") },
         { label: "Course provisioning issues" },

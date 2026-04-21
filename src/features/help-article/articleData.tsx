@@ -1932,12 +1932,338 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
         heading: "Related Spark help",
         links: [
           { label: "Sign in to Spark", href: helpArticleHref("spark-sign-in") },
-          { label: "Sign In & Account Help", href: helpDomainHref("sign-in-account") },
+          {
+            label: "Manage a school-managed Spark account",
+            href: helpArticleHref("spark-school-managed-account"),
+          },
         ],
       },
       {
         heading: "More help",
         links: [{ label: "Spark", href: sparkHubHref }],
+      },
+    ],
+  },
+  "spark-school-managed-account": {
+    slug: "spark-school-managed-account",
+    title: "Manage a School-Managed Spark Account",
+    summary:
+      "Use your Spark profile for changes you can make yourself, and ask your instructor or institutional administrator to handle school-managed account changes.",
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "School-managed access", "Sign In & Account Help"],
+    appliesTo:
+      "Spark students, instructors, and institutional administrators using school- or LMS-managed Spark accounts",
+    product: "Spark",
+    helpArea: "Sign In & Account Help",
+    callout: {
+      title: "School-managed Spark accounts work differently",
+      paragraphs: [
+        "In Spark, you can change your name, password, email address, and preferred language from My Account.",
+        "If you need your username changed, ask your instructor or institutional administrator to update it.",
+        "If Spark does not have an email address for your account, ask your instructor or institutional administrator to reset your password.",
+      ],
+    },
+    sections: [
+      {
+        title: "Update what you can manage in Spark",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              { title: "In Spark, click My Account from your profile menu." },
+              { title: "Review the profile information shown for your account." },
+              {
+                title: "Update your name, password, email address, or preferred language as needed.",
+              },
+              {
+                title: "Add an email address if possible so you can reset your own password faster.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "When your school or institution needs to help",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "Ask your instructor to change your username if the school-created username is wrong.",
+              "Ask your instructor or institutional administrator to reset your password if your account does not have an email address.",
+              "Institutional administrators can allow teachers to manage students, including resetting passwords and editing student account information.",
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related Spark account help",
+        links: [
+          {
+            label: "Use the correct school-managed Spark account",
+            href: helpArticleHref("spark-school-managed-wrong-account"),
+          },
+          { label: "Manage Account", href: helpArticleHref("spark-manage-account") },
+        ],
+      },
+      {
+        heading: "School-managed support",
+        links: [
+          { label: "Manage Users", href: helpArticleHref("spark-manage-users") },
+          {
+            label: "Edit Institutional Settings",
+            href: helpArticleHref("spark-institutional-settings"),
+          },
+        ],
+      },
+    ],
+  },
+  "spark-school-managed-wrong-account": {
+    slug: "spark-school-managed-wrong-account",
+    title: "Use the Correct School-Managed Spark Account",
+    summary:
+      "If your teacher or school created your Spark account, sign in with that account instead of creating another one.",
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "School-managed access", "Sign In & Account Help"],
+    appliesTo:
+      "Spark students, instructors, and institutional administrators using school- or LMS-managed Spark access",
+    product: "Spark",
+    helpArea: "Sign In & Account Help",
+    callout: {
+      title: "Do not create a second Spark account",
+      paragraphs: [
+        "You may already have a Spark account if you took a Spark class before or your teacher created one for you.",
+        "For some schools, your teacher or school administrator adds you to the Spark course and gives you your username and password.",
+      ],
+    },
+    sections: [
+      {
+        title: "If you think you used the wrong school-managed account",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              {
+                title: "Sign out of Spark and return to the LMS link, self-registration guide, or school link your teacher provided.",
+              },
+              {
+                title: "Sign in with your existing Spark Username and Password.",
+              },
+              {
+                title: "If you do not know which username to use, ask your teacher or institutional administrator to confirm it.",
+              },
+              {
+                title: "If your account does not have an email address or you cannot reset the password yourself, ask your teacher or institutional administrator to reset it.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "When the issue is really course access",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "If Spark is integrated with your LMS, you do not need a course key.",
+              "If the link to Spark does not open correctly, use Spark LMS link help.",
+              "If you still need to join a teacher-led course outside the LMS, use Join a Spark course.",
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related Spark account help",
+        links: [
+          {
+            label: "Manage a school-managed Spark account",
+            href: helpArticleHref("spark-school-managed-account"),
+          },
+          { label: "Sign in to Spark", href: helpArticleHref("spark-sign-in") },
+        ],
+      },
+      {
+        heading: "Related access help",
+        links: [
+          {
+            label: "Access Spark through LMS or school platform",
+            href: helpArticleHref("spark-lms-access"),
+          },
+          { label: "Join a Spark course", href: helpArticleHref("spark-join-course") },
+        ],
+      },
+    ],
+  },
+  "spark-lms-access": {
+    slug: "spark-lms-access",
+    title: "Access Spark Through Your LMS or School Platform",
+    summary:
+      "Open Spark from the LMS course link, self-registration guide, or school link your teacher or school provided.",
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "LMS / School access", "Course Access & Enrollment"],
+    appliesTo:
+      "Spark students, instructors, and institutional administrators using LMS- or school-managed Spark access",
+    product: "Spark",
+    helpArea: "Course Access & Enrollment",
+    callout: {
+      title: "Do not create another Spark account if your school already gave you one",
+      paragraphs: [
+        "You may already have a Spark account if you took a Spark class before or your teacher created one for you.",
+        "If your school or LMS manages access, start from the Spark link or self-registration guide your teacher or school provided.",
+      ],
+    },
+    sections: [
+      {
+        title: "Open Spark from your LMS or school link",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              {
+                title: "Sign in to your LMS or open the Spark self-registration guide or school link you were given.",
+              },
+              {
+                title: "Click the course link to Spark.",
+                details: [
+                  "If Spark is integrated with your LMS, you do not need a course key.",
+                ],
+              },
+              {
+                title: "If Spark asks you to sign in, use your existing Spark Username and Password.",
+                details: [
+                  "Do not create a new account if your teacher or school already created one for you.",
+                ],
+              },
+              {
+                title: "If your instructor created your account, use the Spark welcome email to finish setup.",
+                details: ["Open the welcome email and click Set Password."],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "If you still cannot access the course",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "Ask your teacher if your school adds students to the Spark course instead of using self-registration.",
+              "If you do not know your username or password, use school-managed Spark account help.",
+              "If the LMS or school link does not open Spark correctly, use Spark LMS link help.",
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related Spark access help",
+        links: [
+          {
+            label: "Spark LMS link not working",
+            href: helpArticleHref("spark-lms-link-not-working"),
+          },
+          { label: "No Course Key for Spark", href: helpArticleHref("spark-no-course-key") },
+        ],
+      },
+      {
+        heading: "Account help",
+        links: [
+          {
+            label: "Manage a school-managed Spark account",
+            href: helpArticleHref("spark-school-managed-account"),
+          },
+          {
+            label: "Use the correct school-managed Spark account",
+            href: helpArticleHref("spark-school-managed-wrong-account"),
+          },
+        ],
+      },
+    ],
+  },
+  "spark-lms-link-not-working": {
+    slug: "spark-lms-link-not-working",
+    title: "Spark LMS Link Not Working",
+    summary:
+      "Fix Spark course links that do not open correctly from your LMS or school platform.",
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "LMS / School access", "Troubleshooting & Common Problems"],
+    appliesTo:
+      "Spark students, instructors, and institutional administrators using LMS- or school-linked Spark courses",
+    product: "Spark",
+    helpArea: "Troubleshooting & Common Problems",
+    callout: {
+      title: "Spark links depend on your LMS setup",
+      paragraphs: [
+        "Spark access through an LMS or school platform depends on a course link or external tool created by your instructor or LMS administrator.",
+        "In Canvas LTI 1.0 setups, the Spark link should load in a new tab.",
+      ],
+    },
+    sections: [
+      {
+        title: "Retry the Spark launch",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              { title: "Sign in to your LMS or school platform." },
+              { title: "Click the Spark course link again." },
+              {
+                title: "If Spark prompts you to sign in, use your existing Spark Username and Password or the Set Password link from your welcome email.",
+              },
+              {
+                title: "If the link still does not open Spark, ask your teacher for another Spark course link or self-registration guide.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "What instructors or administrators should verify",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "The Spark tool or course link is published and available to students in the LMS.",
+              "The course link opens the correct Spark course.",
+              "In Canvas LTI 1.0 setups, the external tool is set to Load in a new tab.",
+              "After recreating the link, open it once and confirm the Spark course launches.",
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related Spark access help",
+        links: [
+          {
+            label: "Access Spark through LMS or school platform",
+            href: helpArticleHref("spark-lms-access"),
+          },
+          {
+            label: "Manage a school-managed Spark account",
+            href: helpArticleHref("spark-school-managed-account"),
+          },
+        ],
+      },
+      {
+        heading: "Admin setup help",
+        links: [
+          {
+            label: "LTI 1.3 LMS Course Management",
+            href: helpArticleHref("spark-lti-1-3-course-management"),
+          },
+          { label: "Manage Users", href: helpArticleHref("spark-manage-users") },
+        ],
       },
     ],
   },

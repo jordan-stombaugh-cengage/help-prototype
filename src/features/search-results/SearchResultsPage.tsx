@@ -277,6 +277,50 @@ const results: SearchResult[] = [
   },
   {
     description:
+      "Use your Spark profile for changes you can make yourself, and ask your instructor or institutional administrator to handle school-managed account changes.",
+    filters: {
+      Product: ["Spark"],
+      Role: [...sparkStudentRoles, ...sparkInstructorRoles, ...sparkAdminRoles],
+      "Sign-in path": ["LMS sign-in", "School / NGLSync"],
+      "Education segment": ["English Language Learning"],
+    },
+    helpArea: "Sign In & Account Help",
+    href: helpArticleHref("spark-school-managed-account"),
+    keywords: [
+      "school managed spark account",
+      "manage spark account through school",
+      "spark account settings lms",
+      "teacher reset spark password",
+    ],
+    priority: 68,
+    resultType: "Article",
+    title: "Manage a school-managed Spark account",
+    updated: "Source date not available",
+  },
+  {
+    description:
+      "Use the Spark username and password your teacher or school provided instead of creating another account.",
+    filters: {
+      Product: ["Spark"],
+      Role: [...sparkStudentRoles, ...sparkInstructorRoles, ...sparkAdminRoles],
+      "Sign-in path": ["LMS sign-in", "School / NGLSync"],
+      "Education segment": ["English Language Learning"],
+    },
+    helpArea: "Sign In & Account Help",
+    href: helpArticleHref("spark-school-managed-wrong-account"),
+    keywords: [
+      "wrong account",
+      "spark wrong account",
+      "school managed spark username",
+      "teacher created spark account",
+    ],
+    priority: 66,
+    resultType: "Article",
+    title: "Use the correct school-managed Spark account",
+    updated: "Source date not available",
+  },
+  {
+    description:
       "Choose the product or course experience that uses your key so we can send you to the right enrollment step.",
     filters: {
       Product: allProducts,
@@ -346,7 +390,7 @@ const results: SearchResult[] = [
   },
   {
     description:
-      "Spark LMS and school-platform course access is only partially modeled in the prototype, and the Spark-specific next step is not live yet.",
+      "Open Spark from the LMS course link, self-registration guide, or school link your teacher or school provided.",
     filters: {
       Product: ["Spark"],
       Role: sparkAccessRoles,
@@ -354,12 +398,13 @@ const results: SearchResult[] = [
       "Education segment": ["English Language Learning"],
     },
     helpArea: "Course Access & Enrollment",
+    href: helpArticleHref("spark-lms-access"),
     keywords: ["spark lms access", "spark school platform", "spark course launch", "spark nglsync"],
-    priority: 34,
+    priority: 68,
     productMetadataLabel: "Spark",
-    resultType: "Guided step",
+    resultType: "Article",
     title: "Access Spark through LMS or school platform",
-    updated: "Partial prototype coverage",
+    updated: "Source date not available",
   },
   {
     description:
@@ -427,7 +472,7 @@ const results: SearchResult[] = [
   },
   {
     description:
-      "Spark LMS launch troubleshooting is only partially modeled in the prototype, and the Spark-specific next step is not live yet.",
+      "Fix Spark course links that do not open correctly from your LMS or school platform.",
     filters: {
       Product: ["Spark"],
       Role: sparkAccessRoles,
@@ -435,12 +480,13 @@ const results: SearchResult[] = [
       "Education segment": ["English Language Learning"],
     },
     helpArea: "Troubleshooting & Common Problems",
+    href: helpArticleHref("spark-lms-link-not-working"),
     keywords: ["spark lms link not working", "spark launch problem", "spark deep link"],
-    priority: 32,
+    priority: 66,
     productMetadataLabel: "Spark",
-    resultType: "Guided step",
+    resultType: "Article",
     title: "Spark LMS launch or link help",
-    updated: "Partial prototype coverage",
+    updated: "Source date not available",
   },
   {
     description:
