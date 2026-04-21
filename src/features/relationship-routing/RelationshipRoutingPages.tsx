@@ -1,9 +1,11 @@
 import type { ReactNode } from "react";
 import {
   accessCodeChooserHref,
+  browseByProductHref,
   contactSupportHref,
   courseAccessHelpHref,
   courseKeyChooserHref,
+  getProductContextFromHash,
   helpArticleHref,
   helpDomainHref,
   homepageHref,
@@ -11,6 +13,7 @@ import {
   lmsAccessChooserHref,
   lmsLinkChooserHref,
   purchasedAccessChooserHref,
+  productHelpDomainHref,
   resetPasswordHref,
   signInAccountHref,
   wrongAccountChooserHref,
@@ -181,6 +184,20 @@ const courseAccessHubHref =
   courseAccessHelpHref("course-access-enrollment") ??
   helpDomainHref("course-access-enrollment") ??
   homepageHref();
+const mindTapHubHref = browseByProductHref("mindtap") ?? homepageHref();
+const webAssignHubHref = browseByProductHref("webassign") ?? homepageHref();
+const samHubHref = browseByProductHref("sam") ?? homepageHref();
+const sparkHubHref = browseByProductHref("spark") ?? homepageHref();
+const mindTapSignInAccountHref =
+  productHelpDomainHref("mindtap", "sign-in-account") ?? signInAccountHref();
+const webAssignSignInAccountHref =
+  productHelpDomainHref("webassign", "sign-in-account") ?? signInAccountHref();
+const samSignInAccountHref =
+  productHelpDomainHref("sam", "sign-in-account") ?? signInAccountHref();
+const sparkSignInAccountHref =
+  productHelpDomainHref("spark", "sign-in-account") ?? signInAccountHref();
+const webAssignCourseAccessHref =
+  productHelpDomainHref("webassign", "course-access-enrollment") ?? courseAccessHubHref;
 
 const wrongAccountOptions: ChooserOption[] = [
   {
@@ -216,6 +233,123 @@ const wrongAccountOptions: ChooserOption[] = [
   },
 ];
 
+const mindTapWrongAccountOptions: ChooserOption[] = [
+  {
+    title: "I bought access with a different Cengage account",
+    description:
+      "Use the purchased-access article when the problem is tied to the wrong Cengage account for MindTap.",
+    href: helpArticleHref("wrong-account"),
+    iconKind: "article",
+  },
+  {
+    title: "I signed in with the wrong email or username",
+    description:
+      "Start with account recovery if you need to confirm which Cengage account you should use for MindTap.",
+    href: helpArticleHref("forgot-username"),
+    iconKind: "account",
+  },
+  {
+    title: "I access MindTap through my LMS or school portal",
+    description:
+      "The prototype does not yet include a MindTap-specific school- or LMS-managed wrong-account destination.",
+    iconKind: "lms",
+  },
+  {
+    title: "I'm not sure",
+    description:
+      "The prototype does not yet include a more specific not-sure path for this MindTap account issue.",
+    iconKind: "unsure",
+  },
+];
+
+const webAssignWrongAccountOptions: ChooserOption[] = [
+  {
+    title: "I bought access with a different Cengage account",
+    description:
+      "Use the purchased-access article when the problem is tied to the wrong Cengage account for WebAssign.",
+    href: helpArticleHref("wrong-account"),
+    iconKind: "article",
+  },
+  {
+    title: "I signed in with the wrong email or username",
+    description:
+      "Start with account recovery if you need to confirm which Cengage account you should use for WebAssign.",
+    href: helpArticleHref("forgot-username"),
+    iconKind: "account",
+  },
+  {
+    title: "I access WebAssign through my LMS",
+    description:
+      "The prototype does not yet include a WebAssign-specific LMS-managed wrong-account destination.",
+    iconKind: "lms",
+  },
+  {
+    title: "I'm not sure",
+    description:
+      "The prototype does not yet include a more specific not-sure path for this WebAssign account issue.",
+    iconKind: "unsure",
+  },
+] as const;
+
+const samWrongAccountOptions: ChooserOption[] = [
+  {
+    title: "I bought access with a different Cengage account",
+    description:
+      "Use the purchased-access article when the problem is tied to the wrong Cengage account for SAM.",
+    href: helpArticleHref("wrong-account"),
+    iconKind: "article",
+  },
+  {
+    title: "I signed in with the wrong email or username",
+    description:
+      "Start with account recovery if you need to confirm which Cengage account you should use for SAM.",
+    href: helpArticleHref("forgot-username"),
+    iconKind: "account",
+  },
+  {
+    title: "I access SAM through my LMS",
+    description:
+      "The prototype does not yet include a SAM-specific LMS-managed wrong-account destination.",
+    iconKind: "lms",
+  },
+  {
+    title: "I'm not sure",
+    description:
+      "The prototype does not yet include a more specific not-sure path for this SAM account issue.",
+    iconKind: "unsure",
+  },
+] as const;
+
+const sparkWrongAccountOptions: ChooserOption[] = [
+  {
+    title: "I need the direct Spark sign-in steps",
+    description:
+      "Use the Spark sign-in article when you need to sign out and return with the existing Spark account you should be using.",
+    href: helpArticleHref("spark-sign-in"),
+    iconKind: "article",
+  },
+  {
+    title: "I don't know which Spark username or email to use",
+    description:
+      "Start with account recovery if you need to confirm the username or email tied to your Spark account.",
+    href: helpArticleHref("spark-forgot-username"),
+    iconKind: "account",
+  },
+  {
+    title: "My teacher or school created the Spark account",
+    description:
+      "Use school-managed Spark account help when your teacher, school, or LMS created the Spark account you should be using.",
+    href: helpArticleHref("spark-school-managed-wrong-account"),
+    iconKind: "lms",
+  },
+  {
+    title: "I'm not sure",
+    description:
+      "The prototype does not yet include a more specific not-sure path for this Spark account issue.",
+    iconKind: "unsure",
+  },
+] as const;
+
 const manageAccountOptions: ChooserOption[] = [
   {
     title: "I need to update my Cengage account",
@@ -249,6 +383,125 @@ const manageAccountOptions: ChooserOption[] = [
     iconKind: "unsure",
   },
 ];
+
+const mindTapManageAccountOptions: ChooserOption[] = [
+  {
+    title: "I need to update my Cengage account",
+    description:
+      "Use the shared account article to change the profile, email, or password on the Cengage account you use for MindTap.",
+    href: helpArticleHref("manage-account"),
+    iconKind: "account",
+  },
+  {
+    title: "I sign in to MindTap through my LMS or school portal",
+    description:
+      "The prototype does not yet include a MindTap-specific school- or LMS-managed account-management destination.",
+    iconKind: "lms",
+  },
+  {
+    title: "I'm not sure which account I use",
+    description:
+      "The prototype does not yet include a more specific not-sure path for this MindTap account-management case.",
+    iconKind: "unsure",
+  },
+];
+
+const webAssignManageAccountOptions: ChooserOption[] = [
+  {
+    title: "I need to update my Cengage account",
+    description:
+      "Use the shared account article to change the profile, email, or password on the Cengage account you use for WebAssign.",
+    href: helpArticleHref("manage-account"),
+    iconKind: "account",
+  },
+  {
+    title: "I sign in to WebAssign through my LMS",
+    description:
+      "The prototype does not yet include a WebAssign-specific LMS-managed account-management destination.",
+    iconKind: "lms",
+  },
+  {
+    title: "I'm not sure which account I use",
+    description:
+      "The prototype does not yet include a more specific not-sure path for this WebAssign account-management case.",
+    iconKind: "unsure",
+  },
+] as const;
+
+const samManageAccountOptions: ChooserOption[] = [
+  {
+    title: "I need to update my Cengage account",
+    description:
+      "Use the shared account article to change the profile, email, or password on the Cengage account you use for SAM.",
+    href: helpArticleHref("manage-account"),
+    iconKind: "account",
+  },
+  {
+    title: "I sign in to SAM through my LMS",
+    description:
+      "The prototype does not yet include a SAM-specific LMS-managed account-management destination.",
+    iconKind: "lms",
+  },
+  {
+    title: "I'm not sure which account I use",
+    description:
+      "The prototype does not yet include a more specific not-sure path for this SAM account-management case.",
+    iconKind: "unsure",
+  },
+] as const;
+
+const sparkManageAccountOptions: ChooserOption[] = [
+  {
+    title: "I need to update my Spark account",
+    description:
+      "Use the Spark account article to change your name, password, email address, or preferred language.",
+    href: helpArticleHref("spark-manage-account"),
+    iconKind: "account",
+  },
+  {
+    title: "My teacher or school manages the Spark account",
+    description:
+      "Use school-managed Spark account help when your teacher, school, or LMS controls part of the account you need to update.",
+    href: helpArticleHref("spark-school-managed-account"),
+    iconKind: "lms",
+  },
+  {
+    title: "I'm not sure which Spark account I use",
+    description:
+      "The prototype does not yet include a more specific not-sure path for this Spark account-management case.",
+    iconKind: "unsure",
+  },
+] as const;
+
+const webAssignPurchasedAccessOptions: ChooserOption[] = [
+  {
+    title: "I bought access, but I still need to join the class",
+    description:
+      "Use the WebAssign class-key article when your payment is complete but you still need to enter the class key or finish class enrollment.",
+    href: helpArticleHref("webassign-class-key"),
+    iconKind: "article",
+  },
+  {
+    title: "I may have used the wrong account",
+    description:
+      "Use WebAssign account routing when purchased access is attached to a different Cengage account.",
+    href: wrongAccountChooserHref("webassign"),
+    iconKind: "account",
+  },
+  {
+    title: "I launch WebAssign from my LMS",
+    description:
+      "The prototype does not yet include a WebAssign-specific LMS-access destination for this purchased-access case.",
+    iconKind: "lms",
+  },
+  {
+    title: "The class is wrong or missing after I sign in",
+    description:
+      "Use the shared course-availability flow when the wrong WebAssign class appears or the class list is empty after you sign in.",
+    href: wrongCourseChooserHref(),
+    iconKind: "unsure",
+  },
+] as const;
 
 const accessCodeOptions: ChooserOption[] = [
   {
@@ -564,23 +817,112 @@ const errorSyncOptions: ChooserOption[] = [
 ];
 
 export function ManageAccountChooserPage() {
-  return (
-    <RelationshipRoutingPage
-      breadcrumbs={[
+  const productContext = getProductContextFromHash();
+  const breadcrumbs = productContext === "mindtap"
+    ? [
+        { label: "Help Home", href: homepageHref() },
+        { label: "MindTap", href: mindTapHubHref },
+        { label: "Sign In & Account Help", href: mindTapSignInAccountHref },
+        { label: "Manage account" },
+      ]
+    : productContext === "webassign"
+      ? [
+        { label: "Help Home", href: homepageHref() },
+        { label: "WebAssign", href: webAssignHubHref },
+        { label: "Sign In & Account Help", href: webAssignSignInAccountHref },
+        { label: "Manage account" },
+      ]
+    : productContext === "sam"
+      ? [
+          { label: "Help Home", href: homepageHref() },
+          { label: "SAM", href: samHubHref },
+          { label: "Sign In & Account Help", href: samSignInAccountHref },
+          { label: "Manage account" },
+        ]
+    : productContext === "spark"
+      ? [
+          { label: "Help Home", href: homepageHref() },
+          { label: "Spark", href: sparkHubHref },
+          { label: "Sign In & Account Help", href: sparkSignInAccountHref },
+          { label: "Manage account" },
+        ]
+    : [
         { label: "Help Home", href: homepageHref() },
         { label: "Sign In & Account Help", href: signInAccountHref() },
         { label: "Manage account" },
-      ]}
-      description="Choose the account type or sign-in path you need to manage so we can send you to the right next step."
-      heroIcon={<AccountRelationshipIcon />}
-      options={manageAccountOptions}
-      prompt="Which account are you trying to manage?"
-      supportLinks={[
+      ];
+  const description = productContext === "mindtap"
+    ? "Choose the account type tied to your MindTap access so we can send you to the most accurate next step without widening into other product flows."
+    : productContext === "webassign"
+      ? "Choose the account type tied to your WebAssign access so we can send you to the most accurate next step without widening into other product flows."
+      : productContext === "sam"
+        ? "Choose the account type tied to your SAM access so we can send you to the most accurate next step without widening into other product flows."
+        : productContext === "spark"
+          ? "Choose the Spark account path that best matches your situation so we can send you to the most accurate next step without widening into non-Spark account flows."
+    : "Choose the account type or sign-in path you need to manage so we can send you to the right next step.";
+  const options =
+    productContext === "mindtap"
+      ? mindTapManageAccountOptions
+      : productContext === "webassign"
+        ? webAssignManageAccountOptions
+        : productContext === "sam"
+          ? samManageAccountOptions
+          : productContext === "spark"
+            ? sparkManageAccountOptions
+      : manageAccountOptions;
+  const prompt = productContext === "mindtap"
+    ? "Which MindTap account are you trying to manage?"
+    : productContext === "webassign"
+      ? "Which WebAssign account are you trying to manage?"
+      : productContext === "sam"
+        ? "Which SAM account are you trying to manage?"
+        : productContext === "spark"
+          ? "Which Spark account are you trying to manage?"
+    : "Which account are you trying to manage?";
+  const supportLinks = productContext === "mindtap"
+    ? [
+        { href: mindTapSignInAccountHref, label: "Back to MindTap Sign In & Account Help" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]
+    : productContext === "webassign"
+      ? [
+          { href: webAssignSignInAccountHref, label: "Back to WebAssign Sign In & Account Help" },
+          { href: contactSupportHref(), label: "Contact support" },
+        ]
+      : productContext === "sam"
+        ? [
+            { href: samSignInAccountHref, label: "Back to SAM Sign In & Account Help" },
+            { href: contactSupportHref(), label: "Contact support" },
+          ]
+        : productContext === "spark"
+          ? [
+              { href: sparkSignInAccountHref, label: "Back to Spark Sign In & Account Help" },
+              { href: contactSupportHref(), label: "Contact support" },
+            ]
+    : [
         { href: signInAccountHref(), label: "Back to Sign In & Account Help" },
         { href: contactSupportHref(), label: "Contact support" },
-      ]}
+      ];
+  const title = productContext === "mindtap"
+    ? "Which MindTap account are you trying to manage?"
+    : productContext === "webassign"
+      ? "Which WebAssign account are you trying to manage?"
+      : productContext === "sam"
+        ? "Which SAM account are you trying to manage?"
+        : productContext === "spark"
+          ? "Which Spark account are you trying to manage?"
+    : "What kind of account are you trying to manage?";
+
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={breadcrumbs}
+      description={description}
+      heroIcon={<AccountRelationshipIcon />}
+      options={options}
+      prompt={prompt}
+      supportLinks={supportLinks}
       supportTitle="Need another path?"
-      title="What kind of account are you trying to manage?"
+      title={title}
     />
   );
 }
@@ -674,23 +1016,51 @@ export function LmsAccessChooserPage() {
 }
 
 export function PurchasedAccessChooserPage() {
-  return (
-    <RelationshipRoutingPage
-      breadcrumbs={[
+  const productContext = getProductContextFromHash();
+  const breadcrumbs = productContext === "webassign"
+    ? [
+        { label: "Help Home", href: homepageHref() },
+        { label: "WebAssign", href: webAssignHubHref },
+        { label: "Course Access & Enrollment", href: webAssignCourseAccessHref },
+        { label: "Purchased access but course is unavailable" },
+      ]
+    : [
         { label: "Help Home", href: homepageHref() },
         { label: "Course Access & Enrollment", href: courseAccessHubHref },
         { label: "Purchased access but course is unavailable" },
-      ]}
-      description="Choose the situation that best matches your access problem so we can send you to the right next step."
-      heroIcon={<CourseAccessRelationshipIcon />}
-      options={purchasedAccessOptions}
-      prompt="What best matches the problem?"
-      supportLinks={[
+      ];
+  const description = productContext === "webassign"
+    ? "Choose the WebAssign access situation that best matches your problem so we can send you to the most accurate next step without widening into unrelated product flows."
+    : "Choose the situation that best matches your access problem so we can send you to the right next step.";
+  const options = productContext === "webassign"
+    ? webAssignPurchasedAccessOptions
+    : purchasedAccessOptions;
+  const prompt = productContext === "webassign"
+    ? "What best matches the WebAssign access problem?"
+    : "What best matches the problem?";
+  const supportLinks = productContext === "webassign"
+    ? [
+        { href: webAssignCourseAccessHref, label: "Back to WebAssign Course Access & Enrollment" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]
+    : [
         { href: courseAccessHubHref, label: "Back to Course Access & Enrollment" },
         { href: contactSupportHref(), label: "Contact support" },
-      ]}
+      ];
+  const title = productContext === "webassign"
+    ? "Why can't you open the WebAssign class you already purchased?"
+    : "Why can't you open the course you already purchased?";
+
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={breadcrumbs}
+      description={description}
+      heroIcon={<CourseAccessRelationshipIcon />}
+      options={options}
+      prompt={prompt}
+      supportLinks={supportLinks}
       supportTitle="Need another path?"
-      title="Why can't you open the course you already purchased?"
+      title={title}
     />
   );
 }
@@ -766,23 +1136,112 @@ export function ErrorSyncChooserPage() {
 }
 
 export function WrongAccountChooserPage() {
-  return (
-    <RelationshipRoutingPage
-      breadcrumbs={[
+  const productContext = getProductContextFromHash();
+  const breadcrumbs = productContext === "mindtap"
+    ? [
+        { label: "Help Home", href: homepageHref() },
+        { label: "MindTap", href: mindTapHubHref },
+        { label: "Sign In & Account Help", href: mindTapSignInAccountHref },
+        { label: "Wrong account" },
+      ]
+    : productContext === "webassign"
+      ? [
+        { label: "Help Home", href: homepageHref() },
+        { label: "WebAssign", href: webAssignHubHref },
+        { label: "Sign In & Account Help", href: webAssignSignInAccountHref },
+        { label: "Wrong account" },
+      ]
+    : productContext === "sam"
+      ? [
+          { label: "Help Home", href: homepageHref() },
+          { label: "SAM", href: samHubHref },
+          { label: "Sign In & Account Help", href: samSignInAccountHref },
+          { label: "Wrong account" },
+        ]
+    : productContext === "spark"
+      ? [
+          { label: "Help Home", href: homepageHref() },
+          { label: "Spark", href: sparkHubHref },
+          { label: "Sign In & Account Help", href: sparkSignInAccountHref },
+          { label: "Wrong account" },
+        ]
+    : [
         { label: "Help Home", href: homepageHref() },
         { label: "Sign In & Account Help", href: signInAccountHref() },
         { label: "Wrong account" },
-      ]}
-      description="Choose the situation that sounds most like yours so we can send you to the right next step."
-      heroIcon={<AccountRelationshipIcon />}
-      options={wrongAccountOptions}
-      prompt="Which situation sounds most like yours?"
-      supportLinks={[
+      ];
+  const description = productContext === "mindtap"
+    ? "Choose the MindTap account situation that sounds most like yours so we can send you to the most accurate next step without widening into other product flows."
+    : productContext === "webassign"
+      ? "Choose the WebAssign account situation that sounds most like yours so we can send you to the most accurate next step without widening into other product flows."
+      : productContext === "sam"
+        ? "Choose the SAM account situation that sounds most like yours so we can send you to the most accurate next step without widening into other product flows."
+        : productContext === "spark"
+          ? "Choose the Spark account situation that sounds most like yours so we can send you to the most accurate next step without widening into non-Spark account flows."
+    : "Choose the situation that sounds most like yours so we can send you to the right next step.";
+  const options =
+    productContext === "mindtap"
+      ? mindTapWrongAccountOptions
+      : productContext === "webassign"
+        ? webAssignWrongAccountOptions
+        : productContext === "sam"
+          ? samWrongAccountOptions
+          : productContext === "spark"
+            ? sparkWrongAccountOptions
+      : wrongAccountOptions;
+  const prompt = productContext === "mindtap"
+    ? "Which MindTap account situation sounds most like yours?"
+    : productContext === "webassign"
+      ? "Which WebAssign account situation sounds most like yours?"
+      : productContext === "sam"
+        ? "Which SAM account situation sounds most like yours?"
+        : productContext === "spark"
+          ? "Which Spark account situation sounds most like yours?"
+    : "Which situation sounds most like yours?";
+  const supportLinks = productContext === "mindtap"
+    ? [
+        { href: mindTapSignInAccountHref, label: "Back to MindTap Sign In & Account Help" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]
+    : productContext === "webassign"
+      ? [
+          { href: webAssignSignInAccountHref, label: "Back to WebAssign Sign In & Account Help" },
+          { href: contactSupportHref(), label: "Contact support" },
+        ]
+      : productContext === "sam"
+        ? [
+            { href: samSignInAccountHref, label: "Back to SAM Sign In & Account Help" },
+            { href: contactSupportHref(), label: "Contact support" },
+          ]
+        : productContext === "spark"
+          ? [
+              { href: sparkSignInAccountHref, label: "Back to Spark Sign In & Account Help" },
+              { href: contactSupportHref(), label: "Contact support" },
+            ]
+    : [
         { href: signInAccountHref(), label: "Back to Sign In & Account Help" },
         { href: contactSupportHref(), label: "Contact support" },
-      ]}
+      ];
+  const title = productContext === "mindtap"
+    ? "What kind of MindTap account problem are you having?"
+    : productContext === "webassign"
+      ? "What kind of WebAssign account problem are you having?"
+      : productContext === "sam"
+        ? "What kind of SAM account problem are you having?"
+        : productContext === "spark"
+          ? "What kind of Spark account problem are you having?"
+    : "What kind of account problem are you having?";
+
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={breadcrumbs}
+      description={description}
+      heroIcon={<AccountRelationshipIcon />}
+      options={options}
+      prompt={prompt}
+      supportLinks={supportLinks}
       supportTitle="Still not sure?"
-      title="What kind of account problem are you having?"
+      title={title}
     />
   );
 }

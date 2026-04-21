@@ -3,9 +3,7 @@ import { useEffect, useState, type ComponentType } from "react";
 import { AppShell } from "./app/AppShell";
 import {
   defaultPreviewPageId,
-  getHelpArticleSlugFromHash,
   getPreviewPageIdFromHash,
-  previewPageDefinitions,
   previewHash,
   setPreviewPageHash,
   type PreviewPageId,
@@ -102,44 +100,11 @@ function App() {
   }, []);
 
   const activePageId = getPreviewPageIdFromHash(activeHash);
-  const activePage =
-    previewPageDefinitions.find((page) => page.id === activePageId) ??
-    previewPageDefinitions[0];
-  const ActivePageComponent = previewPageComponents[activePage.id];
-  const activeRoute =
-    activePage.id === "help-article"
-      ? `/article/${getHelpArticleSlugFromHash(activeHash)}`
-      : activePage.route;
+  const ActivePageComponent =
+    previewPageComponents[activePageId] ?? previewPageComponents[defaultPreviewPageId];
 
   return (
     <AppShell>
-      <div className="preview-switcher">
-        <div className="preview-switcher-header">
-          <p className="preview-switcher-label">Prototype preview</p>
-          <h1>{activePage.label}</h1>
-          <p className="preview-switcher-route">{activeRoute}</p>
-        </div>
-
-        <div className="preview-switcher-list" role="tablist" aria-label="Preview pages">
-          {previewPageDefinitions.map((page) => (
-            <button
-              key={page.id}
-              type="button"
-              className={
-                page.id === activePage.id
-                  ? "preview-switcher-button is-active"
-                  : "preview-switcher-button"
-              }
-              onClick={() => {
-                setPreviewPageHash(page.id);
-              }}
-            >
-              {page.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
       <ActivePageComponent />
     </AppShell>
   );

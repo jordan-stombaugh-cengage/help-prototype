@@ -50,6 +50,7 @@ export type HelpDomainSlug =
 
 export type HelpArticleSlug =
   | "sign-in"
+  | "spark-forgot-username"
   | "mindtap-course-key"
   | "webassign-class-key"
   | "mindtap-access-code"
@@ -525,6 +526,28 @@ export function contactSupportHref() {
   return previewHash("support-page");
 }
 
+export function getProductContextFromHash(
+  hash = window.location.hash
+): ProductSlug | undefined {
+  const { search } = splitPreviewHash(hash);
+
+  if (!search) {
+    return undefined;
+  }
+
+  const product = new URLSearchParams(search).get("product");
+
+  switch (product) {
+    case "mindtap":
+    case "webassign":
+    case "sam":
+    case "spark":
+      return product;
+    default:
+      return undefined;
+  }
+}
+
 export function getHelpArticleSlugFromHash(
   hash = window.location.hash
 ): HelpArticleSlug {
@@ -538,6 +561,7 @@ export function getHelpArticleSlugFromHash(
   const slug = params.get("article");
 
   switch (slug) {
+    case "spark-forgot-username":
     case "mindtap-course-key":
     case "webassign-class-key":
     case "mindtap-access-code":
@@ -658,8 +682,8 @@ export function mindTapHelpHref(
   }
 }
 
-export function wrongAccountChooserHref() {
-  return previewHash("wrong-account-chooser");
+export function wrongAccountChooserHref(product?: ProductSlug) {
+  return previewHash("wrong-account-chooser", product ? { product } : {});
 }
 
 export function accessCodeChooserHref() {
@@ -670,8 +694,8 @@ export function courseKeyChooserHref() {
   return previewHash("course-key-chooser");
 }
 
-export function manageAccountChooserHref() {
-  return previewHash("manage-account-chooser");
+export function manageAccountChooserHref(product?: ProductSlug) {
+  return previewHash("manage-account-chooser", product ? { product } : {});
 }
 
 export function joinEnrollChooserHref() {
@@ -682,8 +706,8 @@ export function lmsAccessChooserHref() {
   return previewHash("lms-access-chooser");
 }
 
-export function purchasedAccessChooserHref() {
-  return previewHash("purchased-access-chooser");
+export function purchasedAccessChooserHref(product?: ProductSlug) {
+  return previewHash("purchased-access-chooser", product ? { product } : {});
 }
 
 export function wrongCourseChooserHref() {
@@ -842,6 +866,25 @@ export function helpDomainHref(helpDomain: HelpDomainSlug) {
 
   if (helpDomain === "troubleshooting-common-problems") {
     return previewHash("troubleshooting-common-problems");
+  }
+
+  return undefined;
+}
+
+export function productHelpDomainHref(
+  product: ProductSlug,
+  helpDomain: HelpDomainSlug
+) {
+  if (helpDomain === "sign-in-account") {
+    return previewHash("sign-in-account", { product });
+  }
+
+  if (helpDomain === "course-access-enrollment") {
+    return previewHash("course-access-enrollment", { product });
+  }
+
+  if (helpDomain === "troubleshooting-common-problems") {
+    return previewHash("troubleshooting-common-problems", { product });
   }
 
   return undefined;

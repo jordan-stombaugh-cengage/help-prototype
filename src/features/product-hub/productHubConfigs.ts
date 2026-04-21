@@ -1,38 +1,13 @@
 import {
   errorSyncChooserHref,
   helpArticleHref,
-  helpDomainHref,
   lmsAccessChooserHref,
   manageAccountChooserHref,
+  productHelpDomainHref,
   signInAccountHref,
   wrongAccountChooserHref,
 } from "../../app/routes";
 import type { ProductHubConfig } from "./ProductHubPage";
-
-const sharedTopicCards = (productName: string) =>
-  [
-    {
-      iconKind: "account",
-      title: "Sign In & Account Help",
-      description: `Sign in, manage passwords, and update account details for ${productName}.`,
-      actionLabel: "Get account help",
-      actionHref: signInAccountHref(),
-    },
-    {
-      iconKind: "access",
-      title: "Course Access & Enrollment",
-      description: `Join courses, access materials, and resolve enrollment issues in ${productName}.`,
-      actionLabel: "Resolve access issues",
-      actionHref: helpDomainHref("course-access-enrollment"),
-    },
-    {
-      iconKind: "troubleshooting",
-      title: "Troubleshooting & Common Problems",
-      description: `Resolve technical issues, missing content, and common ${productName} errors.`,
-      actionLabel: "View troubleshooting help",
-      actionHref: helpDomainHref("troubleshooting-common-problems"),
-    },
-  ] as const;
 
 export const mindTapProductHubConfig = {
   slug: "mindtap",
@@ -52,21 +27,21 @@ export const mindTapProductHubConfig = {
       title: "Sign In & Account Help",
       description: "Sign in, create accounts, manage passwords, and update your profile.",
       actionLabel: "Get account help",
-      actionHref: signInAccountHref(),
+      actionHref: productHelpDomainHref("mindtap", "sign-in-account"),
     },
     {
       iconKind: "access",
       title: "Course Access & Enrollment",
       description: "Register for courses, access materials, and resolve enrollment issues.",
       actionLabel: "Resolve access issues",
-      actionHref: helpDomainHref("course-access-enrollment"),
+      actionHref: productHelpDomainHref("mindtap", "course-access-enrollment"),
     },
     {
       iconKind: "troubleshooting",
       title: "Troubleshooting & Common Problems",
       description: "Resolve technical issues, browser problems, and common errors.",
       actionLabel: "View troubleshooting help",
-      actionHref: helpDomainHref("troubleshooting-common-problems"),
+      actionHref: productHelpDomainHref("mindtap", "troubleshooting-common-problems"),
     },
   ],
   areaSectionTitle: "Browse MindTap help by area",
@@ -347,7 +322,29 @@ export const webAssignProductHubConfig = {
     { id: "instructor", label: "Instructor" },
     { id: "lms-admin", label: "LMS Administrator" },
   ],
-  topicCards: sharedTopicCards("WebAssign"),
+  topicCards: [
+    {
+      iconKind: "account",
+      title: "Sign In & Account Help",
+      description: "Sign in, manage passwords, and recover the Cengage account you use for WebAssign.",
+      actionLabel: "Get account help",
+      actionHref: productHelpDomainHref("webassign", "sign-in-account"),
+    },
+    {
+      iconKind: "access",
+      title: "Course Access & Enrollment",
+      description: "Join classes, use class keys or access codes, and resolve course-entry issues in WebAssign.",
+      actionLabel: "Resolve access issues",
+      actionHref: productHelpDomainHref("webassign", "course-access-enrollment"),
+    },
+    {
+      iconKind: "troubleshooting",
+      title: "Troubleshooting & Common Problems",
+      description: "Resolve browser issues, broken LMS links, and other common WebAssign problems.",
+      actionLabel: "View troubleshooting help",
+      actionHref: productHelpDomainHref("webassign", "troubleshooting-common-problems"),
+    },
+  ],
   areaSectionTitle: "Browse WebAssign help by area",
   resourceCards: [
     {
@@ -369,7 +366,7 @@ export const webAssignProductHubConfig = {
       tasksHeading: "Common tasks for students",
       problemsHeading: "Common problems for students",
       tasks: [
-        { label: "Sign in to WebAssign", href: signInAccountHref() },
+        { label: "Sign in to WebAssign", href: productHelpDomainHref("webassign", "sign-in-account") },
         { label: "Enroll with a class key", href: helpArticleHref("webassign-class-key") },
         { label: "Open assignments" },
         { label: "Submit answers" },
@@ -377,10 +374,10 @@ export const webAssignProductHubConfig = {
         { label: "View scores" },
       ],
       problems: [
-        { label: "Can't sign in", href: signInAccountHref() },
+        { label: "Can't sign in", href: productHelpDomainHref("webassign", "sign-in-account") },
         { label: "Can't enroll with a class key", href: helpArticleHref("webassign-class-key") },
         { label: "LMS link not working", href: helpArticleHref("lms-link-not-working") },
-        { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
+        { label: "Signed in with wrong account", href: wrongAccountChooserHref("webassign") },
         {
           label: "Browser or device compatibility issue",
           href: helpArticleHref("browser-requirements"),
@@ -454,7 +451,7 @@ export const webAssignProductHubConfig = {
       tasksHeading: "Common tasks for instructors",
       problemsHeading: "Common problems for instructors",
       tasks: [
-        { label: "Sign in to WebAssign", href: signInAccountHref() },
+        { label: "Sign in to WebAssign", href: productHelpDomainHref("webassign", "sign-in-account") },
         { label: "Create a class" },
         { label: "Schedule assignments" },
         { label: "Manage roster" },
@@ -632,7 +629,29 @@ export const samProductHubConfig = {
     { id: "instructor", label: "Instructor" },
     { id: "lab-admin", label: "Lab Administrator" },
   ],
-  topicCards: sharedTopicCards("SAM"),
+  topicCards: [
+    {
+      iconKind: "account",
+      title: "Sign In & Account Help",
+      description: "Sign in, manage passwords, and recover the Cengage account you use for SAM.",
+      actionLabel: "Get account help",
+      actionHref: productHelpDomainHref("sam", "sign-in-account"),
+    },
+    {
+      iconKind: "access",
+      title: "Course Access & Enrollment",
+      description: "Use access codes, resolve course-entry issues, and find SAM-specific access help.",
+      actionLabel: "Resolve access issues",
+      actionHref: productHelpDomainHref("sam", "course-access-enrollment"),
+    },
+    {
+      iconKind: "troubleshooting",
+      title: "Troubleshooting & Common Problems",
+      description: "Resolve browser issues, broken LMS links, and other common SAM problems.",
+      actionLabel: "View troubleshooting help",
+      actionHref: productHelpDomainHref("sam", "troubleshooting-common-problems"),
+    },
+  ],
   areaSectionTitle: "Browse SAM help by area",
   resourceCards: [
     {
@@ -654,7 +673,7 @@ export const samProductHubConfig = {
       tasksHeading: "Common tasks for students",
       problemsHeading: "Common problems for students",
       tasks: [
-        { label: "Sign in to SAM", href: signInAccountHref() },
+        { label: "Sign in to SAM", href: productHelpDomainHref("sam", "sign-in-account") },
         { label: "Launch assignments" },
         { label: "Complete training" },
         { label: "Complete projects" },
@@ -662,9 +681,9 @@ export const samProductHubConfig = {
         { label: "View reports and grades" },
       ],
       problems: [
-        { label: "Can't sign in", href: signInAccountHref() },
+        { label: "Can't sign in", href: productHelpDomainHref("sam", "sign-in-account") },
         { label: "Assignment won't launch" },
-        { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
+        { label: "Signed in with wrong account", href: wrongAccountChooserHref("sam") },
         {
           label: "Browser or device compatibility issue",
           href: helpArticleHref("browser-requirements"),
@@ -739,7 +758,7 @@ export const samProductHubConfig = {
       tasksHeading: "Common tasks for instructors",
       problemsHeading: "Common problems for instructors",
       tasks: [
-        { label: "Sign in to SAM", href: signInAccountHref() },
+        { label: "Sign in to SAM", href: productHelpDomainHref("sam", "sign-in-account") },
         { label: "Create assignments" },
         { label: "Schedule exams and training" },
         { label: "Manage sections" },
@@ -914,7 +933,29 @@ export const sparkProductHubConfig = {
     { id: "instructor", label: "Instructor" },
     { id: "institutional-admin", label: "Institutional Administrator" },
   ],
-  topicCards: sharedTopicCards("Spark"),
+  topicCards: [
+    {
+      iconKind: "account",
+      title: "Sign In & Account Help",
+      description: "Sign in, recover the right Spark account, and manage direct or school-managed Spark profiles.",
+      actionLabel: "Get account help",
+      actionHref: productHelpDomainHref("spark", "sign-in-account"),
+    },
+    {
+      iconKind: "access",
+      title: "Course Access & Enrollment",
+      description: "Join Spark courses, resolve course-key issues, and get LMS or school-platform access help.",
+      actionLabel: "Resolve access issues",
+      actionHref: productHelpDomainHref("spark", "course-access-enrollment"),
+    },
+    {
+      iconKind: "troubleshooting",
+      title: "Troubleshooting & Common Problems",
+      description: "Resolve missing activities, LMS link failures, browser issues, and other common Spark problems.",
+      actionLabel: "View troubleshooting help",
+      actionHref: productHelpDomainHref("spark", "troubleshooting-common-problems"),
+    },
+  ],
   areaSectionTitle: "Browse Spark help by area",
   resourceCards: [
     { label: "System requirements", iconKind: "system", href: helpArticleHref("spark-system-requirements") },
@@ -936,8 +977,8 @@ export const sparkProductHubConfig = {
         { label: "View your progress", href: helpArticleHref("spark-view-your-grades") },
       ],
       problems: [
-        { label: "Can't sign in", href: signInAccountHref() },
-        { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
+        { label: "Can't sign in", href: productHelpDomainHref("spark", "sign-in-account") },
+        { label: "Signed in with wrong account", href: wrongAccountChooserHref("spark") },
         { label: "Missing activities or assignments", href: helpArticleHref("spark-missing-activities") },
         { label: "Course key or join code not working", href: helpArticleHref("spark-no-course-key") },
         { label: "Can't access eBooks or resources" },
@@ -990,7 +1031,7 @@ export const sparkProductHubConfig = {
           links: [
             { label: "Course key lookup", href: helpArticleHref("spark-course-key-lookup") },
             { label: "Join self-study" },
-            { label: "Account settings", href: manageAccountChooserHref() },
+            { label: "Account settings", href: manageAccountChooserHref("spark") },
             { label: "Messages" },
           ],
         },
@@ -998,8 +1039,8 @@ export const sparkProductHubConfig = {
           iconKind: "troubleshooting",
           title: "Troubleshooting",
           links: [
-            { label: "Can't sign in", href: signInAccountHref() },
-            { label: "Wrong account", href: wrongAccountChooserHref() },
+            { label: "Can't sign in", href: productHelpDomainHref("spark", "sign-in-account") },
+            { label: "Wrong account", href: wrongAccountChooserHref("spark") },
             { label: "Missing assignments", href: helpArticleHref("spark-missing-activities") },
             { label: "Course access issues", href: helpArticleHref("spark-no-course-key") },
           ],
@@ -1010,7 +1051,7 @@ export const sparkProductHubConfig = {
       tasksHeading: "Common tasks for instructors",
       problemsHeading: "Common problems for instructors",
       tasks: [
-        { label: "Sign in to Spark", href: signInAccountHref() },
+        { label: "Sign in to Spark", href: productHelpDomainHref("spark", "sign-in-account") },
         { label: "Create a course", href: helpArticleHref("spark-create-course") },
         { label: "Create assignments" },
         { label: "Use Dynamic Lessons", href: helpArticleHref("spark-dynamic-lessons") },
@@ -1023,7 +1064,7 @@ export const sparkProductHubConfig = {
         { label: "LMS integration issues", href: helpArticleHref("spark-lti-1-3-course-management") },
         { label: "Gradebook or results not updating" },
         { label: "Student roster issues" },
-        { label: "Password or account issue", href: signInAccountHref() },
+        { label: "Password or account issue", href: productHelpDomainHref("spark", "sign-in-account") },
       ],
       areas: [
         {
@@ -1080,7 +1121,7 @@ export const sparkProductHubConfig = {
           iconKind: "troubleshooting",
           title: "Troubleshooting",
           links: [
-            { label: "Account issues", href: signInAccountHref() },
+            { label: "Account issues", href: productHelpDomainHref("spark", "sign-in-account") },
             { label: "Students can't see assignments" },
             { label: "LMS integration issues", href: helpArticleHref("spark-lti-1-3-course-management") },
             { label: "Missing content" },

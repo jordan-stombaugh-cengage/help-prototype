@@ -2675,6 +2675,75 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
       },
     ],
   },
+  "spark-forgot-username": {
+    slug: "spark-forgot-username",
+    title: "Forgot Username",
+    summary: "Find the Spark username or email address you should use to sign in.",
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "Sign In & Account Help", "School-managed access"],
+    appliesTo:
+      "Spark students, instructors, and institutional administrators who need to confirm the username or email tied to a Spark account",
+    product: "Spark",
+    helpArea: "Sign In & Account Help",
+    updated: "January 13, 2026",
+    callout: {
+      title: "School-managed Spark accounts may use a different username",
+      paragraphs: [
+        "If your teacher or school created your Spark account, the username might not match the email address you usually use for school.",
+        "Use the username from your Spark welcome email or ask your teacher or institutional administrator to confirm it.",
+      ],
+    },
+    sections: [
+      {
+        title: "If you sign in directly to Spark",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "Try the email address you use to sign in to learn.eltngl.com.",
+              "If you received a Spark welcome email, use the username or email address shown there.",
+              "If you have more than one email address, try the one you use for your class or school.",
+            ],
+          },
+        ],
+      },
+      {
+        title: "If your teacher or school created the Spark account",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "Ask your teacher or institutional administrator to confirm the correct Spark username.",
+              "If the account does not have an email address or you also need a password reset, ask your teacher or institutional administrator to reset it for you.",
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related Spark account help",
+        links: [
+          { label: "Sign in to Spark", href: helpArticleHref("spark-sign-in") },
+          {
+            label: "Use the correct school-managed Spark account",
+            href: helpArticleHref("spark-school-managed-wrong-account"),
+          },
+        ],
+      },
+      {
+        heading: "More Spark help",
+        links: [
+          {
+            label: "Manage a school-managed Spark account",
+            href: helpArticleHref("spark-school-managed-account"),
+          },
+          { label: "Contact support", href: contactSupportHref() },
+        ],
+      },
+    ],
+  },
   "wrong-account": {
     slug: "wrong-account",
     title: "Wrong account",

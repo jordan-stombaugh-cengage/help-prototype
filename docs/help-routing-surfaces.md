@@ -106,7 +106,7 @@ Columns:
 
 | Label family | Intended destination type | Relationship logic | Mode |
 |---|---|---|---|
-| shared topic cards: `Sign In & Account Help`, `Course Access & Enrollment`, `Troubleshooting & Common Problems` | help-domain hub | Shared domain comes before lower-level routing | direct |
+| shared topic cards: `Sign In & Account Help`, `Course Access & Enrollment`, `Troubleshooting & Common Problems` | help-domain hub or product-scoped help-domain state | Shared domain comes before lower-level routing from generic surfaces, but MindTap, WebAssign, SAM, and Spark product-hub topic cards now preserve known product context in a scoped help-domain state | direct |
 | `Signed in with wrong account` | guided routing page | Product context alone is not enough to resolve the issue honestly | chooser |
 | product-specific tasks with real answer objects | help article | Product and workflow are already known | direct |
 | product-specific tasks without answer objects | unresolved | Product is known, but the answer object does not exist yet | non-interactive |
@@ -129,4 +129,5 @@ Columns:
 - Role pills go to filtered search, never to hubs.
 - Shared issue labels use chooser logic when product or access pathway changes the right answer.
 - Shared issue labels stay non-interactive when no honest direct destination or chooser exists yet.
+- Product-hub help-by-topic cards can use product-scoped help-domain states when product context is already known and the scoped state exists.
 - Product-hub deep links go direct only when the answer object already exists.

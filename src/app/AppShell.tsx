@@ -1,3 +1,6 @@
+import { Heading, magma } from "react-magma-dom";
+import cengagePrimaryLogo from "../../logos/cengage-primary.png";
+
 type AppShellProps = {
   children: React.ReactNode;
 };
@@ -7,7 +10,23 @@ export function AppShell({ children }: AppShellProps) {
     <div className="app-shell">
       <header className="app-header">
         <div className="app-inner">
-          <p className="app-eyebrow">Cengage Help Prototype</p>
+          <div className="app-brand" aria-label="Cengage Help">
+            <img className="app-brand-logo" src={cengagePrimaryLogo} alt="Cengage" />
+            <Heading
+              className="app-brand-title"
+              level={2}
+              noMargins
+              style={{
+                color: magma.colors.neutral500,
+                fontSize: "24px",
+                fontWeight: 400,
+                letterSpacing: "0",
+                lineHeight: 1.15,
+              }}
+            >
+              Help
+            </Heading>
+          </div>
         </div>
       </header>
 
