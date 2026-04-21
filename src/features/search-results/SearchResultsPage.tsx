@@ -19,6 +19,7 @@ import {
   homepageHref,
   joinEnrollChooserHref,
   lmsAccessChooserHref,
+  missingActivitiesChooserHref,
   purchasedAccessChooserHref,
   resetPasswordHref,
   setPreviewPageHash,
@@ -490,18 +491,20 @@ const results: SearchResult[] = [
   },
   {
     description:
-      "Product-specific help for missing activities is still being added. The prototype does not yet include live downstream answers for each product.",
+      "Choose your product to get live missing-activities help for MindTap or Spark. WebAssign, SAM, and not-sure branches remain intentionally unresolved.",
     filters: {
       Product: allProducts,
       Role: sharedRoutingRoles,
     },
     helpArea: "Troubleshooting & Common Problems",
+    href: missingActivitiesChooserHref(),
     keywords: ["missing activities", "missing assignments", "coursework missing"],
     priority: 76,
     productMetadataLabel: null,
     resultType: "Guided step",
     title: "Missing activities or assignments",
-    updated: "Partial prototype coverage",
+    updated: "Updated April 2026",
+    updatedAt: "2026-04-21",
   },
   {
     description:

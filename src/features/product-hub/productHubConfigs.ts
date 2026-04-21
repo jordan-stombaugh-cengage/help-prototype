@@ -99,7 +99,7 @@ export const mindTapProductHubConfig = {
       ],
       problems: [
         { label: "Can't sign in", href: signInAccountHref() },
-        { label: "Missing activities or assignments" },
+        { label: "Missing activities or assignments", href: helpArticleHref("mindtap-missing-activities") },
         { label: "LMS link not working", href: helpArticleHref("lms-link-not-working") },
         { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
         { label: "Browser or device compatibility issue", href: helpArticleHref("browser-requirements") },
@@ -938,7 +938,7 @@ export const sparkProductHubConfig = {
       problems: [
         { label: "Can't sign in", href: signInAccountHref() },
         { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
-        { label: "Missing activities or assignments" },
+        { label: "Missing activities or assignments", href: helpArticleHref("spark-missing-activities") },
         { label: "Course key or join code not working", href: helpArticleHref("spark-no-course-key") },
         { label: "Can't access eBooks or resources" },
         { label: "Browser or device issue", href: helpArticleHref("spark-system-requirements") },
@@ -1000,7 +1000,7 @@ export const sparkProductHubConfig = {
           links: [
             { label: "Can't sign in", href: signInAccountHref() },
             { label: "Wrong account", href: wrongAccountChooserHref() },
-            { label: "Missing assignments" },
+            { label: "Missing assignments", href: helpArticleHref("spark-missing-activities") },
             { label: "Course access issues", href: helpArticleHref("spark-no-course-key") },
           ],
         },

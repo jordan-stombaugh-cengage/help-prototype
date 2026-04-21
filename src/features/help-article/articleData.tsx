@@ -610,6 +610,176 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
       },
     ],
   },
+  "mindtap-missing-activities": {
+    slug: "mindtap-missing-activities",
+    title: "Missing Activities or Assignments in MindTap",
+    summary:
+      "Check the learning-path view and activity dates when work is missing from your MindTap course.",
+    parentLabel: "MindTap",
+    parentHref: mindTapHubHref,
+    tags: ["MindTap", "Higher Ed Student", "Troubleshooting & Common Problems"],
+    appliesTo: "MindTap students who do not see expected activities in the learning path",
+    product: "MindTap",
+    helpArea: "Troubleshooting & Common Problems",
+    updated: "April 21, 2026",
+    callout: {
+      title: "Start in the learning path",
+      paragraphs: [
+        "If some activities are not displaying in your learning path, switch to Outline View first.",
+        "Activity availability and due dates also affect when assignments appear to students.",
+      ],
+    },
+    sections: [
+      {
+        title: "Check the learning-path view",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              { title: "Open your MindTap course." },
+              {
+                title: "If some activities are not displaying in your learning path, switch to Outline View.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "If the activity still is not there",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "Ask your instructor to verify the activity's Date Available and Date Due.",
+              "If your instructor changed dates for multiple activities at once, the assignment might no longer be visible when you expect it.",
+              <>
+                If the problem started from an LMS launch, use{" "}
+                <a href={helpArticleHref("lms-link-not-working")}>LMS link not working</a>.
+              </>,
+              <>
+                If you are in the wrong section or the wrong course, use{" "}
+                <a href={wrongCourseChooserHref()}>Wrong course or missing course</a>.
+              </>,
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related troubleshooting",
+        links: [
+          { label: "LMS link not working", href: helpArticleHref("lms-link-not-working") },
+          { label: "Wrong course or missing course", href: wrongCourseChooserHref() },
+        ],
+      },
+      {
+        heading: "More help",
+        links: [
+          { label: "MindTap", href: mindTapHubHref },
+          {
+            label: "Troubleshooting & Common Problems",
+            href: helpDomainHref("troubleshooting-common-problems"),
+          },
+        ],
+      },
+    ],
+  },
+  "spark-missing-activities": {
+    slug: "spark-missing-activities",
+    title: "Missing Activities or Assignments in Spark",
+    summary:
+      "Check the course context, assignment location, and school-managed access path when expected work is missing in Spark.",
+    parentLabel: "Spark",
+    parentHref: sparkHubHref,
+    tags: ["Spark", "Student", "Troubleshooting & Common Problems"],
+    appliesTo: "Spark students who do not see expected assignments or activities",
+    product: "Spark",
+    helpArea: "Troubleshooting & Common Problems",
+    updated: "April 21, 2026",
+    callout: {
+      title: "Assignments live inside a Spark course",
+      paragraphs: [
+        "In Spark, assignments and activities for each book are contained in a course.",
+        "For some schools, your teacher or school administrator adds you to the Spark course instead of asking you to join it yourself.",
+      ],
+    },
+    sections: [
+      {
+        title: "Check where the work should appear",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "Open the correct Spark course first.",
+              "For regular assigned work, use the Assignments area in Spark.",
+              "If your instructor assigned an in-class activity, it can appear as a Start Activity pop-up instead of a regular assignment in the list.",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Common reasons the assignment looks missing",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "You are not in the correct Spark course yet.",
+              "Your teacher or school administrator still needs to add you to the course.",
+              "Your teacher gave you a course key or self-registration guide that you have not finished using yet.",
+              "The course has ended. In an expired course, you can still view old assignments, but you cannot complete tests or assignments after the course end date.",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Use the right next step",
+        items: [
+          {
+            kind: "list",
+            items: [
+              <>
+                If you should be opening Spark from your LMS or school platform, use{" "}
+                <a href={helpArticleHref("spark-lms-access")}>
+                  Access Spark Through Your LMS or School Platform
+                </a>
+                .
+              </>,
+              <>
+                If the LMS or school link itself is not opening Spark, use{" "}
+                <a href={helpArticleHref("spark-lms-link-not-working")}>
+                  Spark LMS Link Not Working
+                </a>
+                .
+              </>,
+              <>
+                If the course is wrong or missing after sign-in, use{" "}
+                <a href={wrongCourseChooserHref()}>Wrong course or missing course</a>.
+              </>,
+              "If you expected a specific assignment to be available already, ask your teacher whether it was assigned to your course.",
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related Spark help",
+        links: [
+          { label: "Assignments", href: helpArticleHref("spark-assignments") },
+          { label: "Join a Spark course", href: helpArticleHref("spark-join-course") },
+        ],
+      },
+      {
+        heading: "Course and LMS help",
+        links: [
+          { label: "Spark LMS access", href: helpArticleHref("spark-lms-access") },
+          { label: "Spark LMS link not working", href: helpArticleHref("spark-lms-link-not-working") },
+          { label: "Wrong course or missing course", href: wrongCourseChooserHref() },
+        ],
+      },
+    ],
+  },
   "spark-sign-in": {
     slug: "spark-sign-in",
     title: "Sign In",

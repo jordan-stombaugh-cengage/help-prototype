@@ -55,6 +55,8 @@ export type HelpArticleSlug =
   | "mindtap-access-code"
   | "webassign-access-code"
   | "sam-access-code"
+  | "mindtap-missing-activities"
+  | "spark-missing-activities"
   | "manage-account"
   | "reset-cengage-password"
   | "spark-manage-account"
@@ -541,6 +543,8 @@ export function getHelpArticleSlugFromHash(
     case "mindtap-access-code":
     case "webassign-access-code":
     case "sam-access-code":
+    case "mindtap-missing-activities":
+    case "spark-missing-activities":
     case "spark-school-managed-account":
     case "spark-school-managed-wrong-account":
     case "forgot-username":

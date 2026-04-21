@@ -466,7 +466,8 @@ const missingActivitiesOptions: ChooserOption[] = [
   {
     title: "MindTap",
     description:
-      "A MindTap missing-activities destination is not in the prototype yet.",
+      "Use the MindTap troubleshooting article when activities are missing from the learning path or assignment list.",
+    href: helpArticleHref("mindtap-missing-activities"),
     iconKind: "product",
   },
   {
@@ -484,7 +485,8 @@ const missingActivitiesOptions: ChooserOption[] = [
   {
     title: "Spark",
     description:
-      "A Spark missing-activities destination is not in the prototype yet.",
+      "Use the Spark troubleshooting article when assignments or activities are missing from the course.",
+    href: helpArticleHref("spark-missing-activities"),
     iconKind: "product",
   },
   {
