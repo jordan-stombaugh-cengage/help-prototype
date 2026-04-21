@@ -1,5 +1,4 @@
 import {
-  courseKeyChooserHref,
   errorSyncChooserHref,
   helpArticleHref,
   helpDomainHref,
@@ -91,7 +90,7 @@ export const mindTapProductHubConfig = {
       problemsHeading: "Common problems for students",
       tasks: [
         { label: "Sign in to MindTap", href: helpArticleHref("sign-in") },
-        { label: "Register with a course key", href: courseKeyChooserHref() },
+        { label: "Register with a course key", href: helpArticleHref("mindtap-course-key") },
         { label: "Complete activities" },
         { label: "Access your eBook" },
         { label: "View your grades" },
@@ -370,7 +369,7 @@ export const webAssignProductHubConfig = {
       problemsHeading: "Common problems for students",
       tasks: [
         { label: "Sign in to WebAssign", href: signInAccountHref() },
-        { label: "Enroll with a class key", href: courseKeyChooserHref() },
+        { label: "Enroll with a class key", href: helpArticleHref("webassign-class-key") },
         { label: "Open assignments" },
         { label: "Submit answers" },
         { label: "Access your eBook" },
@@ -378,7 +377,7 @@ export const webAssignProductHubConfig = {
       ],
       problems: [
         { label: "Can't sign in", href: signInAccountHref() },
-        { label: "Can't enroll with a class key", href: courseKeyChooserHref() },
+        { label: "Can't enroll with a class key", href: helpArticleHref("webassign-class-key") },
         { label: "LMS link not working", href: helpArticleHref("lms-link-not-working") },
         { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
         {

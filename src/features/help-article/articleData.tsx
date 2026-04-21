@@ -115,6 +115,10 @@ function inlineHelpDomainLink(
 }
 
 const sparkHubHref = browseByProductHref("spark");
+const mindTapHubHref = browseByProductHref("mindtap");
+const webAssignHubHref = browseByProductHref("webassign");
+const samHubHref = browseByProductHref("sam");
+const getEnrolledHref = "http://getenrolled.com/";
 const sparkPlatformHref = "https://learn.eltngl.com";
 const sparkDynamicLessonsVideoHref = "https://play.vidyard.com/tWJGsWXSRKrVRDavDYaiij";
 
@@ -129,6 +133,224 @@ function sparkDynamicLessonsFamily(): HelpArticleFamily {
   return {
     ariaLabel: "Spark Dynamic Lessons article family",
     items,
+  };
+}
+
+type HigherEdCourseKeyArticleOptions = {
+  accessCodeSlug: HelpArticleSlug;
+  extraCalloutParagraph?: string;
+  hubHref?: string;
+  keyLabel: "course key" | "class key";
+  product: "MindTap" | "WebAssign";
+  slug: HelpArticleSlug;
+  title: string;
+};
+
+function buildHigherEdCourseKeyArticle({
+  accessCodeSlug,
+  extraCalloutParagraph,
+  hubHref,
+  keyLabel,
+  product,
+  slug,
+  title,
+}: HigherEdCourseKeyArticleOptions): HelpArticleDefinition {
+  const normalizedKeyLabel = keyLabel.toLowerCase();
+
+  return {
+    slug,
+    title,
+    summary: `Use your instructor's ${normalizedKeyLabel} to enroll in the correct ${product} course.`,
+    parentLabel: product,
+    parentHref: hubHref ?? helpDomainHref("course-access-enrollment"),
+    tags: [product, "Student", "Course Access & Enrollment"],
+    appliesTo: `Students enrolling in ${product} with a Cengage account`,
+    product,
+    helpArea: "Course Access & Enrollment",
+    callout: {
+      title: "Before you start",
+      paragraphs: [
+        `Your ${normalizedKeyLabel} comes from your instructor and identifies the correct ${product} class or section.`,
+        `You can enter your ${normalizedKeyLabel} from your Cengage dashboard or at ${getEnrolledHref}.`,
+        ...(extraCalloutParagraph ? [extraCalloutParagraph] : []),
+      ],
+    },
+    sections: [
+      {
+        title: "Enter your key from the Cengage dashboard",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              {
+                title: (
+                  <>
+                    Go to {inlineExternalLink(externalRoutes.cengageLogin, "login.cengage.com")} and
+                    sign in or create a Cengage account.
+                  </>
+                ),
+              },
+              {
+                title: "On your dashboard, click Enter Access Code or Course Key.",
+              },
+              {
+                title: `Enter your ${normalizedKeyLabel} and click Register.`,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "Enter your key at getenrolled.com",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              {
+                title: (
+                  <>
+                    Go to {inlineExternalLink(getEnrolledHref, "getenrolled.com")}.
+                  </>
+                ),
+              },
+              {
+                title: `Enter your ${normalizedKeyLabel} and click Access Course.`,
+              },
+              {
+                title: "If the correct class and section are listed, click Register.",
+                details: [
+                  `If the listed class or section is not correct, try the ${normalizedKeyLabel} again or ask your instructor for the correct one.`,
+                ],
+              },
+              {
+                title: "Sign in or create a Cengage account.",
+              },
+              {
+                title:
+                  "If prompted, enter your access code, buy course materials, or continue with temporary access.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related access help",
+        links: [
+          {
+            label: "Register an access code",
+            href: helpArticleHref(accessCodeSlug),
+          },
+          {
+            label: "Join or enroll in a course",
+            href: joinEnrollChooserHref(),
+          },
+        ],
+      },
+      {
+        heading: "More help",
+        links: [
+          { label: product, href: hubHref },
+          {
+            label: "Course Access & Enrollment",
+            href: helpDomainHref("course-access-enrollment"),
+          },
+        ],
+      },
+    ],
+  };
+}
+
+type HigherEdAccessCodeArticleOptions = {
+  courseKeyLabel: "course key" | "class key";
+  courseKeySlug: HelpArticleSlug;
+  extraCalloutParagraph?: string;
+  hubHref?: string;
+  product: "MindTap" | "WebAssign";
+  slug: HelpArticleSlug;
+  title: string;
+};
+
+function buildHigherEdAccessCodeArticle({
+  courseKeyLabel,
+  courseKeySlug,
+  extraCalloutParagraph,
+  hubHref,
+  product,
+  slug,
+  title,
+}: HigherEdAccessCodeArticleOptions): HelpArticleDefinition {
+  return {
+    slug,
+    title,
+    summary: `Apply your bookstore or retailer access code to unlock ${product} course materials in your Cengage account.`,
+    parentLabel: product,
+    parentHref: hubHref ?? helpDomainHref("course-access-enrollment"),
+    tags: [product, "Student", "Course Access & Enrollment"],
+    appliesTo: `Students redeeming ${product} access codes with a Cengage account`,
+    product,
+    helpArea: "Course Access & Enrollment",
+    callout: {
+      title: "Before you enter your access code",
+      paragraphs: [
+        `Your access code is proof of purchase for your ${product} course materials or eBook.`,
+        `If you bought access from a bookstore or another retailer, register the code on your Cengage account to unlock ${product}.`,
+        "You do not need to enter an access code if you already purchased directly from Cengage, your school purchased access for you, or your subscription already covers the product.",
+        ...(extraCalloutParagraph ? [extraCalloutParagraph] : []),
+      ],
+    },
+    sections: [
+      {
+        title: "Register your access code",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              {
+                title: (
+                  <>
+                    Go to {inlineExternalLink(externalRoutes.cengageLogin, "login.cengage.com")} and
+                    sign in or create a Cengage account.
+                  </>
+                ),
+              },
+              {
+                title: "On your dashboard, click Enter Access Code or Course Key.",
+              },
+              {
+                title: "Enter your access code and click Register.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related access help",
+        links: [
+          {
+            label: `Enter a ${courseKeyLabel}`,
+            href: helpArticleHref(courseKeySlug),
+          },
+          {
+            label: "Join or enroll in a course",
+            href: joinEnrollChooserHref(),
+          },
+        ],
+      },
+      {
+        heading: "More help",
+        links: [
+          { label: product, href: hubHref },
+          {
+            label: "Course Access & Enrollment",
+            href: helpDomainHref("course-access-enrollment"),
+          },
+        ],
+      },
+    ],
   };
 }
 
@@ -271,6 +493,119 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
             label: "NGLSync sign-in",
             href: resetPasswordHref("school-nglsync"),
           },
+        ],
+      },
+    ],
+  },
+  "mindtap-course-key": buildHigherEdCourseKeyArticle({
+    slug: "mindtap-course-key",
+    title: "Enter a Course Key for MindTap",
+    product: "MindTap",
+    keyLabel: "course key",
+    hubHref: mindTapHubHref,
+    accessCodeSlug: "mindtap-access-code",
+  }),
+  "webassign-class-key": buildHigherEdCourseKeyArticle({
+    slug: "webassign-class-key",
+    title: "Enter a Class Key for WebAssign",
+    product: "WebAssign",
+    keyLabel: "class key",
+    hubHref: webAssignHubHref,
+    accessCodeSlug: "webassign-access-code",
+    extraCalloutParagraph:
+      "If your instructor gave you an enrollment link instead of a class key, use that link instead of entering the key manually.",
+  }),
+  "mindtap-access-code": buildHigherEdAccessCodeArticle({
+    slug: "mindtap-access-code",
+    title: "Register an Access Code for MindTap",
+    product: "MindTap",
+    hubHref: mindTapHubHref,
+    courseKeyLabel: "course key",
+    courseKeySlug: "mindtap-course-key",
+    extraCalloutParagraph:
+      "If you already registered a multi-term MindTap access code for an earlier term, you should not need to enter it again.",
+  }),
+  "webassign-access-code": buildHigherEdAccessCodeArticle({
+    slug: "webassign-access-code",
+    title: "Register an Access Code for WebAssign",
+    product: "WebAssign",
+    hubHref: webAssignHubHref,
+    courseKeyLabel: "class key",
+    courseKeySlug: "webassign-class-key",
+  }),
+  "sam-access-code": {
+    slug: "sam-access-code",
+    title: "Enter a SAM Access Code",
+    summary:
+      "Use your SAM access code or key code to unlock assignments when your institution requires student-purchased access.",
+    parentLabel: "SAM",
+    parentHref: samHubHref,
+    tags: ["SAM", "Student", "Course Access & Enrollment"],
+    appliesTo: "Students at institutions using SAM key-code licensing",
+    product: "SAM",
+    helpArea: "Course Access & Enrollment",
+    callout: {
+      title: "Before you enter a code",
+      paragraphs: [
+        "Some schools license SAM with student key codes, while others cover access with a site license.",
+        "If your institution uses a site license, you do not buy or enter your own code.",
+        "Some institutions also allow a temporary grace period before code entry is required.",
+      ],
+    },
+    sections: [
+      {
+        title: "When you need to add a product",
+        items: [
+          {
+            kind: "list",
+            items: [
+              "Assignments that need a code can display Key Code Required until the correct product is added.",
+              "After the grace period expires, you cannot take assignments, access scores, or view reports until you enter the correct code.",
+            ],
+          },
+        ],
+      },
+      {
+        title: "Enter your access code in SAM",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              { title: "Sign in to SAM." },
+              {
+                title: "If you are prompted for a key code, enter your 18-digit access code and click Save.",
+                details: ["During a grace period, you can choose Enter later."],
+              },
+              {
+                title: "If assignments still show Key Code Required or stay inactive, click Add Product.",
+              },
+              {
+                title: "Enter the product's 18-digit access code.",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "Related access help",
+        links: [
+          {
+            label: "Join or enroll in a course",
+            href: joinEnrollChooserHref(),
+          },
+          {
+            label: "Course Access & Enrollment",
+            href: helpDomainHref("course-access-enrollment"),
+          },
+        ],
+      },
+      {
+        heading: "More help",
+        links: [
+          { label: "SAM", href: samHubHref },
+          { label: "Contact support", href: contactSupportHref() },
         ],
       },
     ],

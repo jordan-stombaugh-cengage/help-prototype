@@ -240,19 +240,22 @@ const accessCodeOptions: ChooserOption[] = [
   {
     title: "MindTap",
     description:
-      "A direct MindTap access-code destination is not in the prototype yet.",
+      "Use the MindTap access-code article when you need to register a bookstore or retailer code on your Cengage account.",
+    href: helpArticleHref("mindtap-access-code"),
     iconKind: "product",
   },
   {
     title: "WebAssign",
     description:
-      "A direct WebAssign access-code destination is not in the prototype yet.",
+      "Use the WebAssign access-code article when you need to redeem a code for your class materials.",
+    href: helpArticleHref("webassign-access-code"),
     iconKind: "product",
   },
   {
     title: "SAM",
     description:
-      "A direct SAM access-code destination is not in the prototype yet.",
+      "Use the SAM access-code article when your institution requires a key code to unlock assignments.",
+    href: helpArticleHref("sam-access-code"),
     iconKind: "product",
   },
   {
@@ -274,19 +277,21 @@ const courseKeyOptions: ChooserOption[] = [
   {
     title: "MindTap",
     description:
-      "A direct MindTap course-key destination is not in the prototype yet.",
+      "Use the MindTap course-key article when you need to register with the course key your instructor gave you.",
+    href: helpArticleHref("mindtap-course-key"),
     iconKind: "product",
   },
   {
     title: "WebAssign",
     description:
-      "A direct WebAssign course-key destination is not in the prototype yet.",
+      "Use the WebAssign class-key article when you need to enroll in the correct class section.",
+    href: helpArticleHref("webassign-class-key"),
     iconKind: "product",
   },
   {
     title: "SAM",
     description:
-      "A direct SAM course-key destination is not in the prototype yet.",
+      "A standalone SAM course-key destination is not in the prototype yet.",
     iconKind: "product",
   },
   {

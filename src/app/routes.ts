@@ -50,6 +50,11 @@ export type HelpDomainSlug =
 
 export type HelpArticleSlug =
   | "sign-in"
+  | "mindtap-course-key"
+  | "webassign-class-key"
+  | "mindtap-access-code"
+  | "webassign-access-code"
+  | "sam-access-code"
   | "manage-account"
   | "reset-cengage-password"
   | "spark-manage-account"
@@ -527,6 +532,11 @@ export function getHelpArticleSlugFromHash(
   const slug = params.get("article");
 
   switch (slug) {
+    case "mindtap-course-key":
+    case "webassign-class-key":
+    case "mindtap-access-code":
+    case "webassign-access-code":
+    case "sam-access-code":
     case "forgot-username":
     case "manage-account":
     case "reset-cengage-password":
