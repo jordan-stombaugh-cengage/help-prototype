@@ -10,21 +10,12 @@ import {
   TypographyVisualStyle,
 } from "react-magma-dom";
 import {
-  accessCodeChooserHref,
-  courseKeyChooserHref,
-  errorSyncChooserHref,
   getRouteDrivenSearchFilters,
   getSearchDiscoveryOptionsFromHash,
   getSearchResultsContextLabel,
   helpArticleHref,
   homepageHref,
-  joinEnrollChooserHref,
-  lmsAccessChooserHref,
-  missingActivitiesChooserHref,
-  purchasedAccessChooserHref,
-  resetPasswordHref,
   setPreviewPageHash,
-  wrongCourseChooserHref,
 } from "../../app/routes";
 import { Button } from "../../components/Button";
 import {
@@ -41,10 +32,7 @@ type FilterSelections = Record<string, string[]>;
 
 type SearchSortMode = "best-match" | "most-recent";
 
-type SearchResultType = "Article" | "Guided step";
-
 type SearchResult = {
-  actionLabel?: string;
   description: string;
   filters?: Partial<FilterSelections>;
   helpArea?: string;
@@ -52,11 +40,13 @@ type SearchResult = {
   keywords?: string[];
   priority?: number;
   productMetadataLabel?: string | null;
-  resultType: SearchResultType;
+  resultType: "Article";
   title: string;
   updated: string;
   updatedAt?: string;
 };
+
+const allProducts = ["MindTap", "WebAssign", "SAM", "Spark"];
 
 const filterGroups: FilterGroup[] = [
   {
@@ -74,7 +64,7 @@ const filterGroups: FilterGroup[] = [
   },
   {
     title: "Product",
-    options: ["MindTap", "WebAssign", "SAM", "Spark"],
+    options: allProducts,
   },
   {
     title: "Sign-in path",
@@ -98,19 +88,6 @@ function buildFilterSelections(defaults: Partial<FilterSelections> = {}): Filter
     return selections;
   }, {});
 }
-
-const allProducts = ["MindTap", "WebAssign", "SAM", "Spark"];
-
-const sharedHelpRoles = [
-  "Higher Ed Student",
-  "Higher Ed Instructor",
-  "K–12 Student",
-  "K–12 Teacher",
-  "Primary Student",
-  "Secondary Student",
-  "LMS Administrator",
-  "Institutional Administrator",
-];
 
 const directAccountRoles = [
   "Higher Ed Student",
@@ -136,30 +113,8 @@ const sparkAccessRoles = [
   "Institutional Administrator",
 ];
 
-const sharedRoutingRoles = [
-  "Higher Ed Student",
-  "Higher Ed Instructor",
-  "K–12 Student",
-  "K–12 Teacher",
-  "Primary Student",
-  "Secondary Student",
-  "Institutional Administrator",
-];
-
-const sharedLmsRoles = [
-  "Higher Ed Student",
-  "Higher Ed Instructor",
-  "K–12 Student",
-  "K–12 Teacher",
-  "Primary Student",
-  "Secondary Student",
-  "LMS Administrator",
-  "Institutional Administrator",
-];
-
 const results: SearchResult[] = [
   {
-    actionLabel: "View article",
     description:
       "Reset the password for a direct Cengage account used with MindTap, WebAssign, or SAM.",
     filters: {
@@ -178,37 +133,25 @@ const results: SearchResult[] = [
   },
   {
     description:
-      "If you sign in through your LMS, reset your password through your school's LMS instead of the Cengage sign-in page.",
+      "Sign in to your MindTap course with your Cengage account, or follow the sign-in path your LMS or school provides.",
     filters: {
-      Role: sharedLmsRoles,
-      "Sign-in path": ["LMS sign-in"],
+      Product: ["MindTap"],
+      Role: ["Higher Ed Student", "K–12 Student"],
     },
     helpArea: "Sign In & Account Help",
-    href: resetPasswordHref("lms"),
-    keywords: ["reset password", "lms password", "canvas password", "moodle password"],
-    priority: 72,
-    resultType: "Guided step",
-    title: "Reset password through LMS",
-    updated: "Updated February 2026",
-    updatedAt: "2026-02-12",
-  },
-  {
-    description:
-      "If your Spark access comes through a school portal or NGLSync, reset your password through the school's sign-in system.",
-    filters: {
-      Product: ["Spark"],
-      Role: [...sparkStudentRoles, ...sparkAdminRoles],
-      "Sign-in path": ["School / NGLSync"],
-      "Education segment": ["English Language Learning"],
-    },
-    helpArea: "Sign In & Account Help",
-    href: resetPasswordHref("school-nglsync"),
-    keywords: ["reset password", "nglsync", "school portal", "spark sign in"],
-    priority: 70,
-    resultType: "Guided step",
-    title: "Reset password for school or NGLSync sign-in",
-    updated: "Updated January 2026",
-    updatedAt: "2026-01-13",
+    href: helpArticleHref("sign-in"),
+    keywords: [
+      "sign in",
+      "mindtap sign in",
+      "mindtap login",
+      "cengage sign in",
+      "login.cengage.com",
+    ],
+    priority: 84,
+    resultType: "Article",
+    title: "Sign In",
+    updated: "Updated March 2026",
+    updatedAt: "2026-03-18",
   },
   {
     description:
@@ -225,6 +168,29 @@ const results: SearchResult[] = [
     resultType: "Article",
     title: "Forgot username",
     updated: "Source date not available",
+  },
+  {
+    description:
+      "Find the Spark username or email address you should use to sign in, whether your Spark account is direct or school-managed.",
+    filters: {
+      Product: ["Spark"],
+      Role: [...sparkStudentRoles, ...sparkInstructorRoles, ...sparkAdminRoles],
+      "Education segment": ["English Language Learning"],
+    },
+    helpArea: "Sign In & Account Help",
+    href: helpArticleHref("spark-forgot-username"),
+    keywords: [
+      "forgot username",
+      "spark forgot username",
+      "spark username",
+      "spark email address",
+      "school managed spark username",
+    ],
+    priority: 76,
+    resultType: "Article",
+    title: "Forgot Username for Spark",
+    updated: "Updated January 13, 2026",
+    updatedAt: "2026-01-13",
   },
   {
     description:
@@ -321,72 +287,120 @@ const results: SearchResult[] = [
   },
   {
     description:
-      "Choose the product or course experience that uses your key so we can send you to the right enrollment step.",
+      "Use the course key from your instructor to register and open the correct MindTap course.",
     filters: {
-      Product: allProducts,
-      Role: sharedRoutingRoles,
+      Product: ["MindTap"],
+      Role: ["Higher Ed Student"],
+      "Sign-in path": ["Cengage sign-in"],
+      "Education segment": ["Higher Education"],
     },
     helpArea: "Course Access & Enrollment",
-    href: courseKeyChooserHref(),
+    href: helpArticleHref("mindtap-course-key"),
     keywords: [
       "enter course key",
+      "mindtap course key",
       "course key",
-      "class key",
       "register with course key",
       "join code",
     ],
     priority: 84,
-    resultType: "Guided step",
-    title: "Enter a course key",
-    updated: "Prototype routing step",
+    resultType: "Article",
+    title: "Enter a Course Key for MindTap",
+    updated: "Source date not available",
   },
   {
     description:
-      "Choose the product or course experience linked to your code so we can send you to the right access step.",
+      "Use the class key from your instructor to enroll in the correct WebAssign class section.",
     filters: {
-      Product: allProducts,
-      Role: sharedRoutingRoles,
-    },
-    helpArea: "Course Access & Enrollment",
-    href: accessCodeChooserHref(),
-    keywords: ["redeem access code", "access code", "unlock access", "enter access code"],
-    priority: 80,
-    resultType: "Guided step",
-    title: "Redeem an access code",
-    updated: "Prototype routing step",
-  },
-  {
-    description:
-      "Choose how you are trying to get into your course so we can send you to the right enrollment or access step.",
-    filters: {
-      Product: allProducts,
-      Role: sharedRoutingRoles,
-    },
-    helpArea: "Course Access & Enrollment",
-    href: joinEnrollChooserHref(),
-    keywords: ["join or enroll in a course", "join course", "enroll course", "course invite"],
-    priority: 78,
-    resultType: "Guided step",
-    title: "Join or enroll in a course",
-    updated: "Prototype routing step",
-  },
-  {
-    description:
-      "Choose the LMS access situation for MindTap, WebAssign, or SAM so we can send you to the right next step.",
-    filters: {
-      Product: ["MindTap", "WebAssign", "SAM"],
-      Role: higherEdLearnerRoles,
-      "Sign-in path": ["LMS sign-in"],
+      Product: ["WebAssign"],
+      Role: ["Higher Ed Student"],
+      "Sign-in path": ["Cengage sign-in"],
       "Education segment": ["Higher Education"],
     },
     helpArea: "Course Access & Enrollment",
-    href: lmsAccessChooserHref(),
-    keywords: ["access your course through lms", "open course from lms", "course launch", "canvas"],
+    href: helpArticleHref("webassign-class-key"),
+    keywords: [
+      "enter course key",
+      "webassign class key",
+      "class key",
+      "course key",
+      "register with course key",
+      "join code",
+    ],
+    priority: 82,
+    resultType: "Article",
+    title: "Enter a Class Key for WebAssign",
+    updated: "Source date not available",
+  },
+  {
+    description:
+      "Register a bookstore or retailer access code on the Cengage account you use for MindTap.",
+    filters: {
+      Product: ["MindTap"],
+      Role: ["Higher Ed Student"],
+      "Sign-in path": ["Cengage sign-in"],
+      "Education segment": ["Higher Education"],
+    },
+    helpArea: "Course Access & Enrollment",
+    href: helpArticleHref("mindtap-access-code"),
+    keywords: [
+      "redeem access code",
+      "access code",
+      "mindtap access code",
+      "unlock access",
+      "enter access code",
+    ],
+    priority: 78,
+    resultType: "Article",
+    title: "Register an Access Code for MindTap",
+    updated: "Source date not available",
+  },
+  {
+    description:
+      "Register a bookstore or retailer access code on the Cengage account you use for WebAssign.",
+    filters: {
+      Product: ["WebAssign"],
+      Role: ["Higher Ed Student"],
+      "Sign-in path": ["Cengage sign-in"],
+      "Education segment": ["Higher Education"],
+    },
+    helpArea: "Course Access & Enrollment",
+    href: helpArticleHref("webassign-access-code"),
+    keywords: [
+      "redeem access code",
+      "access code",
+      "webassign access code",
+      "unlock access",
+      "enter access code",
+    ],
     priority: 73,
-    productMetadataLabel: "MindTap / WebAssign / SAM",
-    resultType: "Guided step",
-    title: "Access your course through LMS",
-    updated: "Prototype routing step",
+    resultType: "Article",
+    title: "Register an Access Code for WebAssign",
+    updated: "Source date not available",
+  },
+  {
+    description:
+      "Enter the 18-digit access code in SAM when your assignments or product access still show Key Code Required.",
+    filters: {
+      Product: ["SAM"],
+      Role: ["Higher Ed Student"],
+      "Sign-in path": ["Cengage sign-in"],
+      "Education segment": ["Higher Education"],
+    },
+    helpArea: "Course Access & Enrollment",
+    href: helpArticleHref("sam-access-code"),
+    keywords: [
+      "redeem access code",
+      "access code",
+      "sam access code",
+      "unlock access",
+      "enter access code",
+      "key code required",
+    ],
+    priority: 72,
+    resultType: "Article",
+    title: "Register an Access Code for SAM",
+    updated: "Source date not available",
   },
   {
     description:
@@ -405,36 +419,6 @@ const results: SearchResult[] = [
     resultType: "Article",
     title: "Access Spark through LMS or school platform",
     updated: "Source date not available",
-  },
-  {
-    description:
-      "Choose the access situation that matches your purchase problem so we can send you to the right next step.",
-    filters: {
-      Product: allProducts,
-      Role: sharedRoutingRoles,
-    },
-    helpArea: "Course Access & Enrollment",
-    href: purchasedAccessChooserHref(),
-    keywords: ["purchased access", "paid but no course", "course unavailable", "access unavailable"],
-    priority: 72,
-    resultType: "Guided step",
-    title: "Purchased access but course is unavailable",
-    updated: "Prototype routing step",
-  },
-  {
-    description:
-      "Choose the course situation that sounds most like yours so we can send you to the right next step.",
-    filters: {
-      Product: allProducts,
-      Role: sharedRoutingRoles,
-    },
-    helpArea: "Course Access & Enrollment",
-    href: wrongCourseChooserHref(),
-    keywords: ["wrong course", "missing course", "wrong section", "course not listed"],
-    priority: 70,
-    resultType: "Guided step",
-    title: "Wrong course or missing course",
-    updated: "Prototype routing step",
   },
   {
     description:
@@ -490,63 +474,51 @@ const results: SearchResult[] = [
   },
   {
     description:
-      "Choose your product to get live missing-activities help for MindTap or Spark. WebAssign, SAM, and not-sure branches remain intentionally unresolved.",
+      "Check the learning-path view and activity dates when work is missing from your MindTap course.",
     filters: {
-      Product: allProducts,
-      Role: sharedRoutingRoles,
+      Product: ["MindTap"],
+      Role: ["Higher Ed Student"],
+      "Sign-in path": ["Cengage sign-in", "LMS sign-in"],
+      "Education segment": ["Higher Education"],
     },
     helpArea: "Troubleshooting & Common Problems",
-    href: missingActivitiesChooserHref(),
-    keywords: ["missing activities", "missing assignments", "coursework missing"],
+    href: helpArticleHref("mindtap-missing-activities"),
+    keywords: [
+      "missing activities",
+      "missing assignments",
+      "mindtap missing activities",
+      "assignment not showing",
+      "learning path",
+    ],
     priority: 76,
-    productMetadataLabel: null,
-    resultType: "Guided step",
-    title: "Missing activities or assignments",
-    updated: "Updated April 2026",
+    resultType: "Article",
+    title: "Missing Activities or Assignments in MindTap",
+    updated: "Updated April 21, 2026",
     updatedAt: "2026-04-21",
   },
   {
     description:
-      "Product-specific help for missing content is still being added. The prototype does not yet include a live next step for each product.",
+      "Check the course context, assignment location, and school-managed access path when expected work is missing in Spark.",
     filters: {
-      Product: allProducts,
-      Role: sharedHelpRoles,
+      Product: ["Spark"],
+      Role: sparkStudentRoles,
+      "Sign-in path": ["LMS sign-in", "School / NGLSync"],
+      "Education segment": ["English Language Learning"],
     },
     helpArea: "Troubleshooting & Common Problems",
-    keywords: ["missing content", "missing materials", "missing ebook", "resources missing"],
-    priority: 68,
-    productMetadataLabel: null,
-    resultType: "Guided step",
-    title: "Missing content or course materials",
-    updated: "Partial prototype coverage",
-  },
-  {
-    description:
-      "Choose the sync or integration problem that best matches your situation so we can send you to the right help.",
-    filters: {
-      Product: allProducts,
-      Role: [
-        "Higher Ed Instructor",
-        "LMS Administrator",
-        "Institutional Administrator",
-        "K–12 Teacher",
-      ],
-      "Sign-in path": ["LMS sign-in"],
-    },
-    helpArea: "Troubleshooting & Common Problems",
-    href: errorSyncChooserHref(),
+    href: helpArticleHref("spark-missing-activities"),
     keywords: [
-      "error message",
-      "sync issue",
-      "integration issue",
-      "grade sync",
-      "lms integration",
-      "roster issue",
+      "missing activities",
+      "missing assignments",
+      "spark missing activities",
+      "spark missing assignments",
+      "assignment not showing",
     ],
-    priority: 74,
-    resultType: "Guided step",
-    title: "Error messages, sync, or integration issues",
-    updated: "Prototype routing step",
+    priority: 68,
+    resultType: "Article",
+    title: "Missing Activities or Assignments in Spark",
+    updated: "Updated April 21, 2026",
+    updatedAt: "2026-04-21",
   },
   {
     description:
@@ -977,6 +949,10 @@ function buildMetadataTags(result: SearchResult) {
   return metadataTags;
 }
 
+function hasKnownUpdatedDate(result: SearchResult) {
+  return Boolean(result.updatedAt);
+}
+
 function tokenize(value: string) {
   return value.toLowerCase().match(/[a-z0-9]+/g) ?? [];
 }
@@ -1087,26 +1063,11 @@ function getUpdatedTimestamp(result: SearchResult) {
   return Number.isNaN(timestamp) ? Number.NEGATIVE_INFINITY : timestamp;
 }
 
-function getResultTypeWeight(resultType: SearchResultType) {
-  if (resultType === "Article") {
-    return 4;
-  }
-
-  return 3;
-}
-
 function compareByBestMatch(left: SearchResult, right: SearchResult, query: string) {
   const scoreDifference = getQueryScore(right, query) - getQueryScore(left, query);
 
   if (scoreDifference !== 0) {
     return scoreDifference;
-  }
-
-  const typeDifference =
-    getResultTypeWeight(right.resultType) - getResultTypeWeight(left.resultType);
-
-  if (typeDifference !== 0) {
-    return typeDifference;
   }
 
   const priorityDifference = (right.priority ?? 0) - (left.priority ?? 0);
@@ -1356,7 +1317,9 @@ export function SearchResultsPage() {
                       </li>
                     ))}
                   </ul>
-                  <p className="search-result-updated">{bestMatch.updated}</p>
+                  {hasKnownUpdatedDate(bestMatch) ? (
+                    <p className="search-result-updated">{bestMatch.updated}</p>
+                  ) : null}
                 </div>
 
                 {bestMatch.href ? (
@@ -1407,7 +1370,9 @@ export function SearchResultsPage() {
                               </li>
                             ))}
                           </ul>
-                          <p className="search-result-updated">{result.updated}</p>
+                          {hasKnownUpdatedDate(result) ? (
+                            <p className="search-result-updated">{result.updated}</p>
+                          ) : null}
                         </div>
                       </article>
                     ))}
@@ -1442,22 +1407,15 @@ export function SearchResultsPage() {
                         </li>
                       ))}
                     </ul>
-                    <p className="search-result-updated">{result.updated}</p>
+                    {hasKnownUpdatedDate(result) ? (
+                      <p className="search-result-updated">{result.updated}</p>
+                    ) : null}
                   </div>
                 </article>
               ))}
             </div>
           ) : (
             <article className="search-best-match-card">
-              <div className="search-best-match-header">
-                <div className="search-best-match-icon" aria-hidden="true">
-                  ★
-                </div>
-                <Tag className="search-best-match-label" size={TagSize.small}>
-                  No exact prototype match
-                </Tag>
-              </div>
-
               <h2>No live destination matches this combination yet</h2>
               <p className="search-result-description">
                 The current prototype does not yet include an honest direct destination for this
