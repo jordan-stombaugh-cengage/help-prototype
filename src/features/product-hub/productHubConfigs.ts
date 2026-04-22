@@ -149,7 +149,7 @@ export const mindTapProductHubConfig = {
       tasks: [
         { label: "Sign in to MindTap", href: helpArticleHref("sign-in") },
         { label: "Set up your course" },
-        { label: "Assign activities" },
+        { label: "Add activities", href: helpArticleHref("mindtap-add-activities") },
         { label: "Create custom content" },
         { label: "View student progress" },
         { label: "Grade assignments" },
@@ -178,7 +178,7 @@ export const mindTapProductHubConfig = {
           title: "Assignments & Activities",
           links: [
             { label: "Create assignments" },
-            { label: "Assign activities" },
+            { label: "Add activities", href: helpArticleHref("mindtap-add-activities") },
             { label: "Due dates" },
             { label: "Late submissions" },
           ],

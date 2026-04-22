@@ -685,6 +685,144 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
       },
     ],
   },
+  "mindtap-add-activities": {
+    slug: "mindtap-add-activities",
+    title: "Add Activities",
+    summary:
+      "Add textbook activities to the learning path to assign them to your students.",
+    parentLabel: "MindTap",
+    parentHref: mindTapHubHref,
+    tags: ["MindTap", "Higher Ed Instructor", "Assignments & Activities"],
+    appliesTo: "Higher Ed instructors who add textbook activities in MindTap",
+    product: "MindTap",
+    helpArea: "Assignments & Activities",
+    callout: {
+      title: "Before you begin",
+      paragraphs: [
+        "This task is different depending on the version of MindTap used in your class.",
+        "If these directions do not match what you see in your class, click MindTap version in the toolbar above and select your MindTap version.",
+      ],
+    },
+    sections: [
+      {
+        title: "Related activity types",
+        items: [
+          {
+            kind: "definitions",
+            items: [
+              {
+                term: "Assign Activity Bank Activities",
+                content: "Add pre-made activities to the learning path.",
+              },
+              {
+                term: "Create Inline Activities",
+                content:
+                  "You can add activities inline in readings in your MindTap course.",
+              },
+              {
+                term: "Create Writing Activities",
+                content: "Add Write Experience activities to your MindTap course.",
+              },
+              {
+                term: "Create Web Link Activities",
+                content: "Create web link activities to link to additional content outside of MindTap.",
+              },
+              {
+                term: "Add Google Drive Content as an Activity",
+                content:
+                  "To share Google Drive content with your students, add it to the learning path as an activity.",
+              },
+              {
+                term: "Add OneDrive Content as an Activity",
+                content: "You can add content from OneDrive as an activity in the learning path.",
+              },
+              {
+                term: "Add a Bongo Activity",
+                content: "Assign Bongo\u2122 activities to your students.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: "Add an activity",
+        items: [
+          {
+            kind: "steps",
+            items: [
+              { title: "Click + Add / Create > Activity." },
+              { title: "Select the kind of activity you want to assign." },
+              {
+                title: "If needed, set options specific to the type of activity you are adding.",
+                details: [
+                  "Options typically include activity settings and scoring options.",
+                ],
+              },
+              { title: "In the Assign to Course window, set activity details." },
+            ],
+          },
+        ],
+      },
+      {
+        title: "In the Assign to Course window, set activity details",
+        items: [
+          {
+            kind: "definitions",
+            items: [
+              {
+                term: "Activity Title",
+                content: "Label for the activity in the learning path.",
+              },
+              {
+                term: "Description",
+                content: "Information or instructions displayed when the activity is opened.",
+              },
+              {
+                term: "Require Password",
+                content:
+                  "Password protection for scoreable activities to prevent students from accessing them ahead of time.",
+              },
+              {
+                term: "Available Date",
+                content: "When students can start work on the activity.",
+              },
+              {
+                term: "Due Date",
+                content: "When students must end work on the activity.",
+              },
+              {
+                term: "Associated Topic",
+                content: "Textbook topic related to the activity.",
+              },
+              {
+                term: "Order Within Topic",
+                content: "Position in the learning path under the specified topic.",
+              },
+            ],
+          },
+          {
+            kind: "paragraph",
+            content: "Click Add.",
+          },
+          {
+            kind: "note",
+            paragraphs: [
+              "If you are using category weighting, add your new activity to a category.",
+            ],
+          },
+        ],
+      },
+    ],
+    relatedHelpGroups: [
+      {
+        heading: "More help",
+        links: [
+          { label: "MindTap", href: mindTapHubHref },
+          { label: "Contact support", href: contactSupportHref() },
+        ],
+      },
+    ],
+  },
   "spark-missing-activities": {
     slug: "spark-missing-activities",
     title: "Missing Activities or Assignments in Spark",

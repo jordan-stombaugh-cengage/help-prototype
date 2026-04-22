@@ -498,6 +498,29 @@ const results: SearchResult[] = [
   },
   {
     description:
+      "Add textbook activities to the learning path and set assignment details, scoring, and accommodations for students in MindTap.",
+    filters: {
+      Product: ["MindTap"],
+      Role: ["Higher Ed Instructor"],
+      "Education segment": ["Higher Education"],
+    },
+    helpArea: "Assignments & Activities",
+    href: helpArticleHref("mindtap-add-activities"),
+    keywords: [
+      "add activities",
+      "assign activities",
+      "mindtap add activities",
+      "mindtap assign activities",
+      "add activity",
+      "learning path",
+    ],
+    priority: 72,
+    resultType: "Article",
+    title: "Add Activities",
+    updated: "Source date not available",
+  },
+  {
+    description:
       "Check the course context, assignment location, and school-managed access path when expected work is missing in Spark.",
     filters: {
       Product: ["Spark"],

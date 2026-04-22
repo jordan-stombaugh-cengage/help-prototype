@@ -51,6 +51,7 @@ export type HelpDomainSlug =
 export type HelpArticleSlug =
   | "sign-in"
   | "spark-forgot-username"
+  | "mindtap-add-activities"
   | "mindtap-course-key"
   | "webassign-class-key"
   | "mindtap-access-code"
@@ -565,6 +566,7 @@ export function getHelpArticleSlugFromHash(
   const slug = params.get("article");
 
   switch (slug) {
+    case "mindtap-add-activities":
     case "spark-forgot-username":
     case "mindtap-course-key":
     case "webassign-class-key":
