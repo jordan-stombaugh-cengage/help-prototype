@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import {
+  ButtonSize,
+  ButtonTextTransform,
   Checkbox,
-  Input,
-  InputType,
+  Heading,
   Tag,
   TagColor,
   TagSize,
+  TypographyVisualStyle,
 } from "react-magma-dom";
-import { SearchIcon } from "react-magma-icons";
 import {
   accessCodeChooserHref,
   courseKeyChooserHref,
@@ -25,7 +26,11 @@ import {
   setPreviewPageHash,
   wrongCourseChooserHref,
 } from "../../app/routes";
-import { OptionalLink } from "../../components/prototype/Primitives";
+import { Button } from "../../components/Button";
+import {
+  OptionalLink,
+  PrototypeSearchForm,
+} from "../../components/prototype/Primitives";
 
 type FilterGroup = {
   options: string[];
@@ -86,12 +91,6 @@ const filterGroups: FilterGroup[] = [
 ];
 
 const checkboxContainerStyle = { margin: 0 };
-
-const checkboxLabelStyle = {
-  color: "#4f4a5a",
-  fontSize: "13px",
-  lineHeight: "20px",
-};
 
 function buildFilterSelections(defaults: Partial<FilterSelections> = {}): FilterSelections {
   return filterGroups.reduce<FilterSelections>((selections, group) => {
@@ -1129,18 +1128,6 @@ function compareByMostRecent(left: SearchResult, right: SearchResult, query: str
   return compareByBestMatch(left, right, query);
 }
 
-function getActionLabel(result: SearchResult) {
-  if (result.actionLabel) {
-    return result.actionLabel;
-  }
-
-  if (result.resultType === "Guided step") {
-    return "Continue";
-  }
-
-  return "View article";
-}
-
 export function SearchResultsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [routeResultsContextLabel, setRouteResultsContextLabel] = useState<string | null>(null);
@@ -1168,7 +1155,7 @@ export function SearchResultsPage() {
     };
   }, []);
 
-  function handleSearchClick() {
+  function handleSearchSubmit() {
     const trimmedQuery = searchQuery.trim();
     setPreviewPageHash("search-results", trimmedQuery ? { query: trimmedQuery } : {});
   }
@@ -1202,7 +1189,6 @@ export function SearchResultsPage() {
     hasSearchQuery && activeSortMode === "best-match" && sortedResults.length > 0;
   const bestMatch = shouldHighlightBestMatch ? sortedResults[0] : null;
   const remainingResults = shouldHighlightBestMatch ? sortedResults.slice(1) : sortedResults;
-  const showPagination = sortedResults.length > 10;
 
   function toggleFilter(groupTitle: string, option: string) {
     setSelectedFilters((currentSelections) => {
@@ -1227,36 +1213,32 @@ export function SearchResultsPage() {
   return (
     <div className="search-results-page">
       <nav className="search-results-breadcrumbs" aria-label="Breadcrumb">
-        <a href={homepageHref()}>Help Home</a>
-        <span aria-hidden="true">›</span>
-        <span>Search Results</span>
+        <p>
+          <a href={homepageHref()}>Help Home</a>
+          <span aria-hidden="true">›</span>
+          <span>Search Results</span>
+        </p>
       </nav>
 
-      <div className="search-results-query-bar">
-        <Input
-          value={searchQuery}
-          labelText="Search query"
-          isLabelVisuallyHidden
-          placeholder="Search help articles, known issues, FAQs..."
-          type={InputType.search}
-          width="100%"
-          icon={<SearchIcon />}
-          iconAriaLabel="Search"
-          onIconClick={handleSearchClick}
-          onChange={(event) => {
-            const nextQuery = event.target.value;
-            const hasNextQuery = Boolean(nextQuery.trim());
+      <PrototypeSearchForm
+        className="search-results-query-bar"
+        inputId="search-results-query"
+        labelText="Search query"
+        onChange={(nextQuery) => {
+          const hasNextQuery = Boolean(nextQuery.trim());
 
-            if (!hasSearchQuery && hasNextQuery) {
-              setSortMode("best-match");
-            } else if (hasSearchQuery && !hasNextQuery) {
-              setSortMode("most-recent");
-            }
+          if (!hasSearchQuery && hasNextQuery) {
+            setSortMode("best-match");
+          } else if (hasSearchQuery && !hasNextQuery) {
+            setSortMode("most-recent");
+          }
 
-            setSearchQuery(nextQuery);
-          }}
-        />
-      </div>
+          setSearchQuery(nextQuery);
+        }}
+        onSubmit={handleSearchSubmit}
+        placeholder="Search help articles, known issues, FAQs..."
+        value={searchQuery}
+      />
 
       <header className="search-results-header">
         <p className="search-results-count">
@@ -1321,7 +1303,6 @@ export function SearchResultsPage() {
                     <Checkbox
                       checked={(selectedFilters[group.title] ?? []).includes(option)}
                       containerStyle={checkboxContainerStyle}
-                      labelStyle={checkboxLabelStyle}
                       labelText={option}
                       onChange={() => toggleFilter(group.title, option)}
                     />
@@ -1345,7 +1326,21 @@ export function SearchResultsPage() {
                   <div className="search-best-match-icon" aria-hidden="true">
                     ★
                   </div>
-                  <p className="search-best-match-label">Best match</p>
+                  <Heading
+                    className="search-best-match-eyebrow"
+                    level={3}
+                    noMargins
+                    style={{
+                      color: "#0b6fa4",
+                      fontSize: "18px",
+                      fontWeight: 600,
+                      letterSpacing: "0",
+                      lineHeight: "24px",
+                    }}
+                    visualStyle={TypographyVisualStyle.headingXSmall}
+                  >
+                    BEST MATCH
+                  </Heading>
                 </div>
 
                 <h2>{bestMatch.title}</h2>
@@ -1355,7 +1350,7 @@ export function SearchResultsPage() {
                   <ul className="search-result-meta-list">
                     {buildMetadataTags(bestMatch).map((item) => (
                       <li key={item}>
-                        <Tag className="search-result-meta-tag" size={TagSize.medium}>
+                        <Tag className="search-result-meta-tag" size={TagSize.small}>
                           {item}
                         </Tag>
                       </li>
@@ -1365,9 +1360,18 @@ export function SearchResultsPage() {
                 </div>
 
                 {bestMatch.href ? (
-                  <OptionalLink className="search-best-match-action" href={bestMatch.href}>
-                    {getActionLabel(bestMatch)}
-                  </OptionalLink>
+                  <div className="search-best-match-cta">
+                    <Button
+                      className="search-best-match-action"
+                      onClick={() => {
+                        window.location.assign(bestMatch.href!);
+                      }}
+                      size={ButtonSize.small}
+                      textTransform={ButtonTextTransform.none}
+                    >
+                      VIEW ARTICLE
+                    </Button>
+                  </div>
                 ) : null}
               </article>
 
@@ -1397,7 +1401,7 @@ export function SearchResultsPage() {
                           <ul className="search-result-meta-list">
                             {buildMetadataTags(result).map((item) => (
                               <li key={item}>
-                                <Tag className="search-result-meta-tag" size={TagSize.medium}>
+                                <Tag className="search-result-meta-tag" size={TagSize.small}>
                                   {item}
                                 </Tag>
                               </li>
@@ -1432,7 +1436,7 @@ export function SearchResultsPage() {
                     <ul className="search-result-meta-list">
                       {buildMetadataTags(result).map((item) => (
                         <li key={item}>
-                          <Tag className="search-result-meta-tag" size={TagSize.medium}>
+                          <Tag className="search-result-meta-tag" size={TagSize.small}>
                             {item}
                           </Tag>
                         </li>
@@ -1449,7 +1453,9 @@ export function SearchResultsPage() {
                 <div className="search-best-match-icon" aria-hidden="true">
                   ★
                 </div>
-                <p className="search-best-match-label">No exact prototype match</p>
+                <Tag className="search-best-match-label" size={TagSize.small}>
+                  No exact prototype match
+                </Tag>
               </div>
 
               <h2>No live destination matches this combination yet</h2>
@@ -1461,24 +1467,6 @@ export function SearchResultsPage() {
             </article>
           )}
 
-          {showPagination ? (
-            <nav className="search-results-pagination" aria-label="Pagination">
-              <button type="button" aria-label="Previous page">
-                ‹
-              </button>
-              <button type="button" className="is-active" aria-current="page">
-                1
-              </button>
-              <button type="button">2</button>
-              <button type="button">3</button>
-              <button type="button">4</button>
-              <button type="button">5</button>
-              <button type="button">6</button>
-              <button type="button" aria-label="Next page">
-                ›
-              </button>
-            </nav>
-          ) : null}
         </section>
       </div>
     </div>

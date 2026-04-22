@@ -1,9 +1,18 @@
-import { useState, type FormEvent } from "react";
+import { useState } from "react";
+import {
+  Tab,
+  Tabs,
+  TabsAlignment,
+  TabsBorderPosition,
+  TabsContainer,
+  TabsTextTransform,
+} from "react-magma-dom";
 import { homepageHref, searchResultsHref, type ProductSlug } from "../../app/routes";
 import {
   ContentContainer,
   MetadataTag,
   OptionalLink,
+  PrototypeSearchForm,
   SectionHeader,
 } from "../../components/prototype/Primitives";
 
@@ -297,15 +306,18 @@ export function ProductHubPage({ config }: { config: ProductHubConfig }) {
   const [productSearchQuery, setProductSearchQuery] = useState("");
   const activeRoleContent =
     config.roleContent[activeRole] ?? config.roleContent[config.roleTabs[0]?.id ?? ""];
+  const activeRoleIndex = Math.max(
+    config.roleTabs.findIndex((role) => role.id === activeRole),
+    0
+  );
+  const activeRoleLabel = config.roleTabs[activeRoleIndex]?.label ?? "Current role";
   const hasBranding = Boolean(config.heroLogoSrc);
 
   if (!activeRoleContent) {
     return null;
   }
 
-  function handleProductSearchSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-
+  function handleProductSearchSubmit() {
     const trimmedQuery = productSearchQuery.trim();
     window.location.hash = searchResultsHref({
       product: config.slug,
@@ -354,31 +366,15 @@ export function ProductHubPage({ config }: { config: ProductHubConfig }) {
                 ))}
               </div>
 
-              <form className="product-hub-search" onSubmit={handleProductSearchSubmit}>
-                <label
-                  className="product-hub-search-label"
-                  htmlFor={`${config.slug}-product-search`}
-                >
-                  Search {config.title} help
-                </label>
-
-                <div className="product-hub-search-row">
-                  <input
-                    id={`${config.slug}-product-search`}
-                    className="product-hub-search-input"
-                    type="search"
-                    placeholder={`Search ${config.title} help articles, issues, and tasks`}
-                    value={productSearchQuery}
-                    onChange={(event) => {
-                      setProductSearchQuery(event.target.value);
-                    }}
-                  />
-
-                  <button className="product-hub-search-button" type="submit">
-                    Search
-                  </button>
-                </div>
-              </form>
+              <PrototypeSearchForm
+                className="product-hub-search"
+                inputId={`${config.slug}-product-search`}
+                labelText={`Search ${config.title} help`}
+                onChange={setProductSearchQuery}
+                onSubmit={handleProductSearchSubmit}
+                placeholder={`Search ${config.title} help articles, issues, and tasks`}
+                value={productSearchQuery}
+              />
             </div>
 
             {config.heroVariant === "spark-brand" && config.heroLogoSrc ? (
@@ -424,33 +420,26 @@ export function ProductHubPage({ config }: { config: ProductHubConfig }) {
         <ContentContainer className="product-hub-shell">
           <div className="product-hub-role-row">
             <p>I am a:</p>
-            <div
-              className="product-hub-role-tabs"
-              role="tablist"
-              aria-label={config.roleAriaLabel}
-            >
-              {config.roleTabs.map((role) => {
-                const isActive = role.id === activeRole;
+            <div className="product-hub-role-tabs">
+              <TabsContainer activeIndex={activeRoleIndex}>
+                <Tabs
+                  alignment={TabsAlignment.left}
+                  aria-label={config.roleAriaLabel}
+                  borderPosition={TabsBorderPosition.bottom}
+                  onChange={(newActiveIndex) => {
+                    const nextRole = config.roleTabs[newActiveIndex];
 
-                return (
-                  <button
-                    key={role.id}
-                    id={`${config.slug}-tab-${role.id}`}
-                    type="button"
-                    role="tab"
-                    aria-selected={isActive}
-                    aria-controls={`${config.slug}-role-content`}
-                    className={
-                      isActive ? "product-hub-role-tab is-active" : "product-hub-role-tab"
+                    if (nextRole) {
+                      setActiveRole(nextRole.id);
                     }
-                    onClick={() => {
-                      setActiveRole(role.id);
-                    }}
-                  >
-                    {role.label}
-                  </button>
-                );
-              })}
+                  }}
+                  textTransform={TabsTextTransform.none}
+                >
+                  {config.roleTabs.map((role) => (
+                    <Tab key={role.id}>{role.label}</Tab>
+                  ))}
+                </Tabs>
+              </TabsContainer>
             </div>
           </div>
         </ContentContainer>
@@ -490,9 +479,7 @@ export function ProductHubPage({ config }: { config: ProductHubConfig }) {
 
           <section
             className="product-hub-section product-hub-role-section"
-            id={`${config.slug}-role-content`}
-            role="tabpanel"
-            aria-labelledby={`${config.slug}-tab-${activeRole}`}
+            aria-label={`${activeRoleLabel} help content`}
           >
             <article className="product-hub-role-group">
               <h2>{activeRoleContent.tasksHeading}</h2>

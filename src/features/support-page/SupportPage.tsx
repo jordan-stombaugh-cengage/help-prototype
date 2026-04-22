@@ -1,4 +1,11 @@
-import { homepageHref, resetPasswordHref, signInAccountHref } from "../../app/routes";
+import { ButtonTextTransform } from "react-magma-dom";
+import {
+  externalRoutes,
+  homepageHref,
+  resetPasswordHref,
+  signInAccountHref,
+} from "../../app/routes";
+import { Button } from "../../components/Button";
 import {
   ContentContainer,
   PageHeroBand,
@@ -73,6 +80,10 @@ function ForwardArrowIcon() {
 }
 
 export function SupportPage() {
+  function handleSupportServicesClick() {
+    window.open(externalRoutes.supportPortal, "_blank", "noopener,noreferrer");
+  }
+
   return (
     <div className="support-page">
       <div className="support-page-breadcrumbs">
@@ -130,9 +141,13 @@ export function SupportPage() {
           title="Contact support"
         />
 
-        <button type="button" className="support-page-support-button">
+        <Button
+          className="support-page-support-button"
+          onClick={handleSupportServicesClick}
+          textTransform={ButtonTextTransform.none}
+        >
           Go to support services
-        </button>
+        </Button>
       </ContentContainer>
 
       <ContentContainer

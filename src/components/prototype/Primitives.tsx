@@ -1,4 +1,13 @@
-import type { ComponentPropsWithoutRef, ElementType, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ElementType, FormEvent, ReactNode } from "react";
+import {
+  ButtonTextTransform,
+  ButtonType,
+  Input,
+  InputType,
+  Tag,
+  TagSize,
+} from "react-magma-dom";
+import { Button } from "../Button";
 
 function joinClassNames(...values: Array<string | false | null | undefined>) {
   return values.filter(Boolean).join(" ");
@@ -161,13 +170,71 @@ export function SupportFallbackBlock({
   );
 }
 
+type PrototypeSearchFormProps = {
+  buttonLabel?: string;
+  className?: string;
+  inputId: string;
+  isLabelVisuallyHidden?: boolean;
+  labelText: string;
+  onChange: (value: string) => void;
+  onSubmit: () => void;
+  placeholder: string;
+  value: string;
+};
+
+export function PrototypeSearchForm({
+  buttonLabel = "Search",
+  className,
+  inputId,
+  isLabelVisuallyHidden = true,
+  labelText,
+  onChange,
+  onSubmit,
+  placeholder,
+  value,
+}: PrototypeSearchFormProps) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    onSubmit();
+  }
+
+  return (
+    <form className={joinClassNames("prototype-search-form", className)} onSubmit={handleSubmit}>
+      <div className="prototype-search-form-field">
+        <Input
+          id={inputId}
+          isLabelVisuallyHidden={isLabelVisuallyHidden}
+          labelText={labelText}
+          onChange={(event) => onChange(event.target.value)}
+          placeholder={placeholder}
+          type={InputType.search}
+          value={value}
+          width="100%"
+        />
+      </div>
+
+      <Button
+        className="prototype-search-form-button"
+        textTransform={ButtonTextTransform.none}
+        type={ButtonType.submit}
+      >
+        {buttonLabel}
+      </Button>
+    </form>
+  );
+}
+
 type MetadataTagProps = {
   children: ReactNode;
   className?: string;
 };
 
 export function MetadataTag({ children, className }: MetadataTagProps) {
-  return <span className={joinClassNames("prototype-metadata-tag", className)}>{children}</span>;
+  return (
+    <Tag className={joinClassNames("prototype-metadata-tag", className)} size={TagSize.medium}>
+      {children}
+    </Tag>
+  );
 }
 
 type RailCardProps = {

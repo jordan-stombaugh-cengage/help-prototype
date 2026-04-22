@@ -333,6 +333,10 @@ export const canonicalRoutes = {
 export const externalRoutes = {
   cengageAccountReset: "https://account.cengage.com/",
   cengageLogin: "https://login.cengage.com/",
+  supportPortal: "https://cengageorg.my.site.com/Service/s/login/?language=en_US",
+  privacyPolicy: "https://www.cengagegroup.com/privacy/",
+  termsOfUse: "https://www.cengage.com/legal/#terms",
+  accessibility: "https://www.cengage.com/accessibility/",
 } as const;
 
 const roleFacetLabels: Record<RoleFacet, string> = {

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   accessCodeChooserHref,
   browseByProductHref,
@@ -19,6 +20,7 @@ import {
 import {
   ContentContainer,
   OptionalLink,
+  PrototypeSearchForm,
   SectionHeader,
 } from "../../components/prototype/Primitives";
 import sparkLogo from "../../assets/NGL_ELT_Spark_Final_Logo_Black_Yellow-01.svg";
@@ -244,6 +246,13 @@ function HomepageProductCard({
 }
 
 export function Homepage() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  function handleSearchSubmit() {
+    const trimmedQuery = searchQuery.trim();
+    window.location.hash = searchResultsHref(trimmedQuery ? { query: trimmedQuery } : {});
+  }
+
   return (
     <div className="homepage">
       <section className="homepage-hero-band">
@@ -255,16 +264,15 @@ export function Homepage() {
               product when you need a more guided path.
             </p>
 
-            <div className="homepage-search">
-              <input
-                type="text"
-                placeholder="Search help articles, known issues, FAQs..."
-                aria-label="Search help"
-              />
-              <a className="homepage-search-button" href={searchResultsHref()}>
-                Search
-              </a>
-            </div>
+            <PrototypeSearchForm
+              className="homepage-search"
+              inputId="homepage-search"
+              labelText="Search help"
+              onChange={setSearchQuery}
+              onSubmit={handleSearchSubmit}
+              placeholder="Search help articles, known issues, FAQs..."
+              value={searchQuery}
+            />
 
             <p className="homepage-popular">
               <span className="homepage-popular-label">Popular:</span>
