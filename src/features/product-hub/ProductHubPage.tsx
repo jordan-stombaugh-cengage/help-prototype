@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Tab,
   Tabs,
@@ -302,8 +302,13 @@ function ResourceIcon({ kind }: { kind: ProductHubResourceCard["iconKind"] }) {
 }
 
 export function ProductHubPage({ config }: { config: ProductHubConfig }) {
-  const [activeRole, setActiveRole] = useState(config.roleTabs[0]?.id ?? "student");
+  const [activeRole, setActiveRole] = useState(config.roleTabs[0]?.id ?? "instructor");
   const [productSearchQuery, setProductSearchQuery] = useState("");
+
+  useEffect(() => {
+    setActiveRole(config.roleTabs[0]?.id ?? "instructor");
+  }, [config.slug, config.roleTabs]);
+
   const activeRoleContent =
     config.roleContent[activeRole] ?? config.roleContent[config.roleTabs[0]?.id ?? ""];
   const activeRoleIndex = Math.max(

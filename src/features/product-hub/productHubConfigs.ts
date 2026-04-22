@@ -17,8 +17,8 @@ export const mindTapProductHubConfig = {
   tags: ["Digital Learning Platform", "Higher Education"],
   roleAriaLabel: "MindTap role",
   roleTabs: [
-    { id: "student", label: "Student" },
     { id: "instructor", label: "Instructor" },
+    { id: "student", label: "Student" },
     { id: "lms-admin", label: "LMS Administrator" },
   ],
   topicCards: [
@@ -318,8 +318,8 @@ export const webAssignProductHubConfig = {
   tags: ["Online Homework Platform", "Higher Education"],
   roleAriaLabel: "WebAssign role",
   roleTabs: [
-    { id: "student", label: "Student" },
     { id: "instructor", label: "Instructor" },
+    { id: "student", label: "Student" },
     { id: "lms-admin", label: "LMS Administrator" },
   ],
   topicCards: [
@@ -625,8 +625,8 @@ export const samProductHubConfig = {
   tags: ["Skills & Assessment Platform", "Higher Education"],
   roleAriaLabel: "SAM role",
   roleTabs: [
-    { id: "student", label: "Student" },
     { id: "instructor", label: "Instructor" },
+    { id: "student", label: "Student" },
     { id: "lab-admin", label: "Lab Administrator" },
   ],
   topicCards: [
@@ -929,8 +929,8 @@ export const sparkProductHubConfig = {
   tags: ["English Language Learning", "Digital Learning Platform"],
   roleAriaLabel: "Spark role",
   roleTabs: [
-    { id: "student", label: "Student" },
     { id: "instructor", label: "Instructor" },
+    { id: "student", label: "Student" },
     { id: "institutional-admin", label: "Institutional Administrator" },
   ],
   topicCards: [
