@@ -868,8 +868,10 @@
 
 .search-result-updated {
   margin: 0;
-  font-size: 11px;
-  color: #8a8592;
+  font-size: 10px;
+  line-height: 1.4;
+  color: #9792a0;
+  white-space: nowrap;
 }
 
 .search-results-pagination {
@@ -3166,12 +3168,6 @@
   letter-spacing: inherit;
 }
 
-.help-article-header--spark .help-article-tag {
-  background: rgba(255, 255, 255, 0.12);
-  color: #ffffff;
-  box-shadow: inset 0 0 0 1px rgba(255, 204, 0, 0.42);
-}
-
 .help-article-layout {
   padding: 34px 0 42px;
 }
@@ -3351,6 +3347,34 @@
   gap: 6px;
 }
 
+.help-article-definition-list--compact {
+  gap: 0;
+  border-top: 1px solid #dfe4ec;
+}
+
+.help-article-definition-list--compact div {
+  display: grid;
+  grid-template-columns: minmax(156px, 200px) minmax(0, 1fr);
+  gap: 6px 18px;
+  padding: 10px 0;
+  border: 0;
+  border-bottom: 1px solid #dfe4ec;
+  border-radius: 0;
+  background: transparent;
+}
+
+.help-article-definition-list--compact dt {
+  font-size: 13px;
+  line-height: 1.4;
+  font-weight: 700;
+}
+
+.help-article-definition-list--compact dd {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #4b4657;
+}
+
 .help-article-inline-note {
   display: flex;
   flex-direction: column;
@@ -3444,6 +3468,13 @@
   font-size: 14px;
   line-height: 1.45;
   color: #5d5968;
+}
+
+.help-article-step-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 6px;
 }
 
 .help-article-option-list {

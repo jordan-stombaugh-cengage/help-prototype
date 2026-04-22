@@ -5,6 +5,7 @@ import {
   Input,
   InputType,
   Tag,
+  TagColor,
   TagSize,
 } from "react-magma-dom";
 import { Button } from "../Button";
@@ -227,11 +228,18 @@ export function PrototypeSearchForm({
 type MetadataTagProps = {
   children: ReactNode;
   className?: string;
+  color?: TagColor;
+  isInverse?: boolean;
 };
 
-export function MetadataTag({ children, className }: MetadataTagProps) {
+export function MetadataTag({ children, className, color, isInverse }: MetadataTagProps) {
   return (
-    <Tag className={joinClassNames("prototype-metadata-tag", className)} size={TagSize.medium}>
+    <Tag
+      className={joinClassNames("prototype-metadata-tag", className)}
+      color={color}
+      isInverse={isInverse}
+      size={TagSize.medium}
+    >
       {children}
     </Tag>
   );

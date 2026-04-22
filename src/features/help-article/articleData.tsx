@@ -37,6 +37,7 @@ export type HelpArticleSectionItem =
     }
   | {
       items: {
+        content?: HelpArticleSectionItem[];
         details?: ReactNode[];
         title: ReactNode;
       }[];
@@ -48,6 +49,7 @@ export type HelpArticleSectionItem =
         term: ReactNode;
       }[];
       kind: "definitions";
+      variant?: "compact";
     }
   | {
       columns: HelpArticleLink[][];
@@ -708,38 +710,36 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
         title: "Related activity types",
         items: [
           {
-            kind: "definitions",
+            kind: "list",
             items: [
-              {
-                term: "Assign Activity Bank Activities",
-                content: "Add pre-made activities to the learning path.",
-              },
-              {
-                term: "Create Inline Activities",
-                content:
-                  "You can add activities inline in readings in your MindTap course.",
-              },
-              {
-                term: "Create Writing Activities",
-                content: "Add Write Experience activities to your MindTap course.",
-              },
-              {
-                term: "Create Web Link Activities",
-                content: "Create web link activities to link to additional content outside of MindTap.",
-              },
-              {
-                term: "Add Google Drive Content as an Activity",
-                content:
-                  "To share Google Drive content with your students, add it to the learning path as an activity.",
-              },
-              {
-                term: "Add OneDrive Content as an Activity",
-                content: "You can add content from OneDrive as an activity in the learning path.",
-              },
-              {
-                term: "Add a Bongo Activity",
-                content: "Assign Bongo\u2122 activities to your students.",
-              },
+              <>
+                <strong>Assign Activity Bank Activities.</strong> Add pre-made activities to the
+                learning path.
+              </>,
+              <>
+                <strong>Create Inline Activities.</strong> You can add activities inline in
+                readings in your MindTap course.
+              </>,
+              <>
+                <strong>Create Writing Activities.</strong> You can add Write Experience activities
+                to your MindTap course.
+              </>,
+              <>
+                <strong>Create Web Link Activities.</strong> Create web link activities to link to
+                additional content outside of MindTap.
+              </>,
+              <>
+                <strong>Add Google Drive Content as an Activity.</strong> To share Google Drive
+                content with your students, add it to the learning path as an activity.
+              </>,
+              <>
+                <strong>Add OneDrive Content as an Activity.</strong> You can add content from
+                OneDrive as an activity in the learning path.
+              </>,
+              <>
+                <strong>Add a Bongo Activity.</strong> Assign Bongo{"\u2122"} activities to your
+                students.
+              </>,
             ],
           },
         ],
@@ -758,57 +758,58 @@ export const helpArticleDefinitions: Record<HelpArticleSlug, HelpArticleDefiniti
                   "Options typically include activity settings and scoring options.",
                 ],
               },
-              { title: "In the Assign to Course window, set activity details." },
-            ],
-          },
-        ],
-      },
-      {
-        title: "In the Assign to Course window, set activity details",
-        items: [
-          {
-            kind: "definitions",
-            items: [
               {
-                term: "Activity Title",
-                content: "Label for the activity in the learning path.",
+                title: "In the Assign to Course window, set activity details.",
+                content: [
+                  {
+                    kind: "definitions",
+                    variant: "compact",
+                    items: [
+                      {
+                        term: "Activity Title",
+                        content: "Label for the activity in the learning path.",
+                      },
+                      {
+                        term: "Description",
+                        content:
+                          "Information or instructions displayed when the activity is opened.",
+                      },
+                      {
+                        term: "Require Password",
+                        content:
+                          "Password protection for scoreable activities to prevent students from accessing them ahead of time.",
+                      },
+                      {
+                        term: "Available Date",
+                        content: "When students can start work on the activity.",
+                      },
+                      {
+                        term: "Due Date",
+                        content: "When students must end work on the activity.",
+                      },
+                      {
+                        term: "Associated Topic",
+                        content: "Textbook topic related to the activity.",
+                      },
+                      {
+                        term: "Order Within Topic",
+                        content: "Position in the learning path under the specified topic.",
+                      },
+                    ],
+                  },
+                ],
               },
-              {
-                term: "Description",
-                content: "Information or instructions displayed when the activity is opened.",
-              },
-              {
-                term: "Require Password",
-                content:
-                  "Password protection for scoreable activities to prevent students from accessing them ahead of time.",
-              },
-              {
-                term: "Available Date",
-                content: "When students can start work on the activity.",
-              },
-              {
-                term: "Due Date",
-                content: "When students must end work on the activity.",
-              },
-              {
-                term: "Associated Topic",
-                content: "Textbook topic related to the activity.",
-              },
-              {
-                term: "Order Within Topic",
-                content: "Position in the learning path under the specified topic.",
-              },
+              { title: "Click Add." },
             ],
           },
           {
             kind: "paragraph",
-            content: "Click Add.",
-          },
-          {
-            kind: "note",
-            paragraphs: [
-              "If you are using category weighting, add your new activity to a category.",
-            ],
+            content: (
+              <>
+                <strong>Note:</strong> If you are using category weighting, add your new activity
+                to a category.
+              </>
+            ),
           },
         ],
       },

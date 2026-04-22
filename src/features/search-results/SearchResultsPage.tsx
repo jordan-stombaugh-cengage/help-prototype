@@ -939,7 +939,57 @@ function summarizeRoles(roles: string[]) {
   return null;
 }
 
-function buildMetadataTags(result: SearchResult) {
+function summarizeVisibleRole(roles: string[]) {
+  const uniqueRoles = [...new Set(roles)];
+
+  if (uniqueRoles.length === 0) {
+    return null;
+  }
+
+  if (uniqueRoles.length === 1) {
+    return uniqueRoles[0];
+  }
+
+  const hasOnlyStudents = uniqueRoles.every((role) => role.includes("Student"));
+  const hasOnlyInstructors = uniqueRoles.every(
+    (role) => role.includes("Instructor") || role.includes("Teacher")
+  );
+  const hasOnlyAdmins = uniqueRoles.every((role) => role.includes("Administrator"));
+
+  if (hasOnlyStudents) {
+    return "Students";
+  }
+
+  if (hasOnlyInstructors) {
+    return "Instructors";
+  }
+
+  if (hasOnlyAdmins) {
+    return "Administrators";
+  }
+
+  return null;
+}
+
+function summarizeVisibleSignInPath(paths: string[]) {
+  const uniquePaths = [...new Set(paths)];
+
+  if (uniquePaths.length === 0) {
+    return null;
+  }
+
+  if (
+    uniquePaths.length === 2 &&
+    uniquePaths.includes("LMS sign-in") &&
+    uniquePaths.includes("School / NGLSync")
+  ) {
+    return "School / LMS access";
+  }
+
+  return uniquePaths[0] ?? null;
+}
+
+function buildSearchMetadataTags(result: SearchResult) {
   const resolvedFilters = getResolvedFilters(result);
   const metadataTags: string[] = [result.resultType];
   const productSummary = summarizeProducts(resolvedFilters.Product ?? []);
@@ -972,8 +1022,52 @@ function buildMetadataTags(result: SearchResult) {
   return metadataTags;
 }
 
+function getPreferredVisibleContextTag(result: SearchResult, resolvedFilters: Partial<FilterSelections>) {
+  const signInPath = summarizeVisibleSignInPath(resolvedFilters["Sign-in path"] ?? []);
+  const roleSummary = summarizeVisibleRole(resolvedFilters.Role ?? []);
+
+  if (!signInPath) {
+    return roleSummary;
+  }
+
+  if (!roleSummary) {
+    return signInPath;
+  }
+
+  if (
+    result.helpArea === "Sign In & Account Help" ||
+    result.helpArea === "Course Access & Enrollment"
+  ) {
+    return signInPath;
+  }
+
+  return roleSummary;
+}
+
+function buildVisibleMetadataTags(result: SearchResult) {
+  const resolvedFilters = getResolvedFilters(result);
+  const productSummary = summarizeProducts(resolvedFilters.Product ?? []);
+  const productLabel =
+    result.productMetadataLabel === undefined ? productSummary : result.productMetadataLabel;
+  const visibleTags = [
+    productLabel,
+    result.helpArea ?? null,
+    getPreferredVisibleContextTag(result, resolvedFilters),
+  ];
+
+  return visibleTags.filter((item): item is string => Boolean(item)).slice(0, 3);
+}
+
 function hasKnownUpdatedDate(result: SearchResult) {
   return Boolean(result.updatedAt);
+}
+
+function shouldShowUpdatedInfo(
+  result: SearchResult,
+  sortMode: SearchSortMode,
+  hasActiveLastUpdatedFilter: boolean
+) {
+  return hasKnownUpdatedDate(result) && (sortMode === "most-recent" || hasActiveLastUpdatedFilter);
 }
 
 function tokenize(value: string) {
@@ -1009,7 +1103,7 @@ function getQueryScore(result: SearchResult, query: string) {
     return 0;
   }
 
-  const metadataTags = buildMetadataTags(result).join(" ").toLowerCase();
+  const metadataTags = buildSearchMetadataTags(result).join(" ").toLowerCase();
   const title = result.title.toLowerCase();
   const description = result.description.toLowerCase();
   const keywords = (result.keywords ?? []).join(" ").toLowerCase();
@@ -1332,7 +1426,7 @@ export function SearchResultsPage() {
 
                 <div className="search-result-meta-row">
                   <ul className="search-result-meta-list">
-                    {buildMetadataTags(bestMatch).map((item) => (
+                    {buildVisibleMetadataTags(bestMatch).map((item) => (
                       <li key={item}>
                         <Tag className="search-result-meta-tag" size={TagSize.small}>
                           {item}
@@ -1340,7 +1434,11 @@ export function SearchResultsPage() {
                       </li>
                     ))}
                   </ul>
-                  {hasKnownUpdatedDate(bestMatch) ? (
+                  {shouldShowUpdatedInfo(
+                    bestMatch,
+                    activeSortMode,
+                    hasActiveLastUpdatedFilter
+                  ) ? (
                     <p className="search-result-updated">{bestMatch.updated}</p>
                   ) : null}
                 </div>
@@ -1385,7 +1483,7 @@ export function SearchResultsPage() {
 
                         <div className="search-result-meta-row">
                           <ul className="search-result-meta-list">
-                            {buildMetadataTags(result).map((item) => (
+                            {buildVisibleMetadataTags(result).map((item) => (
                               <li key={item}>
                                 <Tag className="search-result-meta-tag" size={TagSize.small}>
                                   {item}
@@ -1393,7 +1491,11 @@ export function SearchResultsPage() {
                               </li>
                             ))}
                           </ul>
-                          {hasKnownUpdatedDate(result) ? (
+                          {shouldShowUpdatedInfo(
+                            result,
+                            activeSortMode,
+                            hasActiveLastUpdatedFilter
+                          ) ? (
                             <p className="search-result-updated">{result.updated}</p>
                           ) : null}
                         </div>
@@ -1422,7 +1524,7 @@ export function SearchResultsPage() {
 
                   <div className="search-result-meta-row">
                     <ul className="search-result-meta-list">
-                      {buildMetadataTags(result).map((item) => (
+                      {buildVisibleMetadataTags(result).map((item) => (
                         <li key={item}>
                           <Tag className="search-result-meta-tag" size={TagSize.small}>
                             {item}
@@ -1430,7 +1532,11 @@ export function SearchResultsPage() {
                         </li>
                       ))}
                     </ul>
-                    {hasKnownUpdatedDate(result) ? (
+                    {shouldShowUpdatedInfo(
+                      result,
+                      activeSortMode,
+                      hasActiveLastUpdatedFilter
+                    ) ? (
                       <p className="search-result-updated">{result.updated}</p>
                     ) : null}
                   </div>

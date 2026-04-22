@@ -3,6 +3,7 @@ import {
   ButtonTextTransform,
   ButtonVariant,
   Tab,
+  TagColor,
   Tabs,
   TabsAlignment,
   TabsBorderPosition,
@@ -266,6 +267,17 @@ function HelpArticleSectionItemRenderer({
                   ))}
                 </div>
               ) : null}
+
+              {step.content?.length ? (
+                <div className="help-article-step-content">
+                  {step.content.map((nestedItem, nestedIndex) => (
+                    <HelpArticleSectionItemRenderer
+                      key={`${index + 1}-content-${nestedItem.kind}-${nestedIndex}`}
+                      item={nestedItem}
+                    />
+                  ))}
+                </div>
+              ) : null}
             </div>
           </li>
         ))}
@@ -274,8 +286,13 @@ function HelpArticleSectionItemRenderer({
   }
 
   if (item.kind === "definitions") {
+    const definitionListClassName =
+      item.variant === "compact"
+        ? "help-article-definition-list help-article-definition-list--compact"
+        : "help-article-definition-list";
+
     return (
-      <dl className="help-article-definition-list">
+      <dl className={definitionListClassName}>
         {item.items.map((entry, index) => (
           <div key={`${String(entry.term)}-${index}`}>
             <dt>{entry.term}</dt>
@@ -333,6 +350,11 @@ export function HelpArticlePage() {
   const headerClassName = isSparkArticle
     ? "help-article-header help-article-header--spark"
     : "help-article-header";
+  const tagRowClassName = isSparkArticle
+    ? "help-article-tag-row product-hub-tag-row"
+    : "help-article-tag-row";
+  const tagClassName = isSparkArticle ? "product-hub-tag" : "help-article-tag";
+  const tagColor = isSparkArticle ? TagColor.highContrast : undefined;
 
   return (
     <div className="help-article-page">
@@ -356,9 +378,14 @@ export function HelpArticlePage() {
               <p>{article.summary}</p>
             </div>
 
-            <div className="help-article-tag-row" aria-label="Article metadata">
+            <div className={tagRowClassName} aria-label="Article metadata">
               {article.tags.map((tag) => (
-                <MetadataTag key={tag} className="help-article-tag">
+                <MetadataTag
+                  key={tag}
+                  className={tagClassName}
+                  color={tagColor}
+                  isInverse={isSparkArticle}
+                >
                   {tag}
                 </MetadataTag>
               ))}
