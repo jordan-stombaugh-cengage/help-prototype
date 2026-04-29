@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CheckIcon, PublicIcon } from "react-magma-icons";
 import {
   ButtonColor,
+  ButtonShape,
   ButtonSize,
   ButtonTextTransform,
   ButtonVariant,
@@ -39,6 +40,28 @@ const productHelpLinks = [
   { label: "Spark", href: browseByProductHref("spark") },
 ].filter((link): link is { label: string; href: string } => Boolean(link.href));
 
+function RegionDropdownItems({
+  selectedRegion,
+  setSelectedRegion,
+}: {
+  selectedRegion: string;
+  setSelectedRegion: React.Dispatch<React.SetStateAction<string>>;
+}) {
+  return (
+    <DropdownContent>
+      {regionOptions.map((region) => (
+        <DropdownMenuItem
+          key={region}
+          icon={selectedRegion === region ? <CheckIcon /> : undefined}
+          onClick={() => setSelectedRegion(region)}
+        >
+          {region}
+        </DropdownMenuItem>
+      ))}
+    </DropdownContent>
+  );
+}
+
 export function AppShell({ children }: AppShellProps) {
   const [selectedRegion, setSelectedRegion] = useState("United States");
 
@@ -66,30 +89,53 @@ export function AppShell({ children }: AppShellProps) {
 
           <div className="app-header-utility">
             <div className="app-region-dropdown">
-              <Dropdown alignment={DropdownAlignment.end} width="280px">
-                <DropdownButton
-                  color={ButtonColor.secondary}
-                  isFullWidth
-                  leadingIcon={<PublicIcon />}
-                  size={ButtonSize.small}
-                  textTransform={ButtonTextTransform.uppercase}
-                  variant={ButtonVariant.solid}
-                >
-                  {selectedRegion}
-                </DropdownButton>
+              <div className="app-region-selector app-region-selector--mobile">
+                <Dropdown alignment={DropdownAlignment.end} width="280px">
+                  <DropdownButton
+                    aria-label={`Region: ${selectedRegion}`}
+                    className="app-region-button app-region-button--icon"
+                    color={ButtonColor.secondary}
+                    icon={<PublicIcon />}
+                    shape={ButtonShape.fill}
+                    size={ButtonSize.medium}
+                    style={{
+                      height: 40,
+                      minHeight: 40,
+                      minWidth: 40,
+                      padding: 0,
+                      width: 40,
+                    }}
+                    variant={ButtonVariant.solid}
+                  />
 
-                <DropdownContent>
-                  {regionOptions.map((region) => (
-                    <DropdownMenuItem
-                      key={region}
-                      icon={selectedRegion === region ? <CheckIcon /> : undefined}
-                      onClick={() => setSelectedRegion(region)}
-                    >
-                      {region}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownContent>
-              </Dropdown>
+                  <RegionDropdownItems
+                    selectedRegion={selectedRegion}
+                    setSelectedRegion={setSelectedRegion}
+                  />
+                </Dropdown>
+              </div>
+
+              <div className="app-region-selector app-region-selector--desktop">
+                <Dropdown alignment={DropdownAlignment.end} width="280px">
+                  <DropdownButton
+                    aria-label={`Region: ${selectedRegion}`}
+                    className="app-region-button app-region-button--full"
+                    color={ButtonColor.secondary}
+                    isFullWidth
+                    leadingIcon={<PublicIcon />}
+                    size={ButtonSize.small}
+                    textTransform={ButtonTextTransform.uppercase}
+                    variant={ButtonVariant.solid}
+                  >
+                    {selectedRegion}
+                  </DropdownButton>
+
+                  <RegionDropdownItems
+                    selectedRegion={selectedRegion}
+                    setSelectedRegion={setSelectedRegion}
+                  />
+                </Dropdown>
+              </div>
             </div>
           </div>
         </div>
