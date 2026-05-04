@@ -16,6 +16,7 @@ export type PreviewPageId =
   | "lms-access-chooser"
   | "purchased-access-chooser"
   | "wrong-course-chooser"
+  | "browser-system-chooser"
   | "missing-content-chooser"
   | "error-sync-chooser"
   | "wrong-account-chooser"
@@ -106,6 +107,8 @@ export type SignInPathFacet =
   | "cengage-sign-in"
   | "lms-sign-in"
   | "school-nglsync";
+
+export type SignInAccountSection = "other-sign-in-methods";
 
 export type SearchFilterGroupTitle =
   | "Role"
@@ -208,6 +211,11 @@ export const previewPageDefinitions = [
     id: "wrong-course-chooser",
     label: "Wrong Course Chooser",
     route: "/help/course-access-enrollment/wrong-course",
+  },
+  {
+    id: "browser-system-chooser",
+    label: "Browser System Chooser",
+    route: "/help/troubleshooting-common-problems/browser-system",
   },
   {
     id: "missing-content-chooser",
@@ -318,6 +326,7 @@ export const canonicalRoutes = {
   lmsAccessChooser: "/help/course-access-enrollment/lms-access",
   purchasedAccessChooser: "/help/course-access-enrollment/purchased-access",
   wrongCourseChooser: "/help/course-access-enrollment/wrong-course",
+  browserSystemChooser: "/help/troubleshooting-common-problems/browser-system",
   missingContentChooser: "/help/troubleshooting-common-problems/missing-content",
   errorSyncChooser: "/help/troubleshooting-common-problems/error-sync-integration",
   wrongAccountChooser: "/help/sign-in-account/wrong-account",
@@ -523,8 +532,14 @@ export function homepageHref() {
   return previewHash("homepage");
 }
 
-export function signInAccountHref() {
-  return previewHash("sign-in-account");
+export function signInAccountHref(options: {
+  product?: ProductSlug;
+  section?: SignInAccountSection;
+} = {}) {
+  return `#sign-in-account${buildPreviewHashParams({
+    product: options.product,
+    section: options.section,
+  })}`;
 }
 
 export function contactSupportHref() {
@@ -551,6 +566,20 @@ export function getProductContextFromHash(
     default:
       return undefined;
   }
+}
+
+export function getSignInAccountSectionFromHash(
+  hash = window.location.hash
+): SignInAccountSection | undefined {
+  const { search } = splitPreviewHash(hash);
+
+  if (!search) {
+    return undefined;
+  }
+
+  const section = new URLSearchParams(search).get("section");
+
+  return section === "other-sign-in-methods" ? section : undefined;
 }
 
 export function getHelpArticleSlugFromHash(
@@ -724,6 +753,10 @@ export function missingContentChooserHref() {
   return previewHash("missing-content-chooser");
 }
 
+export function browserSystemChooserHref() {
+  return previewHash("browser-system-chooser");
+}
+
 export function errorSyncChooserHref() {
   return previewHash("error-sync-chooser");
 }
@@ -882,7 +915,7 @@ export function productHelpDomainHref(
   helpDomain: HelpDomainSlug
 ) {
   if (helpDomain === "sign-in-account") {
-    return previewHash("sign-in-account", { product });
+    return signInAccountHref({ product });
   }
 
   if (helpDomain === "course-access-enrollment") {

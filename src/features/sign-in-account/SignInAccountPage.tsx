@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import {
   browseByProductHref,
   contactSupportHref,
   getProductContextFromHash,
+  getSignInAccountSectionFromHash,
   helpArticleHref,
   manageAccountChooserHref,
   homepageHref,
@@ -242,6 +244,7 @@ function SignInTopicCard({ description, href, title }: SignInTopicCardData) {
 
 export function SignInAccountPage() {
   const productContext = getProductContextFromHash();
+  const sectionContext = getSignInAccountSectionFromHash();
   const scopedConfig =
     productContext === "mindtap"
       ? {
@@ -326,6 +329,18 @@ export function SignInAccountPage() {
   const primaryTopics = scopedConfig?.primaryTopics ?? commonAccountTopics;
   const secondaryTopics = scopedConfig?.secondaryTopics ?? otherSignInMethods;
 
+  useEffect(() => {
+    if (sectionContext !== "other-sign-in-methods") {
+      return;
+    }
+
+    window.requestAnimationFrame(() => {
+      document
+        .getElementById("other-sign-in-methods")
+        ?.scrollIntoView({ block: "start" });
+    });
+  }, [sectionContext, productContext]);
+
   return (
     <div className="sign-in-page">
       <div className="sign-in-page-utility">
@@ -387,6 +402,7 @@ export function SignInAccountPage() {
       <ContentContainer
         as="section"
         className="sign-in-page-section sign-in-page-section--secondary sign-in-page-content"
+        id="other-sign-in-methods"
         size="medium"
       >
         <SectionHeader

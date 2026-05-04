@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {
   accessCodeChooserHref,
+  browserSystemChooserHref,
   browseByProductHref,
   browseByRoleHref,
   courseKeyChooserHref,
@@ -11,6 +12,7 @@ import {
   lmsLinkChooserHref,
   lmsAccessChooserHref,
   manageAccountChooserHref,
+  missingContentChooserHref,
   signInAccountHref,
   wrongAccountChooserHref,
   missingActivitiesChooserHref,
@@ -54,7 +56,10 @@ const helpDomains: HelpDomain[] = [
       { label: "Reset password", href: resetPasswordHref() },
       { label: "Wrong account", href: wrongAccountChooserHref() },
       { label: "Manage account", href: manageAccountChooserHref() },
-      { label: "LMS or school sign-in", href: helpDomainHref("sign-in-account") },
+      {
+        label: "LMS or school sign-in",
+        href: signInAccountHref({ section: "other-sign-in-methods" }),
+      },
     ],
     action: "Get account help",
     actionHref: helpDomainHref("sign-in-account"),
@@ -79,10 +84,10 @@ const helpDomains: HelpDomain[] = [
     description:
       "Fix common problems like missing activities, browser issues, or broken LMS links.",
     links: [
-      { label: "Missing activities", href: missingActivitiesChooserHref() },
+      { label: "Missing activities or assignments", href: missingActivitiesChooserHref() },
       {
-        label: "Browser or device issues",
-        href: helpArticleHref("browser-requirements"),
+        label: "Browser or device setup",
+        href: browserSystemChooserHref(),
       },
       {
         label: "LMS link not working",
@@ -114,10 +119,10 @@ const commonProblemGroups = [
       { label: "LMS link not working", href: lmsLinkChooserHref() },
       { label: "Signed in with wrong account", href: wrongAccountChooserHref() },
       {
-        label: "Browser or device compatibility issue",
-        href: helpArticleHref("browser-requirements"),
+        label: "Browser or device setup",
+        href: browserSystemChooserHref(),
       },
-      { label: "Can't access eBook" },
+      { label: "Can't access eBook", href: missingContentChooserHref() },
     ],
   },
 ];
@@ -282,7 +287,9 @@ export function Homepage() {
               <span>&bull;</span>
               <OptionalLink href={errorSyncChooserHref()}>LMS integration</OptionalLink>
               <span>&bull;</span>
-              <a href={helpArticleHref("browser-requirements")}>Browser requirements</a>
+              <OptionalLink href={browserSystemChooserHref()}>
+                Browser requirements
+              </OptionalLink>
             </p>
           </div>
         </ContentContainer>

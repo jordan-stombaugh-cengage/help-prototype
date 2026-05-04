@@ -1,4 +1,5 @@
 import {
+  browserSystemChooserHref,
   browseByProductHref,
   contactSupportHref,
   errorSyncChooserHref,
@@ -6,8 +7,8 @@ import {
   helpArticleHref,
   homepageHref,
   lmsLinkChooserHref,
-  missingContentChooserHref,
   missingActivitiesChooserHref,
+  missingContentChooserHref,
   resetPasswordHref,
   wrongAccountChooserHref,
 } from "../../app/routes";
@@ -33,9 +34,10 @@ const commonTroubleshootingIssues: TroubleshootingTopicCardData[] = [
     href: missingActivitiesChooserHref(),
   },
   {
-    title: "Browser or device issues",
-    description: "Resolve compatibility, loading, or playback problems tied to your browser or device.",
-    href: helpArticleHref("browser-requirements"),
+    title: "Browser or device setup",
+    description:
+      "Choose your product before checking browser, device, or system setup guidance.",
+    href: browserSystemChooserHref(),
   },
   {
     title: "LMS link not working",
@@ -44,12 +46,14 @@ const commonTroubleshootingIssues: TroubleshootingTopicCardData[] = [
   },
   {
     title: "Missing content or course materials",
-    description: "Get help when readings, resources, or course materials are missing after you sign in.",
+    description:
+      "Choose your product before looking for missing eBooks, readings, resources, or course materials.",
     href: missingContentChooserHref(),
   },
   {
-    title: "Error messages, sync, or integration issues",
-    description: "Find the next step when you see errors, sync failures, or connection problems.",
+    title: "Grades, sync, or LMS integration issue",
+    description:
+      "For instructors and admins, choose the grade-sync, LMS product/course, or Spark setup path that matches the issue.",
     href: errorSyncChooserHref(),
   },
 ] as const;
@@ -99,12 +103,13 @@ const mindTapTroubleshootingIssues: TroubleshootingTopicCardData[] = [
   },
   {
     title: "Missing content or course materials",
-    description: "The prototype does not yet include a MindTap-scoped missing-content destination.",
+    description: "Use product-specific MindTap help when eBooks, readings, or course materials are missing.",
   },
   {
     title: "Error messages, sync, or integration issues",
     description:
-      "The prototype does not yet include a MindTap-scoped error or sync destination that stays inside MindTap context.",
+      "Use instructor or admin routing when MindTap grade sync, LMS setup, or integration details determine the next step.",
+    href: errorSyncChooserHref(),
   },
 ] as const;
 
@@ -133,7 +138,7 @@ const webAssignTroubleshootingIssues: TroubleshootingTopicCardData[] = [
   {
     title: "Missing activities or assignments",
     description:
-      "The prototype does not yet include a WebAssign-scoped missing-assignments destination.",
+      "Use WebAssign help when assignments are hidden, unavailable, or tied to class setup.",
   },
   {
     title: "Browser or device issues",
@@ -147,12 +152,13 @@ const webAssignTroubleshootingIssues: TroubleshootingTopicCardData[] = [
   },
   {
     title: "Missing content or course materials",
-    description: "The prototype does not yet include a WebAssign-scoped missing-content destination.",
+    description: "Use product-specific WebAssign help when textbook resources or course materials are missing.",
   },
   {
     title: "Error messages, sync, or integration issues",
     description:
-      "The prototype does not yet include a WebAssign-scoped error or sync destination that stays inside WebAssign context.",
+      "Use instructor or admin routing when WebAssign grade sync, LMS setup, or integration details determine the next step.",
+    href: errorSyncChooserHref(),
   },
 ] as const;
 
@@ -181,7 +187,7 @@ const samTroubleshootingIssues: TroubleshootingTopicCardData[] = [
   {
     title: "Missing activities or assignments",
     description:
-      "The prototype does not yet include a SAM-scoped missing-assignments destination.",
+      "Use SAM help when assignments, projects, or section setup determine what work is visible.",
   },
   {
     title: "Browser or device issues",
@@ -195,12 +201,13 @@ const samTroubleshootingIssues: TroubleshootingTopicCardData[] = [
   },
   {
     title: "Missing content or course materials",
-    description: "The prototype does not yet include a SAM-scoped missing-content destination.",
+    description: "Use product-specific SAM help when eBooks, projects, or course resources are missing.",
   },
   {
     title: "Error messages, sync, or integration issues",
     description:
-      "The prototype does not yet include a SAM-scoped error or sync destination that stays inside SAM context.",
+      "Use instructor or admin routing when SAM grade sync, LMS setup, or integration details determine the next step.",
+    href: errorSyncChooserHref(),
   },
 ] as const;
 
@@ -243,12 +250,13 @@ const sparkTroubleshootingIssues: TroubleshootingTopicCardData[] = [
   },
   {
     title: "Missing content or course materials",
-    description: "The prototype does not yet include a Spark-scoped missing-content destination.",
+    description: "Use Spark troubleshooting when eBooks, resources, or course materials are missing.",
   },
   {
     title: "Error messages, sync, or integration issues",
     description:
-      "The prototype does not yet include a single Spark-scoped error or sync destination that is specific enough to trust.",
+      "Use Spark instructor or institutional routing when setup, LMS integration, or grade-export details determine the next step.",
+    href: errorSyncChooserHref(),
   },
 ] as const;
 

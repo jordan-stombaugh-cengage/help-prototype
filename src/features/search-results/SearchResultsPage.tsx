@@ -1212,6 +1212,7 @@ export function SearchResultsPage() {
   const [selectedFilters, setSelectedFilters] = useState<FilterSelections>(() =>
     buildFilterSelections()
   );
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [sortMode, setSortMode] = useState<SearchSortMode>("best-match");
 
   useEffect(() => {
@@ -1338,63 +1339,84 @@ export function SearchResultsPage() {
       </header>
 
       <div className="search-results-layout">
-        <aside className="search-filters" aria-label="Search filters">
-          <div className="search-filters-refine">
-            <div className="search-filters-refine-header">
-              <p className="search-filters-refine-title">Refine results</p>
-              <button
-                type="button"
-                className="search-filters-clear"
-                onClick={clearAllFilters}
-                disabled={appliedFilters.length === 0}
-              >
-                Clear all
-              </button>
-            </div>
+        <div className={`search-filters-shell${isMobileFiltersOpen ? " is-open" : ""}`}>
+          <button
+            type="button"
+            className="search-filters-toggle"
+            aria-controls="search-results-filters"
+            aria-expanded={isMobileFiltersOpen}
+            onClick={() => setIsMobileFiltersOpen((currentValue) => !currentValue)}
+          >
+            <span className="search-filters-toggle-label">Filters</span>
+            <span className="search-filters-toggle-meta">
+              {appliedFilters.length > 0
+                ? `${appliedFilters.length} selected`
+                : "Refine by product, role, sign-in path, and date"}
+            </span>
+          </button>
 
-            {appliedFilters.length > 0 ? (
-              <div className="search-filters-applied-list" aria-label="Applied filters">
-                {appliedFilters.map(({ groupTitle, option }) => (
-                  <Tag
-                    key={`${groupTitle}-${option}`}
-                    className="search-filters-applied-tag"
-                    color={TagColor.primary}
-                    labelText={`${groupTitle}: ${option}`}
-                    onDelete={() => toggleFilter(groupTitle, option)}
-                    size={TagSize.medium}
-                  >
-                    {option}
-                  </Tag>
-                ))}
+          <aside
+            className="search-filters"
+            id="search-results-filters"
+            aria-label="Search filters"
+          >
+            <div className="search-filters-refine">
+              <div className="search-filters-refine-header">
+                <p className="search-filters-refine-title">Refine results</p>
+                <button
+                  type="button"
+                  className="search-filters-clear"
+                  onClick={clearAllFilters}
+                  disabled={appliedFilters.length === 0}
+                >
+                  Clear all
+                </button>
               </div>
-            ) : null}
-          </div>
 
-          <h2>Filter by</h2>
-
-          {filterGroups.map((group) => (
-            <div className="search-filter-group" key={group.title}>
-              <h3>{group.title}</h3>
-              <div className="search-filter-options">
-                {group.options.map((option) => (
-                  <div className="search-filter-option" key={option}>
-                    <Checkbox
-                      checked={(selectedFilters[group.title] ?? []).includes(option)}
-                      containerStyle={checkboxContainerStyle}
-                      labelText={option}
-                      onChange={() => toggleFilter(group.title, option)}
-                    />
-                  </div>
-                ))}
-              </div>
-              {group.title === "Last updated" && hasActiveLastUpdatedFilter ? (
-                <p className="search-filter-note">
-                  Only results with known update dates appear when this filter is applied.
-                </p>
+              {appliedFilters.length > 0 ? (
+                <div className="search-filters-applied-list" aria-label="Applied filters">
+                  {appliedFilters.map(({ groupTitle, option }) => (
+                    <Tag
+                      key={`${groupTitle}-${option}`}
+                      className="search-filters-applied-tag"
+                      color={TagColor.primary}
+                      labelText={`${groupTitle}: ${option}`}
+                      onDelete={() => toggleFilter(groupTitle, option)}
+                      size={TagSize.medium}
+                    >
+                      {option}
+                    </Tag>
+                  ))}
+                </div>
               ) : null}
             </div>
-          ))}
-        </aside>
+
+            <h2>Filter by</h2>
+
+            {filterGroups.map((group) => (
+              <div className="search-filter-group" key={group.title}>
+                <h3>{group.title}</h3>
+                <div className="search-filter-options">
+                  {group.options.map((option) => (
+                    <div className="search-filter-option" key={option}>
+                      <Checkbox
+                        checked={(selectedFilters[group.title] ?? []).includes(option)}
+                        containerStyle={checkboxContainerStyle}
+                        labelText={option}
+                        onChange={() => toggleFilter(group.title, option)}
+                      />
+                    </div>
+                  ))}
+                </div>
+                {group.title === "Last updated" && hasActiveLastUpdatedFilter ? (
+                  <p className="search-filter-note">
+                    Only results with known update dates appear when this filter is applied.
+                  </p>
+                ) : null}
+              </div>
+            ))}
+          </aside>
+        </div>
 
         <section className="search-results-column">
           {bestMatch ? (

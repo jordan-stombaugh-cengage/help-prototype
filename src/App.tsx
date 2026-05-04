@@ -17,6 +17,7 @@ import { ProductHubSparkPage } from "./features/product-hub/ProductHubSparkPage"
 import { ProductHubWebAssignPage } from "./features/product-hub/ProductHubWebAssignPage";
 import {
   AccessCodeChooserPage,
+  BrowserSystemChooserPage,
   ErrorSyncChooserPage,
   JoinEnrollChooserPage,
   CourseKeyChooserPage,
@@ -56,6 +57,7 @@ const previewPageComponents: Record<PreviewPageId, ComponentType> = {
   "lms-access-chooser": LmsAccessChooserPage,
   "purchased-access-chooser": PurchasedAccessChooserPage,
   "wrong-course-chooser": WrongCourseChooserPage,
+  "browser-system-chooser": BrowserSystemChooserPage,
   "missing-content-chooser": MissingContentChooserPage,
   "error-sync-chooser": ErrorSyncChooserPage,
   "wrong-account-chooser": WrongAccountChooserPage,

@@ -40,8 +40,10 @@ This document defines the route model for the `help-prototype` app and separates
 | `/help/course-access-enrollment` | Course Access & Enrollment | Help-domain hub | homepage help-domain card, product-hub topic cards | Shared help-domain hub for course keys, access codes, enrollment, purchase-access issues, and LMS course entry |
 | `/help/troubleshooting-common-problems` | Troubleshooting & Common Problems | Help-domain hub | homepage help-domain card, product-hub topic cards | Shared help-domain hub for cross-product troubleshooting and common technical problems |
 | `/help/sign-in-account/wrong-account` | Wrong account chooser | Guided routing page | homepage account quick link, Sign In & Account hub, product-hub account links, search results | Relationship-based routing step for account identity vs access-pathway issues |
+| `/help/troubleshooting-common-problems/browser-system` | Browser/system chooser | Guided routing page | homepage browser requirements/setup links, troubleshooting hub | Product-aware routing step so Spark-inclusive browser links do not route directly to MindTap/WebAssign/SAM-only articles |
 | `/help/troubleshooting-common-problems/lms-link-not-working` | LMS link chooser | Guided routing page | homepage troubleshooting quick link, troubleshooting hub, search results | Product context determines whether the shared LMS article applies |
 | `/help/troubleshooting-common-problems/missing-activities` | Missing activities chooser | Guided routing page | homepage troubleshooting quick link, troubleshooting hub | Product or course experience determines the next step |
+| `/help/troubleshooting-common-problems/missing-content` | Missing content chooser | Guided routing page | homepage student eBook link, troubleshooting hub | Product-aware scaffold; current option cards are non-interactive until direct product-specific missing-content articles or approved destinations exist |
 | `/help/sign-in-account/reset-password` | Reset password chooser | Flow entry | Sign In & Account hub, homepage popular links, support self-service links | Required entry to the reset-password flow |
 | `/help/sign-in-account/reset-password/lms` | Reset password: LMS sign-in | Reset branch state | chooser only | LMS-managed password branch |
 | `/help/sign-in-account/reset-password/school-nglsync` | Reset password: School or NGLSync sign-in | Reset branch state | chooser only | Distinct school-managed branch |
@@ -56,7 +58,7 @@ This document defines the route model for the `help-prototype` app and separates
 | Homepage element | Canonical destination | Current prototype target | Notes |
 |---|---|---|---|
 | Search submit | `/search?q=:query` | `#search-results` | Search remains the primary action |
-| Popular links | `/search?q=:query` or a more specific filtered discovery URL | `#reset-password-chooser` for reset; select intentional shortcuts still route to `#search-results` | Popular links should accelerate search/discovery, not bypass it with new hub types |
+| Popular links | `/search?q=:query` or a more specific guided route | `#reset-password-chooser`, `#access-code-chooser`, `#error-sync-chooser`, and `#browser-system-chooser` for currently modeled shortcuts | Popular links should accelerate search/discovery or route to a truthful chooser when the answer needs clarification |
 | `Sign In & Account Help` card | `/help/sign-in-account` | `#sign-in-account` | Canonical help-domain hub |
 | `Course Access & Enrollment` card | `/help/course-access-enrollment` | `#course-access-enrollment` | Canonical help-domain hub |
 | `Troubleshooting & Common Problems` card | `/help/troubleshooting-common-problems` | `#troubleshooting-common-problems` | Canonical help-domain hub |
@@ -182,8 +184,10 @@ The current prototype does not use a real router. `src/App.tsx` renders pages fr
 | `#course-access-enrollment` | `/help/course-access-enrollment` | Course Access & Enrollment |
 | `#troubleshooting-common-problems` | `/help/troubleshooting-common-problems` | Troubleshooting & Common Problems |
 | `#wrong-account-chooser` | `/help/sign-in-account/wrong-account` | Wrong account chooser |
+| `#browser-system-chooser` | `/help/troubleshooting-common-problems/browser-system` | Browser/system chooser |
 | `#lms-link-chooser` | `/help/troubleshooting-common-problems/lms-link-not-working` | LMS link chooser |
 | `#missing-activities-chooser` | `/help/troubleshooting-common-problems/missing-activities` | Missing activities chooser |
+| `#missing-content-chooser` | `/help/troubleshooting-common-problems/missing-content` | Missing content chooser |
 | `#support-page` | `/support` | Contact Support |
 | `#product-hub-mindtap` | `/product/mindtap` | MindTap product hub |
 | `#product-hub-webassign` | `/product/webassign` | WebAssign product hub |
@@ -199,6 +203,8 @@ The current prototype does not use a real router. `src/App.tsx` renders pages fr
 - Search Results is now limited to intentional discovery behavior rather than acting as a generic fallback.
 - `Course Access & Enrollment` and `Troubleshooting & Common Problems` are now live help-domain destinations in the preview-switcher runtime.
 - `Wrong account`, `LMS link not working`, and `Missing activities` now demonstrate relationship-based routing through lightweight guided-routing pages instead of forcing false-direct article jumps.
+- `Browser requirements` and other global browser/device homepage shortcuts now route through `#browser-system-chooser` before any product-specific article.
+- `#missing-content-chooser` is a non-interactive product-aware scaffold until direct product-specific missing-content, eBook, or course-material article coverage or approved destinations exist.
 - Many unresolved destinations are intentionally rendered as non-interactive so they do not imply unfinished navigation.
 - Homepage product cards for MindTap, WebAssign, SAM, and Spark now route to live product hubs.
 - Product-specific rows on `Course Access & Enrollment` and `Troubleshooting & Common Problems` now route to the same live product hubs.

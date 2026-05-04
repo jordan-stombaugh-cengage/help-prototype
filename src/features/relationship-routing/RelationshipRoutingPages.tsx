@@ -198,6 +198,10 @@ const sparkSignInAccountHref =
   productHelpDomainHref("spark", "sign-in-account") ?? signInAccountHref();
 const webAssignCourseAccessHref =
   productHelpDomainHref("webassign", "course-access-enrollment") ?? courseAccessHubHref;
+const webAssignTroubleshootingHref =
+  productHelpDomainHref("webassign", "troubleshooting-common-problems") ?? webAssignHubHref;
+const samTroubleshootingHref =
+  productHelpDomainHref("sam", "troubleshooting-common-problems") ?? samHubHref;
 
 const wrongAccountOptions: ChooserOption[] = [
   {
@@ -222,13 +226,13 @@ const wrongAccountOptions: ChooserOption[] = [
   {
     title: "I access another product through my LMS or school portal",
     description:
-      "The prototype does not yet include a non-Spark school- or LMS-managed wrong-account destination.",
+      "If your LMS or school portal opens the wrong account, start from your course launch path or contact support with the account email you used.",
     iconKind: "lms",
   },
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific not-sure path for this account issue.",
+      "Check whether the issue is tied to a purchase, a school-managed account, or a different email address before choosing a path.",
     iconKind: "unsure",
   },
 ];
@@ -251,13 +255,13 @@ const mindTapWrongAccountOptions: ChooserOption[] = [
   {
     title: "I access MindTap through my LMS or school portal",
     description:
-      "The prototype does not yet include a MindTap-specific school- or LMS-managed wrong-account destination.",
+      "If MindTap opens through your LMS under the wrong account, start from the LMS course link or contact support with your course and account details.",
     iconKind: "lms",
   },
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific not-sure path for this MindTap account issue.",
+      "Check whether MindTap access is tied to a purchase, an LMS launch, or a different Cengage account email.",
     iconKind: "unsure",
   },
 ];
@@ -280,13 +284,13 @@ const webAssignWrongAccountOptions: ChooserOption[] = [
   {
     title: "I access WebAssign through my LMS",
     description:
-      "The prototype does not yet include a WebAssign-specific LMS-managed wrong-account destination.",
+      "If WebAssign opens through your LMS under the wrong account, start from the LMS class link or contact support with your class and account details.",
     iconKind: "lms",
   },
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific not-sure path for this WebAssign account issue.",
+      "Check whether WebAssign access is tied to a purchase, an LMS launch, or a different Cengage account email.",
     iconKind: "unsure",
   },
 ] as const;
@@ -309,13 +313,13 @@ const samWrongAccountOptions: ChooserOption[] = [
   {
     title: "I access SAM through my LMS",
     description:
-      "The prototype does not yet include a SAM-specific LMS-managed wrong-account destination.",
+      "If SAM opens through your LMS under the wrong account, start from the LMS course link or contact support with your section and account details.",
     iconKind: "lms",
   },
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific not-sure path for this SAM account issue.",
+      "Check whether SAM access is tied to a purchase, an LMS launch, or a different Cengage account email.",
     iconKind: "unsure",
   },
 ] as const;
@@ -345,7 +349,7 @@ const sparkWrongAccountOptions: ChooserOption[] = [
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific not-sure path for this Spark account issue.",
+      "Check whether Spark access starts from direct sign-in, a school portal, or an LMS course link before choosing a path.",
     iconKind: "unsure",
   },
 ] as const;
@@ -373,13 +377,13 @@ const manageAccountOptions: ChooserOption[] = [
   {
     title: "I sign in to another product through my school or LMS",
     description:
-      "The prototype does not yet include a non-Spark school- or LMS-managed account-management destination.",
+      "If your school or LMS manages your sign-in, account details may need to be changed through that school-managed path.",
     iconKind: "lms",
   },
   {
     title: "I'm not sure which account I use",
     description:
-      "The prototype does not yet include a more specific not-sure path for this account-management case.",
+      "Use the account email, course launch path, or school portal you normally use to decide which account-management path applies.",
     iconKind: "unsure",
   },
 ];
@@ -395,13 +399,13 @@ const mindTapManageAccountOptions: ChooserOption[] = [
   {
     title: "I sign in to MindTap through my LMS or school portal",
     description:
-      "The prototype does not yet include a MindTap-specific school- or LMS-managed account-management destination.",
+      "If your MindTap account details are controlled by your LMS or school, update them through that school-managed sign-in path.",
     iconKind: "lms",
   },
   {
     title: "I'm not sure which account I use",
     description:
-      "The prototype does not yet include a more specific not-sure path for this MindTap account-management case.",
+      "Use the account email or LMS launch path you normally use for MindTap to decide which account-management path applies.",
     iconKind: "unsure",
   },
 ];
@@ -417,13 +421,13 @@ const webAssignManageAccountOptions: ChooserOption[] = [
   {
     title: "I sign in to WebAssign through my LMS",
     description:
-      "The prototype does not yet include a WebAssign-specific LMS-managed account-management destination.",
+      "If WebAssign opens from your LMS, account details may need to be managed from the LMS-linked account path.",
     iconKind: "lms",
   },
   {
     title: "I'm not sure which account I use",
     description:
-      "The prototype does not yet include a more specific not-sure path for this WebAssign account-management case.",
+      "Use the account email or LMS class launch you normally use for WebAssign to decide which account-management path applies.",
     iconKind: "unsure",
   },
 ] as const;
@@ -439,13 +443,13 @@ const samManageAccountOptions: ChooserOption[] = [
   {
     title: "I sign in to SAM through my LMS",
     description:
-      "The prototype does not yet include a SAM-specific LMS-managed account-management destination.",
+      "If SAM opens from your LMS, account details may need to be managed from the LMS-linked account path.",
     iconKind: "lms",
   },
   {
     title: "I'm not sure which account I use",
     description:
-      "The prototype does not yet include a more specific not-sure path for this SAM account-management case.",
+      "Use the account email or LMS course launch you normally use for SAM to decide which account-management path applies.",
     iconKind: "unsure",
   },
 ] as const;
@@ -468,7 +472,7 @@ const sparkManageAccountOptions: ChooserOption[] = [
   {
     title: "I'm not sure which Spark account I use",
     description:
-      "The prototype does not yet include a more specific not-sure path for this Spark account-management case.",
+      "Use the Spark username, school portal, or LMS course link you normally use to decide which account-management path applies.",
     iconKind: "unsure",
   },
 ] as const;
@@ -491,7 +495,7 @@ const webAssignPurchasedAccessOptions: ChooserOption[] = [
   {
     title: "I launch WebAssign from my LMS",
     description:
-      "The prototype does not yet include a WebAssign-specific LMS-access destination for this purchased-access case.",
+      "If WebAssign opens from your LMS, start with the LMS course link and check whether the class is linked to the same Cengage account.",
     iconKind: "lms",
   },
   {
@@ -535,7 +539,7 @@ const accessCodeOptions: ChooserOption[] = [
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific next step for an unsure access-code case.",
+      "Use the product name on your course, bookstore receipt, or code packaging to choose the closest access-code path.",
     iconKind: "unsure",
   },
 ];
@@ -558,7 +562,7 @@ const courseKeyOptions: ChooserOption[] = [
   {
     title: "SAM",
     description:
-      "A standalone SAM course-key destination is not in the prototype yet.",
+      "SAM access usually depends on a section, key code, or LMS course setup rather than a standalone course-key article.",
     iconKind: "product",
   },
   {
@@ -571,7 +575,7 @@ const courseKeyOptions: ChooserOption[] = [
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific next step for an unsure course-key case.",
+      "Use the product name and the wording your instructor gave you to decide whether you have a course key, class key, or access code.",
     iconKind: "unsure",
   },
 ];
@@ -604,7 +608,7 @@ const joinEnrollOptions: ChooserOption[] = [
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific next step for an unsure enrollment case.",
+      "Use the product name, access code, course key, or LMS launch path your instructor provided to choose the closest enrollment path.",
     iconKind: "unsure",
   },
 ];
@@ -626,7 +630,7 @@ const lmsLinkOptions: ChooserOption[] = [
   {
     title: "I'm not sure which product the LMS link opens",
     description:
-      "The prototype does not yet include a more specific not-sure path for this LMS-link case.",
+      "Check the product name shown in the LMS link, module, assignment, or course materials before choosing a product path.",
     iconKind: "unsure",
   },
 ];
@@ -656,7 +660,7 @@ const lmsAccessOptions: ChooserOption[] = [
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific not-sure path for this LMS-access case.",
+      "Use the course launch instructions from your instructor or LMS course to decide whether this is a sign-in, link, or product-specific access issue.",
     iconKind: "unsure",
   },
 ];
@@ -710,7 +714,7 @@ const wrongCourseOptions: ChooserOption[] = [
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific not-sure path for this course-availability case.",
+      "Use the course name, section, LMS link, and purchase state to decide which course-availability path is closest.",
     iconKind: "unsure",
   },
 ];
@@ -726,13 +730,15 @@ const missingActivitiesOptions: ChooserOption[] = [
   {
     title: "WebAssign",
     description:
-      "A WebAssign missing-assignments destination is not in the prototype yet.",
+      "For WebAssign, missing work often depends on class enrollment, scheduling, or assignment availability.",
+    href: webAssignTroubleshootingHref,
     iconKind: "product",
   },
   {
     title: "SAM",
     description:
-      "A SAM missing-assignments destination is not in the prototype yet.",
+      "For SAM, missing work often depends on the section, assignment list, project setup, or LMS launch context.",
+    href: samTroubleshootingHref,
     iconKind: "product",
   },
   {
@@ -745,7 +751,46 @@ const missingActivitiesOptions: ChooserOption[] = [
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific not-sure path for missing activities.",
+      "Use the product name shown in your course or assignment list before choosing a missing-activities path.",
+    href: helpDomainHref("troubleshooting-common-problems"),
+    iconKind: "unsure",
+  },
+];
+
+const browserSystemOptions: ChooserOption[] = [
+  {
+    title: "MindTap",
+    description:
+      "Use the shared Cengage browser requirements article for MindTap browser support, cookies, pop-ups, and related setup checks.",
+    href: helpArticleHref("browser-requirements"),
+    iconKind: "product",
+  },
+  {
+    title: "WebAssign",
+    description:
+      "Use the shared Cengage browser requirements article for WebAssign browser support, cookies, pop-ups, and related setup checks.",
+    href: helpArticleHref("browser-requirements"),
+    iconKind: "product",
+  },
+  {
+    title: "SAM",
+    description:
+      "Use the shared Cengage system requirements article for SAM browser, workstation, and compatibility checks.",
+    href: helpArticleHref("system-requirements"),
+    iconKind: "product",
+  },
+  {
+    title: "Spark",
+    description:
+      "Use Spark system requirements when browser or device support depends on the Spark platform or app.",
+    href: helpArticleHref("spark-system-requirements"),
+    iconKind: "product",
+  },
+  {
+    title: "I'm not sure",
+    description:
+      "Use the troubleshooting hub if you need help identifying the product before choosing browser or device setup steps.",
+    href: helpDomainHref("troubleshooting-common-problems"),
     iconKind: "unsure",
   },
 ];
@@ -753,32 +798,28 @@ const missingActivitiesOptions: ChooserOption[] = [
 const missingContentOptions: ChooserOption[] = [
   {
     title: "MindTap",
-    description:
-      "A MindTap missing-content destination is not in the prototype yet.",
+    description: "Missing eBooks, readings, or course materials in a MindTap course.",
     iconKind: "product",
   },
   {
     title: "WebAssign",
     description:
-      "A WebAssign missing-content destination is not in the prototype yet.",
+      "Missing textbook resources, assignments, or course materials in a WebAssign class.",
     iconKind: "product",
   },
   {
     title: "SAM",
-    description:
-      "A SAM missing-content destination is not in the prototype yet.",
+    description: "Missing projects, eBooks, or course resources in a SAM section.",
     iconKind: "product",
   },
   {
     title: "Spark",
-    description:
-      "A Spark missing-content destination is not in the prototype yet.",
+    description: "Missing eBooks, resources, or course materials in a Spark course.",
     iconKind: "product",
   },
   {
     title: "I'm not sure",
-    description:
-      "The prototype does not yet include a more specific not-sure path for missing content.",
+    description: "Missing content or course materials, but the product is unclear.",
     iconKind: "unsure",
   },
 ];
@@ -811,7 +852,8 @@ const errorSyncOptions: ChooserOption[] = [
   {
     title: "I'm not sure",
     description:
-      "The prototype does not yet include a more specific not-sure path for this sync or integration issue.",
+      "Use the role and system involved: student grade viewing, instructor grade sync, wrong LMS course, or Spark setup.",
+    href: helpDomainHref("troubleshooting-common-problems"),
     iconKind: "unsure",
   },
 ];
@@ -1087,6 +1129,30 @@ export function WrongCourseChooserPage() {
   );
 }
 
+export function BrowserSystemChooserPage() {
+  const troubleshootingHref = helpDomainHref("troubleshooting-common-problems") ?? homepageHref();
+
+  return (
+    <RelationshipRoutingPage
+      breadcrumbs={[
+        { label: "Help Home", href: homepageHref() },
+        { label: "Troubleshooting & Common Problems", href: troubleshootingHref },
+        { label: "Browser or device setup" },
+      ]}
+      description="Choose the product you are using so browser, device, and system requirements route to the right product guidance."
+      heroIcon={<TroubleshootingRelationshipIcon />}
+      options={browserSystemOptions}
+      prompt="Which product are you using?"
+      supportLinks={[
+        { href: troubleshootingHref, label: "Back to Troubleshooting & Common Problems" },
+        { href: contactSupportHref(), label: "Contact support" },
+      ]}
+      supportTitle="Need broader troubleshooting help?"
+      title="Browser or device setup"
+    />
+  );
+}
+
 export function MissingContentChooserPage() {
   const troubleshootingHref = helpDomainHref("troubleshooting-common-problems") ?? homepageHref();
 
@@ -1119,18 +1185,18 @@ export function ErrorSyncChooserPage() {
       breadcrumbs={[
         { label: "Help Home", href: homepageHref() },
         { label: "Troubleshooting & Common Problems", href: troubleshootingHref },
-        { label: "Error messages, sync, or integration issues" },
+        { label: "Grades, sync, or LMS integration issue" },
       ]}
-      description="Choose the error, sync, or integration problem that best matches your situation so we can send you to the right help."
+      description="Choose the instructor or administrator grade-sync, LMS product/course, or Spark setup problem that best matches your situation."
       heroIcon={<TroubleshootingRelationshipIcon />}
       options={errorSyncOptions}
-      prompt="What kind of issue are you seeing?"
+      prompt="Which grades, sync, or LMS integration issue are you seeing?"
       supportLinks={[
         { href: troubleshootingHref, label: "Back to Troubleshooting & Common Problems" },
         { href: contactSupportHref(), label: "Contact support" },
       ]}
       supportTitle="Need another path?"
-      title="What kind of sync or integration problem are you having?"
+      title="What kind of grades, sync, or LMS integration problem are you having?"
     />
   );
 }
@@ -1287,7 +1353,7 @@ export function MissingActivitiesChooserPage() {
           label: "Troubleshooting & Common Problems",
           href: troubleshootingHref,
         },
-        { label: "Missing activities" },
+        { label: "Missing activities or assignments" },
       ]}
       description="Choose the product or course experience where the activities or assignments are missing."
       heroIcon={<TroubleshootingRelationshipIcon />}
@@ -1301,7 +1367,7 @@ export function MissingActivitiesChooserPage() {
         { href: contactSupportHref(), label: "Contact support" },
       ]}
       supportTitle="Need broader troubleshooting help?"
-      title="Where are your activities missing?"
+      title="Where are your activities or assignments missing?"
     />
   );
 }
